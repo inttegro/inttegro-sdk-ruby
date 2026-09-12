@@ -4,7 +4,6 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "activity_log"
 require_relative "merchant"
 require_relative "price"
 require_relative "product"
@@ -21,12 +20,6 @@ module Inttegro
   # field names and serialized enum values.
   #
   # @api public
-  #
-  # @!attribute [r] activity
-  #   Recent authenticated-owner activity for the purchase intent.
-  #
-  #   Optional in the API payload; omitted values default to `nil`. Wire name: `activity`.
-  #   @return [Inttegro::PurchaseIntent::ActivityLog, nil]
   #
   # @!attribute [r] allow_variants
   #   Whether the intent was configured with a variant set
@@ -110,7 +103,6 @@ module Inttegro
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `variant_set`.
   #   @return [Inttegro::PurchaseIntent::VariantSet, nil]
   class PurchaseIntent
-    const :activity, T.nilable(Inttegro::PurchaseIntent::ActivityLog), default: nil
     const :allow_variants, T::Boolean
     const :created_at, Time
     const :expires_at, T.nilable(Time), default: nil

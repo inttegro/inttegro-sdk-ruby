@@ -152,7 +152,6 @@ class OpenAPITypeGenerator
     ["delivery", "download", "render", "stream"] => "ProductShipmentInputType",
     ["product", "fee", "shipping"] => "LineItemType",
     ["active", "expired", "inactive", "used"] => "PurchaseIntentStatus",
-    ["expired_viewed", "order_created", "payment_failed", "payment_started", "viewed"] => "PurchaseIntentActivityType",
     ["wallet", "bank_account", "dosh_account"] => "FinancialAccountType",
     ["ghana_bank_account"] => "BankAccountType",
     ["draft", "published", "archived"] => "MessageTemplateStatus",
