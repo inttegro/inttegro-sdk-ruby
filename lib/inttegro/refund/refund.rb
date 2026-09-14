@@ -5,7 +5,6 @@
 
 require_relative "base"
 require_relative "../money/amount"
-require_relative "failure"
 require_relative "line_item"
 require_relative "reason"
 require_relative "status"
@@ -49,13 +48,6 @@ module Inttegro
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `failed_at`.
   #   @return [Time, nil]
-  #
-  # @!attribute [r] failure
-  #   Sanitized terminal failure information. Present only when `status` is `failed`. An uncertain
-  #   provider outcome remains `processing` and does not produce this object.
-  #
-  #   Optional in the API payload; omitted values default to `nil`. Wire name: `failure`.
-  #   @return [Inttegro::Refund::Failure, nil]
   #
   # @!attribute [r] id
   #   Value of the `id` field in the Inttegro API payload.
@@ -128,7 +120,6 @@ module Inttegro
     const :created_at, Time
     const :custom_data, T.nilable(T::Hash[String, String]), default: nil
     const :failed_at, T.nilable(Time), default: nil
-    const :failure, T.nilable(Inttegro::Refund::Failure), default: nil
     const :id, String
     const :line_items, T::Array[Inttegro::Refund::LineItem]
     const :order_id, String
