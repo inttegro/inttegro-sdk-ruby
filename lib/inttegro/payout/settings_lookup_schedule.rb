@@ -8,7 +8,7 @@ require_relative "settings_lookup_schedule_aging_spec"
 
 module Inttegro
   class Payout
-    # Active payout schedule
+    # Active payout schedule returned when settings are retrieved.
     #
     # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
     # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire
@@ -17,7 +17,7 @@ module Inttegro
     # @api public
     #
     # @!attribute [r] aging_spec
-    #   Value of the `aging_spec` field in the Inttegro API payload.
+    #   Rules that determine when balance transactions become eligible for payout.
     #
     #   Required in the API payload. Wire name: `aging_spec`.
     #   @return [Inttegro::Payout::SettingsLookupScheduleAgingSpec]

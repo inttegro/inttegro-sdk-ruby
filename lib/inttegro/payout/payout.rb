@@ -49,7 +49,7 @@ module Inttegro
   #   @return [String]
   #
   # @!attribute [r] error
-  #   Public failure details when execution fails
+  #   Public failure details returned when payout execution fails.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `error`.
   #   @return [Inttegro::Payout::Error, nil]

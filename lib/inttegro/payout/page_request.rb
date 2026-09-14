@@ -7,7 +7,7 @@ require_relative "base"
 
 module Inttegro
   class Payout
-    # Typed representation of the page request object in the Inttegro API.
+    # Pagination parameters for payouts.
     #
     # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
     # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire
@@ -16,13 +16,13 @@ module Inttegro
     # @api public
     #
     # @!attribute [r] page_number
-    #   1-based page index to fetch (1-10 inclusive)
+    #   1-based page index to fetch (1-10 inclusive).
     #
     #   Required in the API payload. Wire name: `page_number`.
     #   @return [Integer]
     #
     # @!attribute [r] page_size
-    #   Maximum number of payouts to return (1-256)
+    #   Maximum number of payouts to return (1-256).
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `page_size`.
     #   @return [Integer, nil]

@@ -7,7 +7,7 @@ require_relative "base"
 
 module Inttegro
   class Payout
-    # Typed representation of the settings mutation schedule spec object in the Inttegro API.
+    # Public payout schedule specification returned after a settings mutation.
     #
     # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
     # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire

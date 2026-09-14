@@ -8,7 +8,7 @@ require_relative "settings_mutation_schedule_spec"
 
 module Inttegro
   class Payout
-    # Updated payout schedule
+    # Updated payout schedule returned after a settings mutation.
     #
     # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
     # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire
@@ -47,7 +47,7 @@ module Inttegro
     #   @return [String]
     #
     # @!attribute [r] spec
-    #   Value of the `spec` field in the Inttegro API payload.
+    #   Public payout schedule specification returned after a settings mutation.
     #
     #   Required in the API payload. Wire name: `spec`.
     #   @return [Inttegro::Payout::SettingsMutationScheduleSpec]

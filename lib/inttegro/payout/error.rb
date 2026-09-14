@@ -7,7 +7,7 @@ require_relative "base"
 
 module Inttegro
   class Payout
-    # Public failure details when execution fails
+    # Public failure details returned when payout execution fails.
     #
     # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
     # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire
@@ -16,25 +16,25 @@ module Inttegro
     # @api public
     #
     # @!attribute [r] cause
-    #   Value of the `cause` field in the Inttegro API payload.
+    #   Public explanation of the underlying failure cause.
     #
     #   Required in the API payload. Wire name: `cause`.
     #   @return [String]
     #
     # @!attribute [r] message
-    #   Value of the `message` field in the Inttegro API payload.
+    #   Human-readable failure message.
     #
     #   Required in the API payload. Wire name: `message`.
     #   @return [String]
     #
     # @!attribute [r] occurred_at
-    #   Value of the `occurred_at` field in the Inttegro API payload.
+    #   When the failure occurred.
     #
     #   Required in the API payload. Wire name: `occurred_at`.
     #   @return [Time]
     #
     # @!attribute [r] type
-    #   Value of the `type` field in the Inttegro API payload.
+    #   Stable machine-readable failure category.
     #
     #   Required in the API payload. Wire name: `type`.
     #   @return [String]

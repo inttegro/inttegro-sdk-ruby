@@ -7,7 +7,7 @@ require_relative "base"
 
 module Inttegro
   class Payout
-    # Typed representation of the settings lookup schedule aging spec object in the Inttegro API.
+    # Rules that determine when balance transactions become eligible for payout.
     #
     # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
     # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire
@@ -16,19 +16,19 @@ module Inttegro
     # @api public
     #
     # @!attribute [r] abide
-    #   Value of the `abide` field in the Inttegro API payload.
+    #   How strictly the aging period is applied.
     #
     #   Required in the API payload. Wire name: `abide`.
     #   @return [String]
     #
     # @!attribute [r] label
-    #   Value of the `label` field in the Inttegro API payload.
+    #   Human-readable aging rule label.
     #
     #   Required in the API payload. Wire name: `label`.
     #   @return [String]
     #
     # @!attribute [r] t_plus
-    #   Value of the `t_plus` field in the Inttegro API payload.
+    #   Required transaction age.
     #
     #   Required in the API payload. Wire name: `t_plus`.
     #   @return [String]
