@@ -26,7 +26,7 @@ module Inttegro
       # @param reason [String, nil] optional explanation for canceling the refund
       # @return [Inttegro::Refund] canceled refund
       def cancel(refund_id:, reason: nil)
-        payload = T.let({ refund_id: refund_id }, T::Hash[Symbol, T.untyped])
+        payload = T.let({ refund_id: refund_id }, Inttegro::Types::Payload)
         payload[:reason] = reason unless reason.nil?
         @http.post_resource(
           "/refunds/cancel",
