@@ -8,7 +8,7 @@ require_relative "settings_mutation"
 
 module Inttegro
   class Payout
-    # Typed representation of the disable automatic response object in the Inttegro API.
+    # Response envelope containing updated payout settings.
     #
     # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
     # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire

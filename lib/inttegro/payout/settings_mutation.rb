@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "destinations"
 require_relative "settings_mutation_schedule"
 
 module Inttegro
@@ -17,10 +18,16 @@ module Inttegro
     # @api public
     #
     # @!attribute [r] destinations
-    #   Currency-to-financial-account destination assignments.
+    #   Supported currency-to-financial-account destination assignments.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `destinations`.
-    #   @return [Hash{String => String}, nil]
+    #   @return [Inttegro::Payout::Destinations, nil]
+    #
+    # @!attribute [r] fx_enabled
+    #   Updated foreign-exchange setting, returned by FX mutations.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `fx_enabled`.
+    #   @return [Boolean, nil]
     #
     # @!attribute [r] id
     #   Payout settings identifier
@@ -29,12 +36,13 @@ module Inttegro
     #   @return [String, nil]
     #
     # @!attribute [r] schedule
-    #   Updated payout schedule
+    #   Updated payout schedule returned after a settings mutation.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `schedule`.
     #   @return [Inttegro::Payout::SettingsMutationSchedule, nil]
     class SettingsMutation < T::Struct
-      const :destinations, T.nilable(T::Hash[String, String]), default: nil
+      const :destinations, T.nilable(Inttegro::Payout::Destinations), default: nil
+      const :fx_enabled, T.nilable(T::Boolean), default: nil
       const :id, T.nilable(String), default: nil
       const :schedule, T.nilable(Inttegro::Payout::SettingsMutationSchedule), default: nil
     end

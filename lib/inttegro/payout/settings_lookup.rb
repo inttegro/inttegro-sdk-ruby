@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "destinations"
 require_relative "settings_lookup_schedule"
 
 module Inttegro
@@ -17,10 +18,10 @@ module Inttegro
     # @api public
     #
     # @!attribute [r] destinations
-    #   Currency-to-financial-account destination assignments.
+    #   Supported currency-to-financial-account destination assignments.
     #
     #   Required in the API payload. Wire name: `destinations`.
-    #   @return [Hash{String => String}]
+    #   @return [Inttegro::Payout::Destinations]
     #
     # @!attribute [r] fx_enabled
     #   Present only when foreign exchange is enabled in stored settings
@@ -29,12 +30,12 @@ module Inttegro
     #   @return [Boolean, nil]
     #
     # @!attribute [r] schedule
-    #   Active payout schedule
+    #   Active payout schedule returned when settings are retrieved.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `schedule`.
     #   @return [Inttegro::Payout::SettingsLookupSchedule, nil]
     class SettingsLookup < T::Struct
-      const :destinations, T::Hash[String, String]
+      const :destinations, Inttegro::Payout::Destinations
       const :fx_enabled, T.nilable(T::Boolean), default: nil
       const :schedule, T.nilable(Inttegro::Payout::SettingsLookupSchedule), default: nil
     end

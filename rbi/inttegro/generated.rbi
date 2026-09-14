@@ -356,25 +356,25 @@ module Inttegro
       sig { returns(Inttegro::Payout::SettingsMutation) }
       def disable_automatic(); end
 
-      sig { returns(Inttegro::Payout::SettingsLookup) }
+      sig { returns(Inttegro::Payout::SettingsMutation) }
       def disable_fx(); end
 
       sig { returns(Inttegro::Payout::SettingsMutation) }
       def enable_automatic(); end
 
-      sig { returns(Inttegro::Payout::SettingsLookup) }
+      sig { returns(Inttegro::Payout::SettingsMutation) }
       def enable_fx(); end
 
       sig { params(payout_id: String).returns(Inttegro::Payout) }
       def lookup(payout_id:); end
 
-      sig { params(payload: T.nilable(T.any(Inttegro::Payout::PageRequest, Inttegro::Types::Payload))).returns(Inttegro::Payout::Page) }
-      def page(payload = nil); end
+      sig { params(payload: Inttegro::Payout::PageRequest).returns(Inttegro::Payout::Page) }
+      def page(payload); end
 
-      sig { params(payload: T.any(Inttegro::Schedule::PayoutRequest, Inttegro::Types::Payload)).returns(Inttegro::Payout) }
+      sig { params(payload: Inttegro::Schedule::PayoutRequest).returns(Inttegro::Payout) }
       def schedule(payload); end
 
-      sig { params(destinations: T::Hash[String, String]).returns(Inttegro::Payout::SettingsMutation) }
+      sig { params(destinations: Inttegro::Payout::Destinations).returns(Inttegro::Payout::SettingsMutation) }
       def set_destinations(destinations:); end
 
       sig { returns(Inttegro::Payout::SettingsLookup) }

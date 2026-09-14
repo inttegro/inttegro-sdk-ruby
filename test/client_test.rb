@@ -345,7 +345,13 @@ class InttegroClientTest < Minitest::Test
     client.payment_methods.archive(payment_method_id: "pm_123")
     client.payment_methods.unarchive(payment_method_id: "pm_123")
     client.payouts.enable_automatic
-    client.payouts.schedule(destination_id: "fa_123", max_amount: 1, reference: "PAYOUT-1")
+    client.payouts.schedule(
+      Inttegro::Schedule::PayoutRequest.new(
+        destination_id: "fa_123",
+        max_amount: 1,
+        reference: "PAYOUT-1"
+      )
+    )
     client.payouts.lookup(payout_id: "po_123")
     client.prices.page(page_number: 1, page_size: 20)
     client.prices.activate(price_id: "pr_123")
@@ -795,7 +801,6 @@ class InttegroClientTest < Minitest::Test
     model = Inttegro::Operations::RESPONSE_MODELS[path]
     model ||= Inttegro::Operations::RESPONSE_MODELS["/otp/lookup"] if path == "/otp/cancel"
     model ||= Inttegro::Operations::RESPONSE_MODELS["/payment_methods/lookup"] if path == "/payment_methods/confirm_verification"
-    model ||= Inttegro::Operations::RESPONSE_MODELS["/payouts/settings"] if ["/payouts/enable_fx", "/payouts/disable_fx"].include?(path)
     model ||= Inttegro::Operations::RESPONSE_MODELS["/products/lookup"] if path == "/products/set_default_unit_price"
     return {} unless model
 

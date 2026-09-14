@@ -8,7 +8,7 @@ require_relative "payout"
 
 module Inttegro
   class Payout
-    # Typed representation of the page object in the Inttegro API.
+    # A page of payouts ordered from newest to oldest.
     #
     # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
     # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire
@@ -17,13 +17,13 @@ module Inttegro
     # @api public
     #
     # @!attribute [r] number
-    #   Page number returned
+    #   Page number returned.
     #
     #   Required in the API payload. Wire name: `number`.
     #   @return [Integer]
     #
     # @!attribute [r] size
-    #   Number of payouts returned
+    #   Number of payouts returned.
     #
     #   Required in the API payload. Wire name: `size`.
     #   @return [Integer]

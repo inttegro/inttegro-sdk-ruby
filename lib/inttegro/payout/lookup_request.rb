@@ -7,7 +7,7 @@ require_relative "base"
 
 module Inttegro
   class Payout
-    # Typed representation of the lookup request object in the Inttegro API.
+    # Parameters for retrieving a payout.
     #
     # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
     # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire
@@ -16,7 +16,7 @@ module Inttegro
     # @api public
     #
     # @!attribute [r] payout_id
-    #   Payout identifier returned when the payout was created
+    #   Payout identifier returned when the payout was created.
     #
     #   Required in the API payload. Wire name: `payout_id`.
     #   @return [String]

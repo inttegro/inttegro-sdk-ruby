@@ -8,7 +8,7 @@ require_relative "settings_mutation"
 
 module Inttegro
   class Payout
-    # Typed representation of the set destinations response object in the Inttegro API.
+    # Response envelope containing updated payout settings.
     #
     # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
     # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire
@@ -21,7 +21,7 @@ module Inttegro
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `settings`.
     #   @return [Inttegro::Payout::SettingsMutation, nil]
-    class SetDestinationsResponse < T::Struct
+    class SettingsMutationResponse < T::Struct
       const :settings, T.nilable(Inttegro::Payout::SettingsMutation), default: nil
     end
   end
