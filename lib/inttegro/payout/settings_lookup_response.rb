@@ -4,11 +4,11 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "settings_mutation"
+require_relative "settings_lookup"
 
 module Inttegro
   class Payout
-    # Typed representation of the enable automatic response object in the Inttegro API.
+    # Response envelope containing complete payout settings.
     #
     # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
     # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire
@@ -17,12 +17,12 @@ module Inttegro
     # @api public
     #
     # @!attribute [r] settings
-    #   Payout settings fields returned after a mutation
+    #   Complete payout settings read model
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `settings`.
-    #   @return [Inttegro::Payout::SettingsMutation, nil]
-    class EnableAutomaticResponse < T::Struct
-      const :settings, T.nilable(Inttegro::Payout::SettingsMutation), default: nil
+    #   @return [Inttegro::Payout::SettingsLookup, nil]
+    class SettingsLookupResponse < T::Struct
+      const :settings, T.nilable(Inttegro::Payout::SettingsLookup), default: nil
     end
   end
 end

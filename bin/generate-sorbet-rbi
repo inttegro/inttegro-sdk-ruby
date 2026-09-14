@@ -30,8 +30,6 @@ LEGACY_RETURN_TYPES = {
   "/payment_methods/verify" => "Inttegro::PaymentMethod::Verification",
   "/payment_methods/confirm_verification" => "Inttegro::PaymentMethod",
   "/payment_methods/delete" => "Inttegro::PaymentMethod::Deletion",
-  "/payouts/enable_fx" => "Inttegro::Payout::SettingsLookup",
-  "/payouts/disable_fx" => "Inttegro::Payout::SettingsLookup",
   "/products/set_default_unit_price" => "Inttegro::Product"
 }.freeze
 
@@ -49,7 +47,7 @@ DOMAIN_RETURN_TYPES = {
   "/orders/cancel" => "Inttegro::Order", "/orders/complete" => "Inttegro::Order", "/orders/confirm_payment" => "Inttegro::Order", "/orders/create" => "Inttegro::Order", "/orders/finalize" => "Inttegro::Order", "/orders/lookup" => "Inttegro::Order", "/orders/page" => "Inttegro::Order::Page", "/orders/pay" => "Inttegro::Order", "/orders/request_confirmation" => "Inttegro::Order", "/orders/send_invoice" => "Inttegro::Order::DocumentDeliveryResult", "/orders/send_receipt" => "Inttegro::Order::DocumentDeliveryResult", "/orders/update" => "Inttegro::Order",
   "/otp/initiate" => "Inttegro::OTP::Transaction", "/otp/lookup" => "Inttegro::OTP::Transaction", "/otp/verify" => "Inttegro::OTP::Verification",
   "/payment_methods/activate" => "Inttegro::PaymentMethod", "/payment_methods/archive" => "Inttegro::PaymentMethod", "/payment_methods/confirm_verification" => "Inttegro::PaymentMethod", "/payment_methods/disactivate" => "Inttegro::PaymentMethod", "/payment_methods/lookup" => "Inttegro::PaymentMethod", "/payment_methods/page" => "Inttegro::PaymentMethod::Page", "/payment_methods/settings" => "Inttegro::PaymentMethod::Settings", "/payment_methods/tokenize" => "Inttegro::PaymentMethod", "/payment_methods/unarchive" => "Inttegro::PaymentMethod", "/payment_methods/update" => "Inttegro::PaymentMethod",
-  "/payouts/cancel" => "Inttegro::Payout", "/payouts/disable" => "Inttegro::Payout::SettingsMutation", "/payouts/enable" => "Inttegro::Payout::SettingsMutation", "/payouts/lookup" => "Inttegro::Payout", "/payouts/page" => "Inttegro::Payout::Page", "/payouts/schedule" => "Inttegro::Payout", "/payouts/set_destinations" => "Inttegro::Payout::SettingsMutation", "/payouts/settings" => "Inttegro::Payout::SettingsLookup",
+  "/payouts/cancel" => "Inttegro::Payout", "/payouts/disable" => "Inttegro::Payout::SettingsMutation", "/payouts/disable_fx" => "Inttegro::Payout::SettingsMutation", "/payouts/enable" => "Inttegro::Payout::SettingsMutation", "/payouts/enable_fx" => "Inttegro::Payout::SettingsMutation", "/payouts/lookup" => "Inttegro::Payout", "/payouts/page" => "Inttegro::Payout::Page", "/payouts/schedule" => "Inttegro::Payout", "/payouts/set_destinations" => "Inttegro::Payout::SettingsMutation", "/payouts/settings" => "Inttegro::Payout::SettingsLookup",
   "/prices/activate" => "Inttegro::Price::CatalogPrice", "/prices/archive" => "Inttegro::Price::CatalogPrice", "/prices/create" => "Inttegro::Price::CatalogPrice", "/prices/deactivate" => "Inttegro::Price::CatalogPrice", "/prices/lookup" => "Inttegro::Price::CatalogPrice", "/prices/page" => "Inttegro::Price::Page", "/prices/update" => "Inttegro::Price::CatalogPrice",
   "/products/add_price" => "Inttegro::Price::CatalogPrice", "/products/archive" => "Inttegro::Product", "/products/create" => "Inttegro::Product", "/products/lookup" => "Inttegro::Product", "/products/page" => "Inttegro::Product::Page", "/products/publish" => "Inttegro::Product", "/products/unpublish" => "Inttegro::Product", "/products/update" => "Inttegro::Product::Updated",
   "/purchase_intents/cancel" => "Inttegro::PurchaseIntent", "/purchase_intents/create" => "Inttegro::PurchaseIntent", "/purchase_intents/lookup" => "Inttegro::PurchaseIntent", "/purchase_intents/page" => "Inttegro::PurchaseIntent::Page", "/purchase_intents/update" => "Inttegro::PurchaseIntent",
@@ -129,11 +127,15 @@ def parameter_type(name, kind, path: nil)
     "T::Boolean"
   when :payload
     model = request_type(path)
-    model ? "T.any(#{model}, Inttegro::Types::Payload)" : "Inttegro::Types::RequestBody"
+    if model && path&.start_with?("/payouts/")
+      model
+    else
+      model ? "T.any(#{model}, Inttegro::Types::Payload)" : "Inttegro::Types::RequestBody"
+    end
   when :request_meta, :options, :custom_data
     "Inttegro::Types::Payload"
   when :destinations
-    "T::Hash[String, String]"
+    "Inttegro::Payout::Destinations"
   when :file, :purpose, :url, :upload_url, :disposition,
        :order_id, :payment_method_id, :transaction_id, :account_id,
        :chime_id, :customer_id, :file_id, :payout_id, :product_id, :price_id, :schedule_id,
