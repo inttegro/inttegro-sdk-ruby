@@ -5,8 +5,10 @@
 
 require_relative "base"
 require_relative "../money/amount"
+require_relative "failure"
 require_relative "line_item"
 require_relative "reason"
+require_relative "settlement_mode"
 require_relative "status"
 
 module Inttegro
@@ -48,6 +50,13 @@ module Inttegro
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `failed_at`.
   #   @return [Time, nil]
+  #
+  # @!attribute [r] failure
+  #   Sanitized terminal failure information. Present only when `status` is `failed`. An uncertain
+  #   provider outcome remains `processing` and does not produce this object.
+  #
+  #   Optional in the API payload; omitted values default to `nil`. Wire name: `failure`.
+  #   @return [Inttegro::Refund::Failure, nil]
   #
   # @!attribute [r] id
   #   Value of the `id` field in the Inttegro API payload.
@@ -97,6 +106,14 @@ module Inttegro
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `reference`.
   #   @return [String, nil]
   #
+  # @!attribute [r] settlement_mode
+  #   How the refund is settled. `provider` refunds use Inttegro's provider-backed refund
+  #   workflow. `external` refunds are manual records for money returned outside Inttegro and only
+  #   become succeeded after trusted operator confirmation.
+  #
+  #   Required in the API payload. Wire name: `settlement_mode`.
+  #   @return [Inttegro::Refund::SettlementMode]
+  #
   # @!attribute [r] status
   #   Value of the `status` field in the Inttegro API payload.
   #
@@ -120,6 +137,7 @@ module Inttegro
     const :created_at, Time
     const :custom_data, T.nilable(T::Hash[String, String]), default: nil
     const :failed_at, T.nilable(Time), default: nil
+    const :failure, T.nilable(Inttegro::Refund::Failure), default: nil
     const :id, String
     const :line_items, T::Array[Inttegro::Refund::LineItem]
     const :order_id, String
@@ -128,6 +146,7 @@ module Inttegro
     const :reason, Inttegro::Refund::Reason
     const :reason_details, T.nilable(String), default: nil
     const :reference, T.nilable(String), default: nil
+    const :settlement_mode, Inttegro::Refund::SettlementMode
     const :status, Inttegro::Refund::Status
     const :succeeded_at, T.nilable(Time), default: nil
     const :total, Inttegro::Money::Amount
