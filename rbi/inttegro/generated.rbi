@@ -463,8 +463,8 @@ module Inttegro
       sig { params(http: Inttegro::HTTPClient).void }
       def initialize(http); end
 
-      sig { params(refund_id: String).returns(Inttegro::Refund) }
-      def cancel(refund_id:); end
+      sig { params(refund_id: String, reason: T.nilable(Inttegro::Types::WireValue)).returns(Inttegro::Refund) }
+      def cancel(refund_id:, reason: nil); end
 
       sig { params(payload: T.any(Inttegro::Refund::CreateRequest, Inttegro::Types::Payload)).returns(Inttegro::Refund) }
       def create(payload); end
