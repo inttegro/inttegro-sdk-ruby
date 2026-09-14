@@ -699,6 +699,19 @@ class InttegroClientTest < Minitest::Test
     assert_equal "/payouts/cancel", requests.first.fetch(:uri).path
   end
 
+  def test_refund_cancel_sends_optional_reason
+    requests = []
+    adapter = make_adapter(requests: requests)
+    client = Inttegro::Client.new(token: "test", base_url: "https://api.inttegro.com", adapter: adapter)
+
+    client.refunds.cancel(refund_id: "rf_123", reason: "Customer no longer wants the refund")
+
+    assert_equal "/refunds/cancel", requests.first.fetch(:uri).path
+    body = JSON.parse(requests.first.fetch(:request).body)
+    assert_equal "rf_123", body.fetch("refund_id")
+    assert_equal "Customer no longer wants the refund", body.fetch("reason")
+  end
+
   def test_customers_and_products_endpoints_match_spec
     requests = []
     adapter = make_adapter(requests: requests)

@@ -18,6 +18,12 @@ module Inttegro
   #
   # @api public
   #
+  # @!attribute [r] cancel_reason
+  #   Omitted unless a reason was supplied when the refund was canceled.
+  #
+  #   Optional in the API payload; omitted values default to `nil`. Wire name: `cancel_reason`.
+  #   @return [String, nil]
+  #
   # @!attribute [r] canceled_at
   #   Omitted unless the refund was canceled before processing began.
   #
@@ -61,6 +67,12 @@ module Inttegro
   #   Required in the API payload. Wire name: `order_id`.
   #   @return [String]
   #
+  # @!attribute [r] order_amount
+  #   Total amount of the originating order captured when the refund was created.
+  #
+  #   Optional in the API payload; omitted values default to `nil`. Wire name: `order_amount`.
+  #   @return [Inttegro::Money::Amount, nil]
+  #
   # @!attribute [r] processing_at
   #   Omitted until processing starts.
   #
@@ -103,6 +115,7 @@ module Inttegro
   #   Required in the API payload. Wire name: `total`.
   #   @return [Inttegro::Money::Amount]
   class Refund
+    const :cancel_reason, T.nilable(String), default: nil
     const :canceled_at, T.nilable(Time), default: nil
     const :created_at, Time
     const :custom_data, T.nilable(T::Hash[String, String]), default: nil
@@ -110,6 +123,7 @@ module Inttegro
     const :id, String
     const :line_items, T::Array[Inttegro::Refund::LineItem]
     const :order_id, String
+    const :order_amount, T.nilable(Inttegro::Money::Amount), default: nil
     const :processing_at, T.nilable(Time), default: nil
     const :reason, Inttegro::Refund::Reason
     const :reason_details, T.nilable(String), default: nil
