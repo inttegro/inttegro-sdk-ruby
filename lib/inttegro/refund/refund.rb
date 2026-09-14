@@ -8,7 +8,7 @@ require_relative "../money/amount"
 require_relative "failure"
 require_relative "line_item"
 require_relative "reason"
-require_relative "settlement_mode"
+require_relative "settlement"
 require_relative "status"
 
 module Inttegro
@@ -106,13 +106,12 @@ module Inttegro
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `reference`.
   #   @return [String, nil]
   #
-  # @!attribute [r] settlement_mode
-  #   How the refund is settled. `provider` refunds use Inttegro's provider-backed refund
-  #   workflow. `external` refunds are manual records for money returned outside Inttegro and only
-  #   become succeeded after trusted operator confirmation.
+  # @!attribute [r] settlement
+  #   Immutable destination snapshot for the refund. `payment_method` returns money to the
+  #   original payment method; `offline` records settlement for an order paid outside Inttegro.
   #
-  #   Required in the API payload. Wire name: `settlement_mode`.
-  #   @return [Inttegro::Refund::SettlementMode]
+  #   Required in the API payload. Wire name: `settlement`.
+  #   @return [Inttegro::Refund::Settlement]
   #
   # @!attribute [r] status
   #   Value of the `status` field in the Inttegro API payload.
@@ -146,7 +145,7 @@ module Inttegro
     const :reason, Inttegro::Refund::Reason
     const :reason_details, T.nilable(String), default: nil
     const :reference, T.nilable(String), default: nil
-    const :settlement_mode, Inttegro::Refund::SettlementMode
+    const :settlement, Inttegro::Refund::Settlement
     const :status, Inttegro::Refund::Status
     const :succeeded_at, T.nilable(Time), default: nil
     const :total, Inttegro::Money::Amount
