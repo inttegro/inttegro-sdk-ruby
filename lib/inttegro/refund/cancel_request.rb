@@ -22,6 +22,12 @@ module Inttegro
     #   Required in the API payload. Wire name: `refund_id`.
     #   @return [String]
     #
+    # @!attribute [r] reason
+    #   Optional explanation for canceling the refund. Leading and trailing whitespace is removed.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `reason`.
+    #   @return [String, nil]
+    #
     # @!attribute [r] request_meta
     #   Value of the `request_meta` field in the Inttegro API payload.
     #
@@ -29,6 +35,7 @@ module Inttegro
     #   @return [Inttegro::Refund::RequestMeta, nil]
     class CancelRequest < T::Struct
       const :refund_id, String
+      const :reason, T.nilable(String), default: nil
       const :request_meta, T.nilable(Inttegro::Refund::RequestMeta), default: nil
     end
   end

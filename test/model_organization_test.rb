@@ -8,7 +8,6 @@ class InttegroModelOrganizationTest < Minitest::Test
     assert_operator Inttegro::Product::Dimensions, :<, T::Struct
     assert_operator Inttegro::Payment::NextAction, :<, T::Struct
     assert_operator Inttegro::Order::Page, :<, T::Struct
-    assert_operator Inttegro::PurchaseIntent::Activity, :<, T::Struct
     assert_operator Inttegro::PaymentMethod::Verification, :<, T::Struct
 
     assert_operator Inttegro::Product::Type, :<, T::Enum

@@ -23,12 +23,15 @@ module Inttegro
       # Cancel a pending refund before processing claims it.
       #
       # @param refund_id [String] unique refund identifier
+      # @param reason [String, nil] optional explanation for canceling the refund
       # @return [Inttegro::Refund] canceled refund
-      def cancel(refund_id:)
+      def cancel(refund_id:, reason: nil)
+        payload = T.let({ refund_id: refund_id }, Inttegro::Types::Payload)
+        payload[:reason] = reason unless reason.nil?
         @http.post_resource(
           "/refunds/cancel",
           Inttegro::Refund, :refund,
-          { refund_id: refund_id }
+          payload
         )
       end
 

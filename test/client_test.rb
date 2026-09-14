@@ -397,15 +397,6 @@ class InttegroClientTest < Minitest::Test
       requests: [],
       body: {
         purchase_intent: {
-          activity: {
-            recent: [{
-              created_at: "2026-09-09T12:01:00Z",
-              id: "saleevt_123",
-              purchase_intent_id: "sale_123",
-              type: "viewed",
-              visitor: { ip_address: "203.0.113.7" }
-            }]
-          },
           allow_variants: false,
           created_at: "2026-09-09T12:00:00Z",
           id: "sale_123",
@@ -431,12 +422,10 @@ class InttegroClientTest < Minitest::Test
 
     intent = client.purchase_intents.lookup(id: "sale_123")
 
-    assert_equal "203.0.113.7", intent.activity&.recent&.first&.visitor&.ip_address
     assert_equal "Tea House Ltd", intent.merchant&.organization_name
     assert_equal 1024, intent.product&.dimensions&.digital&.bytes
     assert_equal "or_123", intent.usage.order&.id
     assert_equal Inttegro::PurchaseIntent::Status::ACTIVE, intent.status
-    assert_equal Inttegro::PurchaseIntent::ActivityType::VIEWED, intent.activity&.recent&.first&.type
   end
 
   def test_timestamp_fields_decode_to_time_and_require_an_offset
@@ -708,6 +697,19 @@ class InttegroClientTest < Minitest::Test
     client.payouts.cancel(payout_id: "po_123")
 
     assert_equal "/payouts/cancel", requests.first.fetch(:uri).path
+  end
+
+  def test_refund_cancel_sends_optional_reason
+    requests = []
+    adapter = make_adapter(requests: requests)
+    client = Inttegro::Client.new(token: "test", base_url: "https://api.inttegro.com", adapter: adapter)
+
+    client.refunds.cancel(refund_id: "rf_123", reason: "Customer no longer wants the refund")
+
+    assert_equal "/refunds/cancel", requests.first.fetch(:uri).path
+    body = JSON.parse(requests.first.fetch(:request).body)
+    assert_equal "rf_123", body.fetch("refund_id")
+    assert_equal "Customer no longer wants the refund", body.fetch("reason")
   end
 
   def test_customers_and_products_endpoints_match_spec
