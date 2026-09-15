@@ -76,6 +76,16 @@ module Inttegro
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `expires_on`.
   #   @return [Time, nil]
   #
+  # @!attribute [r] fingerprint
+  #   Customer-scoped fingerprint for this payment method within the merchant application.
+  #   Matching nonempty values for the same customer indicate the same underlying method was added
+  #   more than once. May be empty for records awaiting fingerprint backfill or methods lacking
+  #   reliable fingerprint material. It does not identify the method across customers or
+  #   applications.
+  #
+  #   Required in the API payload. Wire name: `fingerprint`.
+  #   @return [String]
+  #
   # @!attribute [r] id
   #   Unique identifier for this payment method
   #
@@ -127,6 +137,7 @@ module Inttegro
     const :customer_id, String
     const :ephemeral, T.nilable(T::Boolean), default: nil
     const :expires_on, T.nilable(Time), default: nil
+    const :fingerprint, String
     const :id, String
     const :mobile_money, T.nilable(Inttegro::PaymentMethod::MobileMoney), default: nil
     const :owner, T.nilable(Inttegro::PaymentMethod::Owner), default: nil
