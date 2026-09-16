@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "../custom_data"
 require_relative "../shared/invoice_settings"
 require_relative "../shared/line_item"
 require_relative "update_request_payment_method_data"
@@ -30,7 +31,7 @@ module Inttegro
     #   collection rather than a raw map.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `custom_data`.
-    #   @return [Hash{String => String}, nil]
+    #   @return [Inttegro::CustomData, nil]
     #
     # @!attribute [r] invoice_settings
     #   Order-level invoice rendering data. Pages uses this data when rendering invoice web and
@@ -101,7 +102,7 @@ module Inttegro
     #   @return [String, nil]
     class UpdateRequest < T::Struct
       const :clear_payment_method, T.nilable(T::Boolean), default: nil
-      const :custom_data, T.nilable(T::Hash[String, String]), default: nil
+      const :custom_data, T.nilable(Inttegro::CustomData), default: nil
       const :invoice_settings, T.nilable(Inttegro::Shared::InvoiceSettings), default: nil
       const :finalize, T.nilable(T::Boolean), default: nil
       const :line_items, T.nilable(T::Array[Inttegro::Shared::LineItem]), default: nil

@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "../custom_data"
 require_relative "update_request_owner"
 
 module Inttegro
@@ -27,7 +28,7 @@ module Inttegro
     #   serialized to a string.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `custom_data`.
-    #   @return [Hash{String => Object}, nil]
+    #   @return [Inttegro::CustomDataPatch, nil]
     #
     # @!attribute [r] active
     #   Set to `true` to activate the payment method or `false` to mark it inactive.
@@ -48,7 +49,7 @@ module Inttegro
     #   @return [Inttegro::PaymentMethod::UpdateRequestOwner, nil]
     class UpdateRequest < T::Struct
       const :payment_method_id, String
-      const :custom_data, T.nilable(T::Hash[String, Object]), default: nil
+      const :custom_data, T.nilable(Inttegro::CustomDataPatch), default: nil
       const :active, T.nilable(T::Boolean), default: nil
       const :archived, T.nilable(T::Boolean), default: nil
       const :owner, T.nilable(Inttegro::PaymentMethod::UpdateRequestOwner), default: nil

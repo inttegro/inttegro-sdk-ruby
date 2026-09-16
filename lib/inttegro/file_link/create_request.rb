@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "../custom_data"
 require_relative "../file/actor_input"
 require_relative "access_request"
 require_relative "delivery"
@@ -47,7 +48,7 @@ module Inttegro
     #   collection rather than a raw map.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `custom_data`.
-    #   @return [Hash{String => String}, nil]
+    #   @return [Inttegro::CustomData, nil]
     #
     # @!attribute [r] expires_at
     #   Value of the `expires_at` field in the Inttegro API payload.
@@ -59,7 +60,7 @@ module Inttegro
       const :delivery, T.nilable(Inttegro::FileLink::Delivery), default: nil
       const :access, T.nilable(Inttegro::FileLink::AccessRequest), default: nil
       const :created_by, T.nilable(Inttegro::File::ActorInput), default: nil
-      const :custom_data, T.nilable(T::Hash[String, String]), default: nil
+      const :custom_data, T.nilable(Inttegro::CustomData), default: nil
       const :expires_at, T.nilable(Time), default: nil
     end
   end

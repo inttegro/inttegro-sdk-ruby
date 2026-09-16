@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "../custom_data"
 require_relative "../money/amount"
 require_relative "failure"
 require_relative "line_item"
@@ -43,7 +44,7 @@ module Inttegro
   #   collection rather than a raw map.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `custom_data`.
-  #   @return [Hash{String => String}, nil]
+  #   @return [Inttegro::CustomData, nil]
   #
   # @!attribute [r] failed_at
   #   Omitted unless processing failed.
@@ -134,7 +135,7 @@ module Inttegro
     const :cancel_reason, T.nilable(String), default: nil
     const :canceled_at, T.nilable(Time), default: nil
     const :created_at, Time
-    const :custom_data, T.nilable(T::Hash[String, String]), default: nil
+    const :custom_data, T.nilable(Inttegro::CustomData), default: nil
     const :failed_at, T.nilable(Time), default: nil
     const :failure, T.nilable(Inttegro::Refund::Failure), default: nil
     const :id, String

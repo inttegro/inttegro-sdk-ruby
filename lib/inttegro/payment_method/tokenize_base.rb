@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "../custom_data"
 require_relative "tokenize_base_type"
 
 module Inttegro
@@ -27,7 +28,7 @@ module Inttegro
     #   collection rather than a raw map.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `custom_data`.
-    #   @return [Hash{String => String}, nil]
+    #   @return [Inttegro::CustomData, nil]
     #
     # @!attribute [r] type
     #   Value of the `type` field in the Inttegro API payload.
@@ -36,7 +37,7 @@ module Inttegro
     #   @return [Inttegro::PaymentMethod::TokenizeBaseType]
     class TokenizeBase < T::Struct
       const :customer_id, String
-      const :custom_data, T.nilable(T::Hash[String, String]), default: nil
+      const :custom_data, T.nilable(Inttegro::CustomData), default: nil
       const :type, Inttegro::PaymentMethod::TokenizeBaseType
     end
   end

@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "../custom_data"
 require_relative "../message_template/reference"
 require_relative "email_message_input"
 require_relative "recipient"
@@ -61,7 +62,7 @@ module Inttegro
     #   collection rather than a raw map.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `custom_data`.
-    #   @return [Hash{String => String}, nil]
+    #   @return [Inttegro::CustomData, nil]
     #
     # @!attribute [r] request_meta
     #   Optional metadata controlling request processing
@@ -75,7 +76,7 @@ module Inttegro
       const :message_template, T.nilable(Inttegro::MessageTemplate::Reference), default: nil
       const :sender_id, T.nilable(String), default: nil
       const :purpose, T.nilable(String), default: nil
-      const :custom_data, T.nilable(T::Hash[String, String]), default: nil
+      const :custom_data, T.nilable(Inttegro::CustomData), default: nil
       const :request_meta, T.nilable(Inttegro::Chime::SendRequestRequestMeta), default: nil
     end
   end

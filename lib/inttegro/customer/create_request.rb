@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "../custom_data"
 require_relative "address_input"
 
 module Inttegro
@@ -27,7 +28,7 @@ module Inttegro
     #   before storage.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `custom_data`.
-    #   @return [Hash{String => Object}, nil]
+    #   @return [Inttegro::CustomDataInput, nil]
     #
     # @!attribute [r] email_address
     #   Value of the `email_address` field in the Inttegro API payload.
@@ -66,7 +67,7 @@ module Inttegro
     #   @return [String, nil]
     class CreateRequest < T::Struct
       const :billing_address, T.nilable(Inttegro::Customer::AddressInput), default: nil
-      const :custom_data, T.nilable(T::Hash[String, Object]), default: nil
+      const :custom_data, T.nilable(Inttegro::CustomDataInput), default: nil
       const :email_address, T.nilable(String), default: nil
       const :name, String
       const :phone_number, T.nilable(String), default: nil

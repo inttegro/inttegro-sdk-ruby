@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "../custom_data"
 require_relative "type"
 
 module Inttegro
@@ -69,7 +70,7 @@ module Inttegro
     #   collection rather than a raw map.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `custom_data`.
-    #   @return [Hash{String => String}, nil]
+    #   @return [Inttegro::CustomData, nil]
     class WirePageAccountsItem < T::Struct
       const :id, T.nilable(String), default: nil
       const :type, T.nilable(Inttegro::FinancialAccount::Type), default: nil
@@ -79,7 +80,7 @@ module Inttegro
       const :reference, T.nilable(String), default: nil
       const :created_at, T.nilable(Time), default: nil
       const :archived_at, T.nilable(Time), default: nil
-      const :custom_data, T.nilable(T::Hash[String, String]), default: nil
+      const :custom_data, T.nilable(Inttegro::CustomData), default: nil
     end
   end
 end

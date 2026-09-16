@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "../custom_data"
 require_relative "dimensions"
 require_relative "price_summary"
 require_relative "type"
@@ -71,7 +72,7 @@ module Inttegro
     #   collection rather than a raw map.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `custom_data`.
-    #   @return [Hash{String => String}, nil]
+    #   @return [Inttegro::CustomData, nil]
     #
     # @!attribute [r] dimensions
     #   At most one of `physical`, `digital`, or `custom`.
@@ -111,7 +112,7 @@ module Inttegro
       const :reference, T.nilable(String), default: nil
       const :tax_code, T.nilable(String), default: nil
       const :category, T.nilable(String), default: nil
-      const :custom_data, T.nilable(T::Hash[String, String]), default: nil
+      const :custom_data, T.nilable(Inttegro::CustomData), default: nil
       const :dimensions, T.nilable(Inttegro::Product::Dimensions), default: nil
       const :prices, T.nilable(T::Array[Inttegro::Product::PriceSummary]), default: nil
       const :unit_dim, T.nilable(String), default: nil

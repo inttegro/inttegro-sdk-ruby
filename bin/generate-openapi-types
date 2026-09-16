@@ -5,6 +5,11 @@ require "pathname"
 require "yaml"
 
 class OpenAPITypeGenerator
+  SEMANTIC_MAP_TYPES = {
+    "CustomData" => "Inttegro::CustomData",
+    "CustomDataInput" => "Inttegro::CustomDataInput",
+    "CustomDataPatch" => "Inttegro::CustomDataPatch"
+  }.freeze
   IGNORED_LEGACY_COMPONENT_SCHEMAS = ["OrderCreateResponse"].freeze
   PACKAGE_DEFINITIONS = {
     "Application" => { directory: "app", tokens: %w[Application App] },
@@ -429,6 +434,9 @@ class OpenAPITypeGenerator
     return "Object" unless schema.is_a?(Hash)
 
     if schema["$ref"]
+      referenced_name = schema.fetch("$ref").split("/").last
+      return SEMANTIC_MAP_TYPES.fetch(referenced_name) if SEMANTIC_MAP_TYPES.key?(referenced_name)
+
       referenced = dereference(schema)
       return type_expression(referenced, candidate, origin) if map_schema?(referenced)
 
@@ -772,7 +780,8 @@ class OpenAPITypeGenerator
   end
 
   def dependency_require_paths(node, location)
-    references = node_type_expressions(node).flat_map do |expression|
+    expressions = node_type_expressions(node)
+    references = expressions.flat_map do |expression|
       expression.scan(/Inttegro(?:::[A-Z][A-Za-z0-9_]*)+/)
     end.uniq
     locations_by_constant = {}
@@ -784,7 +793,7 @@ class OpenAPITypeGenerator
     end
 
     current_constant = model_reference(node.name)
-    references.filter_map do |reference|
+    paths = references.filter_map do |reference|
       next if reference == current_constant
 
       name, dependency_location = locations_by_constant[reference]
@@ -792,7 +801,9 @@ class OpenAPITypeGenerator
 
       basename = snake_case(dependency_location.local_name)
       dependency_location.directory == location.directory ? basename : "../#{dependency_location.directory}/#{basename}"
-    end.uniq.sort
+    end
+    paths << "../custom_data" if expressions.any? { |expression| expression.match?(/Inttegro::CustomData(?:Input|Patch)?/) }
+    paths.uniq.sort
   end
 
   def ordered_nodes
