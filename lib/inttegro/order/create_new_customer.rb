@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "../custom_data"
 require_relative "../customer/data"
 require_relative "../payment_method/data"
 require_relative "../shared/billing_details"
@@ -114,7 +115,7 @@ module Inttegro
     #   collection rather than a raw map.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `custom_data`.
-    #   @return [Hash{String => String}, nil]
+    #   @return [Inttegro::CustomData, nil]
     #
     # @!attribute [r] billing_details
     #   Value of the `billing_details` field in the Inttegro API payload.
@@ -141,7 +142,7 @@ module Inttegro
       const :invoice_settings, T.nilable(Inttegro::Shared::InvoiceSettings), default: nil
       const :payout_settings, T.nilable(Inttegro::Order::PayoutSettingsRequest), default: nil
       const :line_items, T::Array[Inttegro::Shared::LineItem]
-      const :custom_data, T.nilable(T::Hash[String, String]), default: nil
+      const :custom_data, T.nilable(Inttegro::CustomData), default: nil
       const :billing_details, T.nilable(Inttegro::Shared::BillingDetails), default: nil
       const :shipping, T.nilable(Inttegro::Shared::Shipping), default: nil
     end

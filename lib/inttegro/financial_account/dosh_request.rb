@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "../custom_data"
 require_relative "../shared/dosh_account"
 require_relative "dosh_request_type"
 require_relative "owner_input"
@@ -31,7 +32,7 @@ module Inttegro
     #   before storage.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `custom_data`.
-    #   @return [Hash{String => Object}, nil]
+    #   @return [Inttegro::CustomDataInput, nil]
     #
     # @!attribute [r] description
     #   Value of the `description` field in the Inttegro API payload.
@@ -83,7 +84,7 @@ module Inttegro
     #   @return [Inttegro::Shared::DoshAccount]
     class DoshRequest < T::Struct
       const :currency, String
-      const :custom_data, T.nilable(T::Hash[String, Object]), default: nil
+      const :custom_data, T.nilable(Inttegro::CustomDataInput), default: nil
       const :description, T.nilable(String), default: nil
       const :label, String
       const :owner, Inttegro::FinancialAccount::OwnerInput

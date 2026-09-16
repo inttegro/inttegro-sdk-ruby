@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "../custom_data"
 require_relative "owner_input"
 require_relative "tokenize_mobile_money_request_mobile_money"
 require_relative "tokenize_mobile_money_request_type"
@@ -29,7 +30,7 @@ module Inttegro
     #   collection rather than a raw map.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `custom_data`.
-    #   @return [Hash{String => String}, nil]
+    #   @return [Inttegro::CustomData, nil]
     #
     # @!attribute [r] type
     #   Value of the `type` field in the Inttegro API payload.
@@ -50,7 +51,7 @@ module Inttegro
     #   @return [Inttegro::PaymentMethod::OwnerInput]
     class TokenizeMobileMoneyRequest < T::Struct
       const :customer_id, String
-      const :custom_data, T.nilable(T::Hash[String, String]), default: nil
+      const :custom_data, T.nilable(Inttegro::CustomData), default: nil
       const :type, Inttegro::PaymentMethod::TokenizeMobileMoneyRequestType
       const :mobile_money, Inttegro::PaymentMethod::TokenizeMobileMoneyRequestMobileMoney
       const :owner, Inttegro::PaymentMethod::OwnerInput

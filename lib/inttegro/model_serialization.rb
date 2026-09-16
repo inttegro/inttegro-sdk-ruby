@@ -44,7 +44,9 @@ module Inttegro
     data = stringify_json_keys(value, decode_timestamps: true)
     raise TypeError, "expected an object for #{klass}, got #{data.class}" unless data.is_a?(Hash)
 
-    T.cast(klass, T.class_of(T::Struct)).from_hash(data)
+    model = T.cast(klass, T.class_of(T::Struct)).from_hash(data)
+    wrap_response_custom_data(model)
+    model
   end
 
   sig { params(value: Object, decode_timestamps: T::Boolean).returns(Object) }
@@ -56,6 +58,8 @@ module Inttegro
   # @api private
   def self.stringify_json_keys(value, decode_timestamps: false)
     case value
+    when CustomData, CustomDataInput, CustomDataPatch
+      value
     when T::Struct
       stringify_json_keys(value.serialize, decode_timestamps: decode_timestamps)
     when T::Enum
@@ -82,4 +86,29 @@ module Inttegro
     end
   end
   private_class_method :stringify_json_keys
+
+  sig { params(value: Object).returns(Object) }
+  def self.wrap_response_custom_data(value)
+    case value
+    when T::Struct
+      raw = value.instance_variable_get(:@custom_data)
+      if raw.is_a?(Hash) && !raw.is_a?(CustomData)
+        value.instance_variable_set(
+          :@custom_data,
+          CustomData.new(raw)
+        )
+      end
+      value.instance_variables.each do |variable|
+        next if variable == :@custom_data
+
+        wrap_response_custom_data(value.instance_variable_get(variable))
+      end
+    when Array
+      value.each { |item| wrap_response_custom_data(item) }
+    when Hash
+      value.each_value { |item| wrap_response_custom_data(item) }
+    end
+    value
+  end
+  private_class_method :wrap_response_custom_data
 end

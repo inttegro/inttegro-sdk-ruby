@@ -3,6 +3,32 @@
 require "test_helper"
 
 class InttegroResourceSemanticsTest < Minitest::Test
+  def test_customer_addresses_and_custom_data_keep_domain_types
+    request = Inttegro::Customer::CreateRequest.new(
+      name: "Ama Mensah",
+      billing_address: Inttegro::Customer::AddressInput.new(country: "gh", city: "Accra"),
+      custom_data: Inttegro::CustomDataInput.new("segment" => "vip", "visits" => 3)
+    )
+    assert_equal "Accra", request.billing_address&.city
+    assert_equal 3, request.custom_data&.fetch("visits")
+
+    customer = Inttegro.deserialize(
+      {
+        "balance" => {},
+        "billing_address" => { "country" => "gh", "city" => "Accra" },
+        "created_at" => "2026-09-02T12:00:00Z",
+        "custom_data" => { "segment" => "vip" },
+        "guest" => false,
+        "id" => "cu_1",
+        "name" => "Ama Mensah"
+      },
+      Inttegro::Customer
+    )
+    assert_instance_of Inttegro::CustomData, customer.custom_data
+    assert customer.custom_data&.frozen?
+    assert_equal "Accra", customer.billing_address&.city
+  end
+
   def test_payment_and_order_questions
     payment = Inttegro::Payment.from_hash(
       "amount" => { "currency" => "ghs", "value" => 1_000 },

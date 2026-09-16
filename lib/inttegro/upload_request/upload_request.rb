@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "../custom_data"
 require_relative "../file/party"
 require_relative "../file/resource"
 require_relative "actor"
@@ -117,7 +118,7 @@ module Inttegro
   #   collection rather than a raw map.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `custom_data`.
-  #   @return [Hash{String => String}, nil]
+  #   @return [Inttegro::CustomData, nil]
   #
   # @!attribute [r] metadata
   #   System-managed string metadata attached to a file resource.
@@ -182,7 +183,7 @@ module Inttegro
     const :attempts, Inttegro::UploadRequest::Attempts
     const :latest_error, T.nilable(Inttegro::UploadRequest::LatestError), default: nil
     const :canceled_by, T.nilable(Inttegro::UploadRequest::Actor), default: nil
-    const :custom_data, T.nilable(T::Hash[String, String]), default: nil
+    const :custom_data, T.nilable(Inttegro::CustomData), default: nil
     const :metadata, T.nilable(T::Hash[String, String]), default: nil
     const :created_at, Time
     const :updated_at, Time

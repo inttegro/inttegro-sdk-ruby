@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "../custom_data"
 require_relative "attribute"
 require_relative "dimensions"
 require_relative "media"
@@ -103,7 +104,7 @@ module Inttegro
   #   collection rather than a raw map.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `custom_data`.
-  #   @return [Hash{String => String}, nil]
+  #   @return [Inttegro::CustomData, nil]
   #
   # @!attribute [r] active
   #   Whether product is published and available
@@ -154,7 +155,7 @@ module Inttegro
     const :media, T.nilable(Inttegro::Product::Media), default: nil
     const :attributes, T.nilable(T::Array[Inttegro::Product::Attribute]), default: nil
     const :dimensions, T.nilable(Inttegro::Product::Dimensions), default: nil
-    const :custom_data, T.nilable(T::Hash[String, String]), default: nil
+    const :custom_data, T.nilable(Inttegro::CustomData), default: nil
     const :active, T::Boolean
     const :created_at, Time
     const :updated_at, T.nilable(Time), default: nil

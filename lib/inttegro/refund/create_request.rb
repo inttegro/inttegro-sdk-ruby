@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "../custom_data"
 require_relative "create_line_item"
 require_relative "reason"
 require_relative "request_meta"
@@ -23,7 +24,7 @@ module Inttegro
     #   collection rather than a raw map.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `custom_data`.
-    #   @return [Hash{String => String}, nil]
+    #   @return [Inttegro::CustomData, nil]
     #
     # @!attribute [r] line_items
     #   Value of the `line_items` field in the Inttegro API payload.
@@ -61,7 +62,7 @@ module Inttegro
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `request_meta`.
     #   @return [Inttegro::Refund::RequestMeta, nil]
     class CreateRequest < T::Struct
-      const :custom_data, T.nilable(T::Hash[String, String]), default: nil
+      const :custom_data, T.nilable(Inttegro::CustomData), default: nil
       const :line_items, T::Array[Inttegro::Refund::CreateLineItem]
       const :order_id, String
       const :reason, Inttegro::Refund::Reason

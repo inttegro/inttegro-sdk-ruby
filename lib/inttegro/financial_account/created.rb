@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "../custom_data"
 require_relative "../shared/financial_institution"
 require_relative "../shared/resource_supply"
 require_relative "created_bank"
@@ -47,7 +48,7 @@ module Inttegro
     #   collection rather than a raw map.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `custom_data`.
-    #   @return [Hash{String => String}, nil]
+    #   @return [Inttegro::CustomData, nil]
     #
     # @!attribute [r] description
     #   Value of the `description` field in the Inttegro API payload.
@@ -130,7 +131,7 @@ module Inttegro
       const :archived_at, T.nilable(Time), default: nil
       const :created_at, Time
       const :currency, String
-      const :custom_data, T.nilable(T::Hash[String, String]), default: nil
+      const :custom_data, T.nilable(Inttegro::CustomData), default: nil
       const :description, T.nilable(String), default: nil
       const :id, String
       const :institution, T.nilable(Inttegro::Shared::FinancialInstitution), default: nil
