@@ -5,6 +5,7 @@
 
 require_relative "base"
 require_relative "../money/amount"
+require_relative "order_line_item"
 require_relative "reason"
 
 module Inttegro
@@ -24,10 +25,18 @@ module Inttegro
     #   @return [String]
     #
     # @!attribute [r] order_line_item_id
-    #   Value of the `order_line_item_id` field in the Inttegro API payload.
+    #   Deprecated compatibility identifier. Use `order_line_item.id` when `order_line_item` is
+    #   present.
     #
     #   Required in the API payload. Wire name: `order_line_item_id`.
     #   @return [String]
+    #
+    # @!attribute [r] order_line_item
+    #   Immutable display snapshot of the refunded order line. Omitted when the originating order
+    #   cannot be resolved.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `order_line_item`.
+    #   @return [Inttegro::Refund::OrderLineItem, nil]
     #
     # @!attribute [r] original_amount_paid
     #   Value of the `original_amount_paid` field in the Inttegro API payload.
@@ -55,6 +64,7 @@ module Inttegro
     class LineItem < T::Struct
       const :id, String
       const :order_line_item_id, String
+      const :order_line_item, T.nilable(Inttegro::Refund::OrderLineItem), default: nil
       const :original_amount_paid, Inttegro::Money::Amount
       const :reason, T.nilable(Inttegro::Refund::Reason), default: nil
       const :reason_details, T.nilable(String), default: nil
