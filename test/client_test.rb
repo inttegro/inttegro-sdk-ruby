@@ -655,7 +655,7 @@ class InttegroClientTest < Minitest::Test
       sender: "Acme",
       service_name: "Acme Bank",
       idempotency_key: "otp_login_1700000000",
-      purpose: "login"
+      purpose: Inttegro::OTP::Purpose::SIGN_IN
     )
 
     assert_equal "/otp/initiate", requests.first.fetch(:uri).path
