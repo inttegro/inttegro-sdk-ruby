@@ -921,13 +921,18 @@ class OpenAPITypeGenerator
           description: property_description(property, schema),
           required: required.include?(property),
           ruby_name: ruby_property,
+          schema: schema,
           type: type,
           wire_name: property
         }
       end
       documentation = model_documentation(node, location, properties)
       props = properties.map { |property| property.fetch(:definition) }
-      body = props.empty? ? "# This object intentionally has no fields." : props.join("\n")
+      sections = []
+      sections << (props.empty? ? "# This object intentionally has no fields." : props.join("\n"))
+      discriminator_decoder = render_discriminator_decoder(properties)
+      sections << discriminator_decoder if discriminator_decoder
+      body = sections.join("\n\n")
       if location.class_package && node.name == location.package
         return render_in_package(
           location,
@@ -936,7 +941,7 @@ class OpenAPITypeGenerator
           dependency_paths: dependency_require_paths(node, location)
         )
       else
-        nested_body = body.lines(chomp: true).map { |line| "  #{line}" }.join("\n")
+        nested_body = body.lines(chomp: true).map { |line| line.empty? ? "" : "  #{line}" }.join("\n")
         [
           documentation,
           "class #{location.local_name} < T::Struct",
@@ -957,6 +962,82 @@ class OpenAPITypeGenerator
       "#{documentation}\n#{location.local_name} = T.type_alias { #{expression} }"
     end
     render_in_package(location, definition, dependency_paths: dependency_require_paths(node, location))
+  end
+
+  def render_discriminator_decoder(properties)
+    discriminated = properties.filter_map do |property|
+      details = discriminator_details(property.fetch(:schema))
+      [property, details] if details
+    end
+    return nil if discriminated.empty?
+
+    lines = [
+      "extend T::Sig",
+      "",
+      "sig { params(hash: T::Hash[String, Object], strict: T::Boolean).returns(T.attached_class) }",
+      "def self.from_hash(hash, strict = false)",
+      "  data = hash.dup"
+    ]
+    discriminated.each do |property, details|
+      variable = "#{property.fetch(:ruby_name)}_value"
+      wire_name = property.fetch(:wire_name)
+      if details.fetch(:array)
+        lines.concat([
+          "  if (#{variable} = data[#{wire_name.inspect}]).is_a?(Array)",
+          "    data[#{wire_name.inspect}] = #{variable}.map do |item|",
+          "      next item unless item.is_a?(Hash)",
+          *render_discriminator_case("item", details, 6).map.with_index { |line, index| index.zero? ? "      #{line}" : line },
+          "    end",
+          "  end"
+        ])
+      else
+        lines.concat([
+          "  if (#{variable} = data[#{wire_name.inspect}]).is_a?(Hash)",
+          "    data[#{wire_name.inspect}] = #{render_discriminator_case(variable, details, 4).first}",
+          *render_discriminator_case(variable, details, 4).drop(1),
+          "  end"
+        ])
+      end
+    end
+    lines.concat(["  super(data, strict)", "end"])
+    lines.join("\n")
+  end
+
+  def render_discriminator_case(variable, details, indent)
+    padding = " " * indent
+    lines = ["case #{variable}[#{details.fetch(:property).inspect}]"]
+    details.fetch(:mapping).each do |wire_value, model|
+      lines.concat([
+        "#{padding}when #{wire_value.inspect}",
+        "#{padding}  #{model}.from_hash(T.cast(#{variable}, T::Hash[String, Object]))"
+      ])
+    end
+    lines.concat(["#{padding}else", "#{padding}  #{variable}", "#{padding}end"])
+  end
+
+  def discriminator_details(schema, array: false)
+    return nil unless schema.is_a?(Hash)
+
+    if schema["type"] == "array"
+      return discriminator_details(schema.fetch("items", {}), array: true)
+    end
+
+    resolved = schema["$ref"] ? dereference(schema) : schema
+    discriminator = resolved["discriminator"]
+    return nil unless discriminator.is_a?(Hash)
+
+    property = discriminator["propertyName"]
+    mapping = discriminator["mapping"]
+    return nil unless property.is_a?(String) && mapping.is_a?(Hash) && !mapping.empty?
+
+    models = mapping.filter_map do |wire_value, reference|
+      next unless reference.is_a?(String) && reference.start_with?("#/components/schemas/")
+
+      [wire_value, model_reference(constantize(reference.split("/").last))]
+    end.to_h
+    return nil if models.empty?
+
+    { array: array, mapping: models, property: property }
   end
 
   def render_in_package(location, definition, package_documentation: nil, dependency_paths: [])

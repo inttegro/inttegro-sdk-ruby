@@ -31,6 +31,29 @@ module Inttegro
     class OrderLineItemGroup < T::Struct
       const :line_items, T.nilable(T::Array[Inttegro::Shared::LineItem]), default: nil
       const :total, T.nilable(Inttegro::Money::Amount), default: nil
+
+      extend T::Sig
+
+      sig { params(hash: T::Hash[String, Object], strict: T::Boolean).returns(T.attached_class) }
+      def self.from_hash(hash, strict = false)
+        data = hash.dup
+        if (line_items_value = data["line_items"]).is_a?(Array)
+          data["line_items"] = line_items_value.map do |item|
+            next item unless item.is_a?(Hash)
+            case item["type"]
+            when "product"
+              Inttegro::Product::LineItem.from_hash(T.cast(item, T::Hash[String, Object]))
+            when "fee"
+              Inttegro::Shared::FeeLineItem.from_hash(T.cast(item, T::Hash[String, Object]))
+            when "shipping"
+              Inttegro::Shared::ShippingLineItem.from_hash(T.cast(item, T::Hash[String, Object]))
+            else
+              item
+            end
+          end
+        end
+        super(data, strict)
+      end
     end
   end
 end

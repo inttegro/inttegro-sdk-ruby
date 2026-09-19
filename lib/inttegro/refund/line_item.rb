@@ -69,6 +69,26 @@ module Inttegro
       const :reason, T.nilable(Inttegro::Refund::Reason), default: nil
       const :reason_details, T.nilable(String), default: nil
       const :refund_amount, Inttegro::Money::Amount
+
+      extend T::Sig
+
+      sig { params(hash: T::Hash[String, Object], strict: T::Boolean).returns(T.attached_class) }
+      def self.from_hash(hash, strict = false)
+        data = hash.dup
+        if (order_line_item_value = data["order_line_item"]).is_a?(Hash)
+          data["order_line_item"] = case order_line_item_value["type"]
+          when "product"
+            Inttegro::Refund::OrderProductLineItem.from_hash(T.cast(order_line_item_value, T::Hash[String, Object]))
+          when "fee"
+            Inttegro::Refund::OrderFeeLineItem.from_hash(T.cast(order_line_item_value, T::Hash[String, Object]))
+          when "shipping"
+            Inttegro::Refund::OrderShippingLineItem.from_hash(T.cast(order_line_item_value, T::Hash[String, Object]))
+          else
+            order_line_item_value
+          end
+        end
+        super(data, strict)
+      end
     end
   end
 end

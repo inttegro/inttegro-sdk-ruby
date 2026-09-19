@@ -145,6 +145,29 @@ module Inttegro
       const :custom_data, T.nilable(Inttegro::CustomData), default: nil
       const :billing_details, T.nilable(Inttegro::Shared::BillingDetails), default: nil
       const :shipping, T.nilable(Inttegro::Shared::Shipping), default: nil
+
+      extend T::Sig
+
+      sig { params(hash: T::Hash[String, Object], strict: T::Boolean).returns(T.attached_class) }
+      def self.from_hash(hash, strict = false)
+        data = hash.dup
+        if (line_items_value = data["line_items"]).is_a?(Array)
+          data["line_items"] = line_items_value.map do |item|
+            next item unless item.is_a?(Hash)
+            case item["type"]
+            when "product"
+              Inttegro::Product::LineItem.from_hash(T.cast(item, T::Hash[String, Object]))
+            when "fee"
+              Inttegro::Shared::FeeLineItem.from_hash(T.cast(item, T::Hash[String, Object]))
+            when "shipping"
+              Inttegro::Shared::ShippingLineItem.from_hash(T.cast(item, T::Hash[String, Object]))
+            else
+              item
+            end
+          end
+        end
+        super(data, strict)
+      end
     end
   end
 end
