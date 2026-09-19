@@ -8,6 +8,7 @@ require_relative "../custom_data"
 require_relative "../message_template/reference"
 require_relative "email_message_input"
 require_relative "recipient"
+require_relative "send_request_cooldown"
 require_relative "send_request_request_meta"
 
 module Inttegro
@@ -57,6 +58,13 @@ module Inttegro
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `purpose`.
     #   @return [String, nil]
     #
+    # @!attribute [r] cooldown
+    #   Optional application-scoped delivery cooldown. A repeat send with the same key is rejected
+    #   until the duration elapses.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `cooldown`.
+    #   @return [Inttegro::Chime::SendRequestCooldown, nil]
+    #
     # @!attribute [r] custom_data
     #   Merchant-defined string values attached to a resource. SDKs expose this as a semantic
     #   collection rather than a raw map.
@@ -76,6 +84,7 @@ module Inttegro
       const :message_template, T.nilable(Inttegro::MessageTemplate::Reference), default: nil
       const :sender_id, T.nilable(String), default: nil
       const :purpose, T.nilable(String), default: nil
+      const :cooldown, T.nilable(Inttegro::Chime::SendRequestCooldown), default: nil
       const :custom_data, T.nilable(Inttegro::CustomData), default: nil
       const :request_meta, T.nilable(Inttegro::Chime::SendRequestRequestMeta), default: nil
     end

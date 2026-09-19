@@ -7,7 +7,8 @@ require_relative "base"
 
 module Inttegro
   class Chime
-    # String-backed values accepted by the Inttegro API for Inttegro::Chime::Transport.
+    # Optional delivery transport. When omitted, an email address selects email and a phone number
+    # selects SMS.
     #
     # Use the constants below when constructing a request. `#serialize` returns the documented
     # string wire value received from or sent to the API.
