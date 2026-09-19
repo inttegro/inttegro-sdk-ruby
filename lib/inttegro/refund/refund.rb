@@ -150,5 +150,23 @@ module Inttegro
     const :status, Inttegro::Refund::Status
     const :succeeded_at, T.nilable(Time), default: nil
     const :total, Inttegro::Money::Amount
+
+    extend T::Sig
+
+    sig { params(hash: T::Hash[String, Object], strict: T::Boolean).returns(T.attached_class) }
+    def self.from_hash(hash, strict = false)
+      data = hash.dup
+      if (settlement_value = data["settlement"]).is_a?(Hash)
+        data["settlement"] = case settlement_value["type"]
+        when "offline"
+          Inttegro::Refund::OfflineSettlement.from_hash(settlement_value)
+        when "payment_method"
+          Inttegro::Refund::PaymentMethodSettlement.from_hash(settlement_value)
+        else
+          settlement_value
+        end
+      end
+      super(data, strict)
+    end
   end
 end

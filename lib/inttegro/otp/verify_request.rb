@@ -22,7 +22,8 @@ module Inttegro
     #   @return [String]
     #
     # @!attribute [r] recipient
-    #   Phone number that received the OTP
+    #   Phone number or bare email address that received the OTP; must match the stored transaction
+    #   transport.
     #
     #   Required in the API payload. Wire name: `recipient`.
     #   @return [String]

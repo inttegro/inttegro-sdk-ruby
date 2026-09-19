@@ -4,7 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "transmission_sent_via"
+require_relative "../chime/transport"
 require_relative "transmission_status"
 
 module Inttegro
@@ -24,7 +24,7 @@ module Inttegro
     #   @return [String]
     #
     # @!attribute [r] sender_id
-    #   Value of the `sender_id` field in the Inttegro API payload.
+    #   SMS sender identifier or approved email From address.
     #
     #   Required in the API payload. Wire name: `sender_id`.
     #   @return [String]
@@ -39,7 +39,7 @@ module Inttegro
     #   Value of the `sent_via` field in the Inttegro API payload.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `sent_via`.
-    #   @return [Inttegro::OTP::TransmissionSentVia, nil]
+    #   @return [Inttegro::Chime::Transport, nil]
     #
     # @!attribute [r] status
     #   Value of the `status` field in the Inttegro API payload.
@@ -50,7 +50,7 @@ module Inttegro
       const :recipient, String
       const :sender_id, String
       const :sent_at, T.nilable(Time), default: nil
-      const :sent_via, T.nilable(Inttegro::OTP::TransmissionSentVia), default: nil
+      const :sent_via, T.nilable(Inttegro::Chime::Transport), default: nil
       const :status, T.nilable(Inttegro::OTP::TransmissionStatus), default: nil
     end
   end

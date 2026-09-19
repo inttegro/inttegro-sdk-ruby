@@ -90,4 +90,35 @@ class InttegroResourceSemanticsTest < Minitest::Test
     assert method.verified?
     assert method.reusable?
   end
+
+  def test_refund_line_items_expose_typed_order_snapshots
+    refund = Inttegro::Refund.from_hash(
+      "created_at" => "2026-09-09T12:00:00Z",
+      "id" => "rf_123",
+      "line_items" => [
+        {
+          "id" => "rli_123",
+          "order_line_item_id" => "oli_123",
+          "order_line_item" => {
+            "id" => "oli_123",
+            "type" => "product",
+            "quantity" => 2,
+            "product" => { "id" => "prod_123", "name" => "Premium subscription" }
+          },
+          "original_amount_paid" => { "currency" => "ghs", "value" => 200 },
+          "refund_amount" => { "currency" => "ghs", "value" => 100 }
+        }
+      ],
+      "order_id" => "or_123",
+      "reason" => "requested_by_customer",
+      "settlement" => { "type" => "offline" },
+      "status" => "pending",
+      "total" => { "currency" => "ghs", "value" => 100 }
+    )
+
+    line_item = refund.line_items.fetch(0).order_line_item
+    assert_instance_of Inttegro::Refund::OrderProductLineItem, line_item
+    assert_equal 2, line_item&.quantity
+    assert_equal "prod_123", line_item&.product&.id
+  end
 end

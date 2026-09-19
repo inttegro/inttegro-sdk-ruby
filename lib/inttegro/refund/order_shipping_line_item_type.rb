@@ -6,22 +6,19 @@
 require_relative "base"
 
 module Inttegro
-  class Chime
-    # Optional delivery transport. When omitted, an email address selects email and a phone number
-    # selects SMS.
+  class Refund
+    # String-backed values accepted by the Inttegro API for
+    # Inttegro::Refund::OrderShippingLineItemType.
     #
     # Use the constants below when constructing a request. `#serialize` returns the documented
     # string wire value received from or sent to the API.
     #
     # @api public
-    class Transport < T::Enum
+    class OrderShippingLineItemType < T::Enum
       enums do
-        # Serialized wire value: `sms`.
-        # @return [Inttegro::Chime::Transport]
-        SMS = new("sms")
-        # Serialized wire value: `email`.
-        # @return [Inttegro::Chime::Transport]
-        EMAIL = new("email")
+        # Serialized wire value: `shipping`.
+        # @return [Inttegro::Refund::OrderShippingLineItemType]
+        SHIPPING = new("shipping")
       end
     end
   end
