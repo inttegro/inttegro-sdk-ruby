@@ -159,9 +159,9 @@ module Inttegro
       if (settlement_value = data["settlement"]).is_a?(Hash)
         data["settlement"] = case settlement_value["type"]
         when "offline"
-          Inttegro::Refund::OfflineSettlement.from_hash(T.cast(settlement_value, T::Hash[String, Object]))
+          Inttegro::Refund::OfflineSettlement.from_hash(settlement_value)
         when "payment_method"
-          Inttegro::Refund::PaymentMethodSettlement.from_hash(T.cast(settlement_value, T::Hash[String, Object]))
+          Inttegro::Refund::PaymentMethodSettlement.from_hash(settlement_value)
         else
           settlement_value
         end

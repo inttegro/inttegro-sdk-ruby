@@ -41,9 +41,9 @@ module Inttegro
         if (payment_method_value = data["payment_method"]).is_a?(Hash)
           data["payment_method"] = case payment_method_value["type"]
           when "bank_account"
-            Inttegro::Refund::SettlementBankAccountPaymentMethod.from_hash(T.cast(payment_method_value, T::Hash[String, Object]))
+            Inttegro::Refund::SettlementBankAccountPaymentMethod.from_hash(payment_method_value)
           when "mobile_money"
-            Inttegro::Refund::SettlementMobileMoneyPaymentMethod.from_hash(T.cast(payment_method_value, T::Hash[String, Object]))
+            Inttegro::Refund::SettlementMobileMoneyPaymentMethod.from_hash(payment_method_value)
           else
             payment_method_value
           end

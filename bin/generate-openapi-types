@@ -1009,7 +1009,7 @@ class OpenAPITypeGenerator
     details.fetch(:mapping).each do |wire_value, model|
       lines.concat([
         "#{padding}when #{wire_value.inspect}",
-        "#{padding}  #{model}.from_hash(T.cast(#{variable}, T::Hash[String, Object]))"
+        "#{padding}  #{model}.from_hash(#{variable})"
       ])
     end
     lines.concat(["#{padding}else", "#{padding}  #{variable}", "#{padding}end"])

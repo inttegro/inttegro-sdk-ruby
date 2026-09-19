@@ -78,11 +78,11 @@ module Inttegro
         if (order_line_item_value = data["order_line_item"]).is_a?(Hash)
           data["order_line_item"] = case order_line_item_value["type"]
           when "product"
-            Inttegro::Refund::OrderProductLineItem.from_hash(T.cast(order_line_item_value, T::Hash[String, Object]))
+            Inttegro::Refund::OrderProductLineItem.from_hash(order_line_item_value)
           when "fee"
-            Inttegro::Refund::OrderFeeLineItem.from_hash(T.cast(order_line_item_value, T::Hash[String, Object]))
+            Inttegro::Refund::OrderFeeLineItem.from_hash(order_line_item_value)
           when "shipping"
-            Inttegro::Refund::OrderShippingLineItem.from_hash(T.cast(order_line_item_value, T::Hash[String, Object]))
+            Inttegro::Refund::OrderShippingLineItem.from_hash(order_line_item_value)
           else
             order_line_item_value
           end

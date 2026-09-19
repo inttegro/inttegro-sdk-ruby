@@ -42,11 +42,11 @@ module Inttegro
             next item unless item.is_a?(Hash)
             case item["type"]
             when "product"
-              Inttegro::Product::LineItem.from_hash(T.cast(item, T::Hash[String, Object]))
+              Inttegro::Product::LineItem.from_hash(item)
             when "fee"
-              Inttegro::Shared::FeeLineItem.from_hash(T.cast(item, T::Hash[String, Object]))
+              Inttegro::Shared::FeeLineItem.from_hash(item)
             when "shipping"
-              Inttegro::Shared::ShippingLineItem.from_hash(T.cast(item, T::Hash[String, Object]))
+              Inttegro::Shared::ShippingLineItem.from_hash(item)
             else
               item
             end

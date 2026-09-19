@@ -42,13 +42,13 @@ module Inttegro
             next item unless item.is_a?(Hash)
             case item["type"]
             when "product"
-              Inttegro::Order::ProductLineItem.from_hash(T.cast(item, T::Hash[String, Object]))
+              Inttegro::Order::ProductLineItem.from_hash(item)
             when "fee"
-              Inttegro::Order::FeeLineItem.from_hash(T.cast(item, T::Hash[String, Object]))
+              Inttegro::Order::FeeLineItem.from_hash(item)
             when "shipping"
-              Inttegro::Order::ShippingLineItem.from_hash(T.cast(item, T::Hash[String, Object]))
+              Inttegro::Order::ShippingLineItem.from_hash(item)
             when "discount"
-              Inttegro::Order::DiscountLineItem.from_hash(T.cast(item, T::Hash[String, Object]))
+              Inttegro::Order::DiscountLineItem.from_hash(item)
             else
               item
             end
