@@ -16,6 +16,12 @@ module Inttegro
     #
     # @api public
     #
+    # @!attribute [r] accepted_at
+    #   Authoritative time at which Chime accepted this channel delivery.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `accepted_at`.
+    #   @return [Time, nil]
+    #
     # @!attribute [r] channel
     #   Delivery channel.
     #
@@ -28,6 +34,7 @@ module Inttegro
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `chime_id`.
     #   @return [String, nil]
     class DocumentDeliveryAttempt < T::Struct
+      const :accepted_at, T.nilable(Time), default: nil
       const :channel, T.nilable(Inttegro::Shared::DeliveryChannel), default: nil
       const :chime_id, T.nilable(String), default: nil
     end

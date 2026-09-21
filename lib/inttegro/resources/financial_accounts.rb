@@ -60,6 +60,18 @@ module Inttegro
         )
       end
 
+      # Search financial accounts using indexed fields and full-text matching.
+      #
+      # @param payload [Inttegro::Search::Request] search query, filters, sorting, facets, and cursor
+      # @return [Inttegro::Search::Page] typed search results
+      def search(payload)
+        @http.post_resource(
+          "/financial_accounts/search",
+          Inttegro::Search::Page, :search,
+          payload
+        )
+      end
+
       # Update mutable account profile fields.
       #
       # @param payload [Hash, Inttegro::FinancialAccount::UpdateRequest] account identifier and fields to change

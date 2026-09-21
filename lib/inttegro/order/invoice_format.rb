@@ -5,6 +5,7 @@
 
 require_relative "base"
 require_relative "document_format"
+require_relative "receipt_document_format"
 
 module Inttegro
   class Order
@@ -32,11 +33,11 @@ module Inttegro
     #   Value of the `receipt` field in the Inttegro API payload.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `receipt`.
-    #   @return [Inttegro::Order::DocumentFormat, nil]
+    #   @return [Inttegro::Order::ReceiptDocumentFormat, nil]
     class InvoiceFormat < T::Struct
       const :web, Inttegro::Order::DocumentFormat
       const :pdf, Inttegro::Order::DocumentFormat
-      const :receipt, T.nilable(Inttegro::Order::DocumentFormat), default: nil
+      const :receipt, T.nilable(Inttegro::Order::ReceiptDocumentFormat), default: nil
     end
   end
 end

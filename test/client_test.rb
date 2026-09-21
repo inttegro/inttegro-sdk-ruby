@@ -601,10 +601,13 @@ class InttegroClientTest < Minitest::Test
     client = Inttegro::Client.new(token: "test", base_url: "https://api.inttegro.com", adapter: adapter)
 
     client.orders.lookup(order_id: "or_123", idempotency_key: "legacy")
+    client.orders.search(Inttegro::Search::Request.new(text: "tea"))
 
-    body = JSON.parse(requests.first.fetch(:request).body)
-    refute body.key?("request_meta")
-    refute body.key?("idempotency_key")
+    requests.each do |captured|
+      body = JSON.parse(captured.fetch(:request).body)
+      refute body.key?("request_meta")
+      refute body.key?("idempotency_key")
+    end
   end
 
   def test_message_templates_create_uses_request_meta_idempotency_by_default

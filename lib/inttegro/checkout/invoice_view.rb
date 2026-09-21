@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "../order/document_delivery_summary"
 require_relative "invoice_view_beneficiary"
 require_relative "invoice_view_format"
 require_relative "invoice_view_status"
@@ -17,6 +18,12 @@ module Inttegro
     # field names and serialized enum values.
     #
     # @api public
+    #
+    # @!attribute [r] delivery_summary
+    #   Bounded aggregate of Chime-accepted sends for one generated order document.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `delivery_summary`.
+    #   @return [Inttegro::Order::DocumentDeliverySummary, nil]
     #
     # @!attribute [r] id
     #   Value of the `id` field in the Inttegro API payload.
@@ -66,6 +73,7 @@ module Inttegro
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `beneficiary`.
     #   @return [Inttegro::Checkout::InvoiceViewBeneficiary, nil]
     class InvoiceView < T::Struct
+      const :delivery_summary, T.nilable(Inttegro::Order::DocumentDeliverySummary), default: nil
       const :id, String
       const :application_id, T.nilable(String), default: nil
       const :number, T.nilable(String), default: nil

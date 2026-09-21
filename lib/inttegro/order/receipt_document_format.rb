@@ -5,11 +5,10 @@
 
 require_relative "base"
 require_relative "document_delivery_summary"
-require_relative "invoice_format"
 
 module Inttegro
   class Order
-    # Typed representation of the invoice object in the Inttegro API.
+    # Typed representation of the receipt document format object in the Inttegro API.
     #
     # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
     # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire
@@ -23,21 +22,14 @@ module Inttegro
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `delivery_summary`.
     #   @return [Inttegro::Order::DocumentDeliverySummary, nil]
     #
-    # @!attribute [r] number
-    #   Value of the `number` field in the Inttegro API payload.
+    # @!attribute [r] url
+    #   Value of the `url` field in the Inttegro API payload.
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `number`.
-    #   @return [String, nil]
-    #
-    # @!attribute [r] format_value
-    #   Value of the `format` field in the Inttegro API payload.
-    #
-    #   Required in the API payload. Wire name: `format`.
-    #   @return [Inttegro::Order::InvoiceFormat]
-    class Invoice < T::Struct
+    #   Required in the API payload. Wire name: `url`.
+    #   @return [String]
+    class ReceiptDocumentFormat < T::Struct
       const :delivery_summary, T.nilable(Inttegro::Order::DocumentDeliverySummary), default: nil
-      const :number, T.nilable(String), default: nil
-      const :format_value, Inttegro::Order::InvoiceFormat, name: "format"
+      const :url, String
     end
   end
 end

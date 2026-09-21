@@ -8,9 +8,10 @@ class OpenAPITypeGenerator
   SEMANTIC_MAP_TYPES = {
     "CustomData" => "Inttegro::CustomData",
     "CustomDataInput" => "Inttegro::CustomDataInput",
-    "CustomDataPatch" => "Inttegro::CustomDataPatch"
+    "CustomDataPatch" => "Inttegro::CustomDataPatch",
+    "ResourceSearchAmount" => "Inttegro::Money::Amount"
   }.freeze
-  IGNORED_LEGACY_COMPONENT_SCHEMAS = ["OrderCreateResponse"].freeze
+  IGNORED_COMPONENT_SCHEMAS = ["OrderCreateResponse", "ResourceSearchAmount"].freeze
   PACKAGE_DEFINITIONS = {
     "Application" => { directory: "app", tokens: %w[Application App] },
     "BalanceTransaction" => { directory: "balance_transaction", tokens: %w[BalanceTransaction] },
@@ -39,6 +40,7 @@ class OpenAPITypeGenerator
     "Wallet" => { directory: "wallet", tokens: %w[Wallet] },
     "File" => { directory: "file", tokens: %w[File] },
     "Money" => { directory: "money", tokens: [] },
+    "Search" => { directory: "search", tokens: %w[ResourceSearch SearchResource] },
     "Shared" => { directory: "shared", tokens: [] }
   }.freeze
   CLASS_PACKAGES = %w[
@@ -203,13 +205,13 @@ class OpenAPITypeGenerator
     @enum_locations = {}
 
     @component_schemas.each do |name, schema|
-      next if IGNORED_LEGACY_COMPONENT_SCHEMAS.include?(name)
+      next if IGNORED_COMPONENT_SCHEMAS.include?(name)
       next if map_schema?(schema)
 
       reserve_name(name)
     end
     @component_schemas.each do |name, schema|
-      next if IGNORED_LEGACY_COMPONENT_SCHEMAS.include?(name)
+      next if IGNORED_COMPONENT_SCHEMAS.include?(name)
       next if map_schema?(schema)
 
       register_named_schema(name, schema, "components.schemas.#{name}")
