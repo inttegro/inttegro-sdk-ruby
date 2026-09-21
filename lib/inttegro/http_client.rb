@@ -520,7 +520,7 @@ module Inttegro
           path_or_url
         end
       action = path.split("/").reject(&:empty?).last
-      !["", nil, "lookup", "page", "settings", "countries", "contents", "balances", "render_preview"].include?(action)
+      !["", nil, "lookup", "page", "search", "settings", "countries", "contents", "balances", "render_preview"].include?(action)
     rescue URI::InvalidURIError
       false
     end

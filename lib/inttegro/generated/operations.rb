@@ -126,7 +126,12 @@ module Inttegro
       "/prices/activate" => Inttegro::Price::Response,
       "/prices/deactivate" => Inttegro::Price::Response,
       "/prices/archive" => Inttegro::Price::Response,
-      "/spec/countries" => Inttegro::Shared::CountrySpecifications
+      "/spec/countries" => Inttegro::Shared::CountrySpecifications,
+      "/customers/search" => Inttegro::Search::Response,
+      "/financial_accounts/search" => Inttegro::Search::Response,
+      "/orders/search" => Inttegro::Search::Response,
+      "/payouts/search" => Inttegro::Search::Response,
+      "/products/search" => Inttegro::Search::Response
     }.freeze, T::Hash[String, T::Class[T::Struct]])
 
     REQUEST_TYPE_NAMES = T.let({
@@ -246,7 +251,12 @@ module Inttegro
       "/prices/activate" => "Inttegro::Price::ActionRequest",
       "/prices/deactivate" => "Inttegro::Price::ActionRequest",
       "/prices/archive" => "Inttegro::Price::ActionRequest",
-      "/spec/countries" => "Inttegro::Shared::ListCountrySpecsRequest"
+      "/spec/countries" => "Inttegro::Shared::ListCountrySpecsRequest",
+      "/customers/search" => "Inttegro::Search::Request",
+      "/financial_accounts/search" => "Inttegro::Search::Request",
+      "/orders/search" => "Inttegro::Search::Request",
+      "/payouts/search" => "Inttegro::Search::Request",
+      "/products/search" => "Inttegro::Search::Request"
     }.freeze, T::Hash[String, String])
 
     OPERATION_IDS = T.let({
@@ -370,7 +380,12 @@ module Inttegro
       "/prices/activate" => "activatePrice",
       "/prices/deactivate" => "deactivatePrice",
       "/prices/archive" => "archivePrice",
-      "/spec/countries" => "listCountrySpecs"
+      "/spec/countries" => "listCountrySpecs",
+      "/customers/search" => "searchCustomers",
+      "/financial_accounts/search" => "searchFinancialAccounts",
+      "/orders/search" => "searchOrders",
+      "/payouts/search" => "searchPayouts",
+      "/products/search" => "searchProducts"
     }.freeze, T::Hash[String, String])
 
     BINARY_PATHS = T.let(["/files/contents", "/file_links/open"].freeze, T::Array[String])

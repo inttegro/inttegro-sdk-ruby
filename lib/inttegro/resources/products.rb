@@ -83,6 +83,14 @@ module Inttegro
       def page(payload = {})
         @http.post_resource("/products/page", Inttegro::Product::Page, :page, payload || {})
       end
+
+      # Search products using indexed fields and full-text matching.
+      #
+      # @param payload [Inttegro::Search::Request] search query, filters, sorting, facets, and cursor
+      # @return [Inttegro::Search::Page] typed search results
+      def search(payload)
+        @http.post_resource("/products/search", Inttegro::Search::Page, :search, payload)
+      end
     end
   end
 end

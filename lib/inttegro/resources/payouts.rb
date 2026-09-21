@@ -156,6 +156,14 @@ module Inttegro
         @http.post_resource("/payouts/page", Inttegro::Payout::Page, :page, payload)
       end
 
+      # Search payouts using indexed fields and full-text matching.
+      #
+      # @param payload [Inttegro::Search::Request] search query, filters, sorting, facets, and cursor
+      # @return [Inttegro::Search::Page] typed search results
+      def search(payload)
+        @http.post_resource("/payouts/search", Inttegro::Search::Page, :search, payload)
+      end
+
       # Schedule a payout from the application's available balance.
       #
       # @param payload [Inttegro::Schedule::PayoutRequest] typed amount, destination, and execution fields

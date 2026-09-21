@@ -80,6 +80,9 @@ module Inttegro
       sig { params(payload: T.nilable(T.any(Inttegro::Customer::PageRequest, Inttegro::Types::Payload))).returns(Inttegro::Customer::Page) }
       def page(payload = nil); end
 
+      sig { params(payload: T.any(Inttegro::Search::Request, Inttegro::Types::Payload)).returns(Inttegro::Search::Page) }
+      def search(payload); end
+
       sig { params(payload: T.any(Inttegro::Customer::UpdateRequest, Inttegro::Types::Payload)).returns(Inttegro::Customer) }
       def update(payload); end
     end
@@ -170,6 +173,9 @@ module Inttegro
 
       sig { params(account_id: String).returns(Inttegro::FinancialAccount) }
       def reconnect(account_id:); end
+
+      sig { params(payload: T.any(Inttegro::Search::Request, Inttegro::Types::Payload)).returns(Inttegro::Search::Page) }
+      def search(payload); end
 
       sig { params(payload: T.any(Inttegro::FinancialAccount::UpdateRequest, Inttegro::Types::Payload)).returns(Inttegro::FinancialAccount) }
       def update(payload); end
@@ -267,6 +273,9 @@ module Inttegro
 
       sig { params(order_id: String, request_meta: T.nilable(Inttegro::Types::Payload)).returns(Inttegro::Order) }
       def request_confirmation(order_id:, request_meta: nil); end
+
+      sig { params(payload: T.any(Inttegro::Search::Request, Inttegro::Types::Payload)).returns(Inttegro::Search::Page) }
+      def search(payload); end
 
       sig { params(order_id: String).returns(Inttegro::Order::DocumentDeliveryResult) }
       def send_invoice(order_id:); end
@@ -374,6 +383,9 @@ module Inttegro
       sig { params(payload: Inttegro::Schedule::PayoutRequest).returns(Inttegro::Payout) }
       def schedule(payload); end
 
+      sig { params(payload: Inttegro::Search::Request).returns(Inttegro::Search::Page) }
+      def search(payload); end
+
       sig { params(destinations: Inttegro::Payout::Destinations).returns(Inttegro::Payout::SettingsMutation) }
       def set_destinations(destinations:); end
 
@@ -428,6 +440,9 @@ module Inttegro
 
       sig { params(product_id: String).returns(Inttegro::Product) }
       def publish(product_id:); end
+
+      sig { params(payload: T.any(Inttegro::Search::Request, Inttegro::Types::Payload)).returns(Inttegro::Search::Page) }
+      def search(payload); end
 
       sig { params(payload: T.any(Inttegro::Product::SetDefaultUnitPriceRequest, Inttegro::Types::Payload)).returns(Inttegro::Product) }
       def set_default_unit_price(payload); end

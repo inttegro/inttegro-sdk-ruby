@@ -398,6 +398,14 @@ module Inttegro
         @http.post_resource("/orders/page", Inttegro::Order::Page, :page, payload || {})
       end
 
+      # Search orders using indexed fields and full-text matching.
+      #
+      # @param payload [Inttegro::Search::Request] search query, filters, sorting, facets, and cursor
+      # @return [Inttegro::Search::Page] typed search results
+      def search(payload)
+        @http.post_resource("/orders/search", Inttegro::Search::Page, :search, payload)
+      end
+
       private
 
       def stable_order_request_meta(action, order_id)
