@@ -49,12 +49,8 @@ module Inttegro
   #   @return [Inttegro::Money::Amount]
   #
   # @!attribute [r] balance_transaction
-  #   Merchant balance entry caused by a payment or refund. `type` describes the semantic source,
-  #   not direction. A payment transaction contains `payment_id`; a refund transaction contains
-  #   `refund_id`. Exactly one matching reference is present. Payment transactions also expose
-  #   their complete current allocation state and disjoint available, pending, and spent amounts.
-  #   Allocation fields are omitted from refund transactions because refund transactions are
-  #   consumers rather than sources.
+  #   Merchant balance entry caused by a payment, refund, or payout. `type` is the discriminator
+  #   and describes the semantic source rather than the direction.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `balance_transaction`.
   #   @return [Inttegro::BalanceTransaction, nil]

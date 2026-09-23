@@ -7,7 +7,7 @@ require_relative "base"
 
 module Inttegro
   class BalanceTransaction
-    # Amount still available for a refund or payout. Present only when `type` is `payment`.
+    # Amount still available for a refund or payout.
     #
     # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
     # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire

@@ -11,7 +11,17 @@ class OpenAPITypeGenerator
     "CustomDataPatch" => "Inttegro::CustomDataPatch",
     "ResourceSearchAmount" => "Inttegro::Money::Amount"
   }.freeze
-  IGNORED_COMPONENT_SCHEMAS = ["OrderCreateResponse", "ResourceSearchAmount"].freeze
+  IGNORED_COMPONENT_SCHEMAS = [
+    "OrderCreateResponse",
+    "ResourceSearchAmount",
+    # BalanceTransaction is intentionally the public flattened SDK value. Its
+    # OpenAPI-only variants express response validation without creating four
+    # competing Ruby representations of the same discriminated payload.
+    "BalanceTransactionBase",
+    "PaymentBalanceTransaction",
+    "RefundBalanceTransaction",
+    "PayoutDebitBalanceTransaction"
+  ].freeze
   PACKAGE_DEFINITIONS = {
     "Application" => { directory: "app", tokens: %w[Application App] },
     "BalanceTransaction" => { directory: "balance_transaction", tokens: %w[BalanceTransaction] },
@@ -502,7 +512,9 @@ class OpenAPITypeGenerator
     return false if schema["$ref"]
     return true if schema["type"] == "object" || schema.key?("properties")
 
-    schema["allOf"]&.any? { |part| object_schema?(dereference(part)) } || false
+    return true if schema["allOf"]&.any? { |part| object_schema?(dereference(part)) }
+
+    balance_transaction_union?(schema)
   end
 
   def map_schema?(schema)
@@ -531,8 +543,26 @@ class OpenAPITypeGenerator
     schema.fetch("allOf", []).each do |part|
       properties.merge!(properties_for(part, seen)) if part.is_a?(Hash)
     end
-    properties.merge!(schema.fetch("properties", {}))
+    variants = balance_transaction_union?(schema) ? schema.fetch("oneOf") : []
+    variants.each do |variant|
+      properties_for(variant, seen).each do |name, property_schema|
+        existing = properties[name]
+        properties[name] = merge_variant_property_schema(existing, property_schema)
+      end
+    end
+    schema.fetch("properties", {}).each do |name, property_schema|
+      existing = properties[name]
+      properties[name] = merge_variant_property_schema(existing, property_schema)
+    end
     properties
+  end
+
+  def merge_variant_property_schema(existing, incoming)
+    return incoming unless existing.is_a?(Hash) && incoming.is_a?(Hash)
+    return incoming unless existing["type"] == "string" && incoming["type"] == "string"
+    return incoming unless existing["enum"].is_a?(Array) && incoming["enum"].is_a?(Array)
+
+    incoming.merge("enum" => (existing.fetch("enum") + incoming.fetch("enum")).uniq)
   end
 
   def required_for(schema, seen = {})
@@ -545,7 +575,16 @@ class OpenAPITypeGenerator
     schema.fetch("allOf", []).each do |part|
       required.concat(required_for(part, seen)) if part.is_a?(Hash)
     end
+    variants = balance_transaction_union?(schema) ? schema.fetch("oneOf") : []
+    unless variants.empty?
+      common = variants.map { |variant| required_for(variant, seen) }.reduce { |left, right| left & right }
+      required.concat(common || [])
+    end
     required.uniq
+  end
+
+  def balance_transaction_union?(schema)
+    schema.equal?(@component_schemas["BalanceTransaction"]) && schema["oneOf"].is_a?(Array)
   end
 
   def enum_name(values, candidate, schema, origin)
@@ -1025,6 +1064,11 @@ class OpenAPITypeGenerator
     end
 
     resolved = schema["$ref"] ? dereference(schema) : schema
+    # Ruby keeps BalanceTransaction as one flattened domain value with a typed
+    # discriminator. The OpenAPI-only variants validate wire payloads but are
+    # deliberately not generated as competing runtime classes.
+    return nil if balance_transaction_union?(resolved)
+
     discriminator = resolved["discriminator"]
     return nil unless discriminator.is_a?(Hash)
 
