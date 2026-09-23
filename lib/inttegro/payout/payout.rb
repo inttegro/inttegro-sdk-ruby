@@ -6,6 +6,7 @@
 require_relative "base"
 require_relative "../custom_data"
 require_relative "../money/amount"
+require_relative "balance_transaction"
 require_relative "error"
 require_relative "status"
 
@@ -25,10 +26,13 @@ module Inttegro
   #   @return [Inttegro::Money::Amount, nil]
   #
   # @!attribute [r] balance_transactions
-  #   Balance transaction IDs linked to this payout
+  #   Balance transactions that contributed to this payout. Each item includes the source
+  #   transaction's original amount and the exact portion allocated to this payout. The difference
+  #   between those two amounts is not necessarily still available because refunds or other
+  #   payouts may also consume the source.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `balance_transactions`.
-  #   @return [Array<String>, nil]
+  #   @return [Array<Inttegro::Payout::BalanceTransaction>, nil]
   #
   # @!attribute [r] canceled_at
   #   When the payout was canceled
@@ -152,7 +156,7 @@ module Inttegro
   #   @return [Time, nil]
   class Payout
     const :amount, T.nilable(Inttegro::Money::Amount), default: nil
-    const :balance_transactions, T.nilable(T::Array[String]), default: nil
+    const :balance_transactions, T.nilable(T::Array[Inttegro::Payout::BalanceTransaction]), default: nil
     const :canceled_at, T.nilable(Time), default: nil
     const :custom_data, T.nilable(Inttegro::CustomData), default: nil
     const :destination_id, String

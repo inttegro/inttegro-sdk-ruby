@@ -16,9 +16,9 @@ module Inttegro
   # Merchant balance entry caused by a payment or refund. `type` describes the semantic source,
   # not direction. A payment transaction contains `payment_id`; a refund transaction contains
   # `refund_id`. Exactly one matching reference is present. Payment transactions also expose
-  # their complete current allocation history and disjoint available, pending, and spent
-  # amounts. Allocation fields are omitted from refund transactions because refund transactions
-  # are consumers rather than sources.
+  # their complete current allocation state and disjoint available, pending, and spent amounts.
+  # Allocation fields are omitted from refund transactions because refund transactions are
+  # consumers rather than sources.
   #
   # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
   # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire
@@ -151,17 +151,17 @@ module Inttegro
     def self.from_hash(hash, strict = false)
       data = hash.dup
       if (allocations_value = data["allocations"]).is_a?(Array)
-	data["allocations"] = allocations_value.map do |item|
-	  next item unless item.is_a?(Hash)
-	  case item["type"]
-	  when "payout"
-	    Inttegro::BalanceTransaction::PayoutAllocation.from_hash(item)
-	  when "refund"
-	    Inttegro::BalanceTransaction::RefundAllocation.from_hash(item)
-	  else
-	    item
-	  end
-	end
+        data["allocations"] = allocations_value.map do |item|
+          next item unless item.is_a?(Hash)
+          case item["type"]
+          when "payout"
+            Inttegro::BalanceTransaction::PayoutAllocation.from_hash(item)
+          when "refund"
+            Inttegro::BalanceTransaction::RefundAllocation.from_hash(item)
+          else
+            item
+          end
+        end
       end
       super(data, strict)
     end
