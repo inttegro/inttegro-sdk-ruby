@@ -49,7 +49,10 @@ module Inttegro
   #   @return [String, nil]
   #
   # @!attribute [r] fingerprint
-  #   App-scoped value for spotting possible duplicate customer records.
+  #   Application-scoped value for spotting possible duplicate customer records. Matching nonempty
+  #   fingerprints within the same application indicate that the records likely belong to the same
+  #   buyer. Compare fingerprints only within that application, and continue to use each customer
+  #   ID for API operations.
   #
   #   Required in the API payload. Wire name: `fingerprint`.
   #   @return [String]
