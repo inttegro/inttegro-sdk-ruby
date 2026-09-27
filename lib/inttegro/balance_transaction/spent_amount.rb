@@ -7,8 +7,7 @@ require_relative "base"
 
 module Inttegro
   class BalanceTransaction
-    # Amount permanently consumed by completed refunds and payouts. Present only when `type` is
-    # `payment`.
+    # Amount permanently consumed by completed refund and payout allocations.
     #
     # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
     # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire

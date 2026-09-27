@@ -42,7 +42,8 @@ module Inttegro
     #
     # @return [Boolean] whether the transaction satisfies the local identity checks
     def valid?
-      !id.empty? && !order_id.empty? && valid_source?
+      order = order_id
+      !id.empty? && !order.nil? && !order.empty? && valid_source?
     end
   end
 end

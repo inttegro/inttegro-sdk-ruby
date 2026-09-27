@@ -34,6 +34,12 @@ module Inttegro
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `balance_transactions`.
   #   @return [Array<Inttegro::Payout::BalanceTransaction>, nil]
   #
+  # @!attribute [r] balance_transaction_id
+  #   Immutable debit balance transaction created when this payout succeeds.
+  #
+  #   Optional in the API payload; omitted values default to `nil`. Wire name: `balance_transaction_id`.
+  #   @return [String, nil]
+  #
   # @!attribute [r] canceled_at
   #   When the payout was canceled
   #
@@ -157,6 +163,7 @@ module Inttegro
   class Payout
     const :amount, T.nilable(Inttegro::Money::Amount), default: nil
     const :balance_transactions, T.nilable(T::Array[Inttegro::Payout::BalanceTransaction]), default: nil
+    const :balance_transaction_id, T.nilable(String), default: nil
     const :canceled_at, T.nilable(Time), default: nil
     const :custom_data, T.nilable(Inttegro::CustomData), default: nil
     const :destination_id, String

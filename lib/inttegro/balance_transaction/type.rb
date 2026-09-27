@@ -7,7 +7,7 @@ require_relative "base"
 
 module Inttegro
   class BalanceTransaction
-    # Semantic source or cause of the transaction, not its direction.
+    # String-backed values accepted by the Inttegro API for Inttegro::BalanceTransaction::Type.
     #
     # Use the constants below when constructing a request. `#serialize` returns the documented
     # string wire value received from or sent to the API.
@@ -21,6 +21,9 @@ module Inttegro
         # Serialized wire value: `refund`.
         # @return [Inttegro::BalanceTransaction::Type]
         REFUND = new("refund")
+        # Serialized wire value: `payout`.
+        # @return [Inttegro::BalanceTransaction::Type]
+        PAYOUT = new("payout")
       end
     end
   end

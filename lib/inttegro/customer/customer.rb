@@ -48,6 +48,15 @@ module Inttegro
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `email_address`.
   #   @return [String, nil]
   #
+  # @!attribute [r] fingerprint
+  #   Application-scoped value for spotting possible duplicate customer records. Matching nonempty
+  #   fingerprints within the same application indicate that the records likely belong to the same
+  #   buyer. Compare fingerprints only within that application, and continue to use each customer
+  #   ID for API operations.
+  #
+  #   Required in the API payload. Wire name: `fingerprint`.
+  #   @return [String]
+  #
   # @!attribute [r] guest
   #   Value of the `guest` field in the Inttegro API payload.
   #
@@ -107,6 +116,7 @@ module Inttegro
     const :created_at, Time
     const :custom_data, T.nilable(Inttegro::CustomData), default: nil
     const :email_address, T.nilable(String), default: nil
+    const :fingerprint, String
     const :guest, T::Boolean
     const :id, String
     const :name, String
