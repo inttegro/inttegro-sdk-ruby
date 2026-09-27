@@ -18,6 +18,7 @@ class InttegroResourceSemanticsTest < Minitest::Test
         "billing_address" => { "country" => "gh", "city" => "Accra" },
         "created_at" => "2026-09-02T12:00:00Z",
         "custom_data" => { "segment" => "vip" },
+        "fingerprint" => "cfp_v1_app_buyer",
         "guest" => false,
         "id" => "cu_1",
         "name" => "Ama Mensah"
@@ -27,6 +28,13 @@ class InttegroResourceSemanticsTest < Minitest::Test
     assert_instance_of Inttegro::CustomData, customer.custom_data
     assert customer.custom_data&.frozen?
     assert_equal "Accra", customer.billing_address&.city
+  end
+
+  def test_customer_fingerprint_is_required_and_round_trips
+    base = { "balance" => {}, "created_at" => "2026-09-02T12:00:00Z", "fingerprint" => "cfp_v1_app_buyer", "guest" => false, "id" => "cu_1", "name" => "Ama" }
+    customer = Inttegro::Customer.from_hash(base)
+    assert_equal "cfp_v1_app_buyer", customer.fingerprint
+    assert_equal "cfp_v1_app_buyer", customer.serialize.fetch("fingerprint")
   end
 
   def test_payment_and_order_questions
