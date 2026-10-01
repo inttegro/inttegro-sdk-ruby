@@ -26,8 +26,8 @@ module Inttegro
     # @!attribute [r] product
     #   Provide either inline product data or a `product_id` reference to an existing catalog
     #   product. Catalog-backed product line items can use an explicit `price` or an existing
-    #   `price_id`. Inttegro never falls back to a product's default unit price during order
-    #   creation.
+    #   `price_id`, or a validated `customer_selected_price`. Inttegro never falls back to a
+    #   product's default unit price during order creation.
     #
     #   Required in the API payload. Wire name: `product`.
     #   @return [Inttegro::Product::Details]

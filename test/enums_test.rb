@@ -16,18 +16,28 @@ class InttegroEnumTypesTest < Minitest::Test
   def test_amount_and_price_types_preserve_wire_shapes
     price = Inttegro::Price::PriceParams.new(currency: Inttegro::Money::Currency::GHS, value: 3005)
     amount = Inttegro::Money::AmountParams.new(currency: Inttegro::Money::Currency::GHS, value: 3005)
-    catalog = Inttegro::Price::CatalogPriceParams.new(amount: amount, label: "Retail")
+    catalog = Inttegro::Price::CatalogPriceParams.new(
+      type: Inttegro::Price::Type::FIXED_AMOUNT,
+      fixed_amount: amount,
+      label: "Retail"
+    )
     returned = Inttegro::Price::CatalogPrice.from_hash(
       "id" => "pr_123",
       "active" => true,
+      "type" => "fixed_amount",
       "nominal" => { "currency" => "ghs", "value" => 3005 },
+      "fixed_amount" => { "currency" => "ghs", "value" => 3005 },
       "product_id" => "prod_123",
       "created_at" => "2026-09-02T12:00:00Z"
     )
 
     assert_equal({ "currency" => "ghs", "value" => 3005 }, price.serialize)
     assert_equal(
-      { "amount" => { "currency" => "ghs", "value" => 3005 }, "label" => "Retail" },
+      {
+        "type" => "fixed_amount",
+        "fixed_amount" => { "currency" => "ghs", "value" => 3005 },
+        "label" => "Retail"
+      },
       catalog.serialize
     )
     assert_equal "prod_123", returned.product_id
