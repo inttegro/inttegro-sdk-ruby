@@ -165,6 +165,7 @@ class OpenAPITypeGenerator
     ["mobile_money", "bank_account", "card", "motito"] => "PaymentMethodType",
     ["airtel", "mtn", "telecel", "vodafone"] => "MobileMoneyNetwork",
     ["physical", "digital", "service", "voucher", "custom", "cause"] => "ProductType",
+    ["fixed_amount", "customer_selected_amount"] => "PriceType",
     ["delivery", "download", "render", "service", "stream"] => "ProductShipmentType",
     ["delivery", "download", "render", "stream"] => "ProductShipmentInputType",
     ["product", "fee", "shipping"] => "LineItemType",
@@ -282,6 +283,11 @@ class OpenAPITypeGenerator
   def package_for_name(name)
     return "Payment" if name.start_with?("PaymentMethodSnapshot")
     return "Money" if %w[Amount AmountParams Currency].include?(name)
+    return "Price" if %w[
+      PriceType SuggestedAmount SuggestedAmountParams
+      CustomerSelectedAmount CustomerSelectedAmountParams
+    ].include?(name)
+    return "Product" if name == "CustomerSelectedPriceInput"
 
     matches = PACKAGE_DEFINITIONS.filter_map do |package, definition|
       definition.fetch(:tokens).filter_map do |token|

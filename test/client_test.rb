@@ -733,7 +733,8 @@ class InttegroClientTest < Minitest::Test
     client.products.create(type: "physical", name: "Product")
     client.products.add_price(
       product_id: "prod_123",
-      amount: { currency: "ghs", value: 5000 },
+      type: "fixed_amount",
+      fixed_amount: { currency: "ghs", value: 5000 },
       set_as_default: true
     )
     client.products.set_default_unit_price(product_id: "prod_123", price_id: "pr_123")

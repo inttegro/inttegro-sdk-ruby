@@ -5,6 +5,8 @@
 
 require_relative "base"
 require_relative "../money/amount"
+require_relative "../price/customer_selected_amount"
+require_relative "../price/type"
 
 module Inttegro
   class Product
@@ -34,16 +36,37 @@ module Inttegro
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `label`.
     #   @return [String, nil]
     #
-    # @!attribute [r] nominal
-    #   Price amount
+    # @!attribute [r] type
+    #   Price definition discriminator
     #
-    #   Required in the API payload. Wire name: `nominal`.
-    #   @return [Inttegro::Money::Amount]
+    #   Required in the API payload. Wire name: `type`.
+    #   @return [Inttegro::Price::Type]
+    #
+    # @!attribute [r] nominal
+    #   Legacy fixed price amount. Present only for fixed_amount prices.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `nominal`.
+    #   @return [Inttegro::Money::Amount, nil]
+    #
+    # @!attribute [r] fixed_amount
+    #   Fixed price amount. Present only for fixed_amount prices.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `fixed_amount`.
+    #   @return [Inttegro::Money::Amount, nil]
+    #
+    # @!attribute [r] customer_selected_amount
+    #   Customer-selected amount configuration. Present only for customer_selected_amount prices.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `customer_selected_amount`.
+    #   @return [Inttegro::Price::CustomerSelectedAmount, nil]
     class PriceSummary < T::Struct
       const :id, String
       const :active, T::Boolean
       const :label, T.nilable(String), default: nil
-      const :nominal, Inttegro::Money::Amount
+      const :type, Inttegro::Price::Type
+      const :nominal, T.nilable(Inttegro::Money::Amount), default: nil
+      const :fixed_amount, T.nilable(Inttegro::Money::Amount), default: nil
+      const :customer_selected_amount, T.nilable(Inttegro::Price::CustomerSelectedAmount), default: nil
     end
   end
 end

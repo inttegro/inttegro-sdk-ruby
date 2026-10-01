@@ -5,7 +5,9 @@
 
 require_relative "base"
 require_relative "../money/amount"
+require_relative "customer_selected_amount"
 require_relative "embedded_product"
+require_relative "type"
 
 module Inttegro
   class Price
@@ -41,11 +43,29 @@ module Inttegro
     #   Required in the API payload. Wire name: `active`.
     #   @return [Boolean]
     #
-    # @!attribute [r] nominal
-    #   Price amount
+    # @!attribute [r] type
+    #   Price definition discriminator
     #
-    #   Required in the API payload. Wire name: `nominal`.
-    #   @return [Inttegro::Money::Amount]
+    #   Required in the API payload. Wire name: `type`.
+    #   @return [Inttegro::Price::Type]
+    #
+    # @!attribute [r] nominal
+    #   Legacy fixed price amount. Present only for fixed_amount prices.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `nominal`.
+    #   @return [Inttegro::Money::Amount, nil]
+    #
+    # @!attribute [r] fixed_amount
+    #   Fixed price amount. Present only for fixed_amount prices.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `fixed_amount`.
+    #   @return [Inttegro::Money::Amount, nil]
+    #
+    # @!attribute [r] customer_selected_amount
+    #   Customer-selected amount configuration. Present only for customer_selected_amount prices.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `customer_selected_amount`.
+    #   @return [Inttegro::Price::CustomerSelectedAmount, nil]
     #
     # @!attribute [r] product_id
     #   Product ID when the operation returns the relationship by reference
@@ -81,7 +101,10 @@ module Inttegro
       const :label, T.nilable(String), default: nil
       const :about, T.nilable(String), default: nil
       const :active, T::Boolean
-      const :nominal, Inttegro::Money::Amount
+      const :type, Inttegro::Price::Type
+      const :nominal, T.nilable(Inttegro::Money::Amount), default: nil
+      const :fixed_amount, T.nilable(Inttegro::Money::Amount), default: nil
+      const :customer_selected_amount, T.nilable(Inttegro::Price::CustomerSelectedAmount), default: nil
       const :product_id, T.nilable(String), default: nil
       const :product, T.nilable(Inttegro::Price::EmbeddedProduct), default: nil
       const :created_at, Time

@@ -14,7 +14,7 @@ module Inttegro
 
       # Create a catalog price.
       #
-      # @param payload [Hash, Inttegro::Price::CatalogPriceParams] amount and optional price metadata
+      # @param payload [Hash, Inttegro::Price::CatalogPriceParams] tagged price definition and optional metadata
       # @return [Inttegro::Price::CatalogPrice] created price
       def create(payload)
         @http.post_resource("/prices/create", Inttegro::Price::CatalogPrice, :price, payload)

@@ -712,7 +712,10 @@ module Inttegro
       when "/products/create"
         require_keys(body, %w[type name], path)
       when "/products/add_price"
-        require_keys(body, %w[product_id amount], path)
+        require_keys(body, %w[product_id], path)
+        validate_catalog_price_definition(body, path, require_product: true)
+      when "/prices/create"
+        validate_catalog_price_definition(body, path, require_product: true)
       when "/products/set_default_unit_price"
         require_keys(body, %w[product_id price_id], path)
       when "/products/lookup", "/products/update", "/products/publish", "/products/unpublish", "/products/archive"
@@ -755,6 +758,28 @@ module Inttegro
       return if present
 
       raise ArgumentError, "Missing required fields for #{path}: one of #{keys.join(', ')}"
+    end
+
+    sig { params(body: Types::Payload, path: String, require_product: T::Boolean).void }
+    def validate_catalog_price_definition(body, path, require_product:)
+      legacy_amount = payload_value(body, "amount")
+      price_type = payload_value(body, "type")
+      fixed_amount = payload_value(body, "fixed_amount")
+      selected_amount = payload_value(body, "customer_selected_amount")
+
+      fixed = price_type == "fixed_amount" && present?(fixed_amount) &&
+        !present?(legacy_amount) && !present?(selected_amount)
+      selected = price_type == "customer_selected_amount" && present?(selected_amount) &&
+        !present?(legacy_amount) && !present?(fixed_amount)
+      selected &&= present?(payload_value(body, "product_id")) if require_product
+      return if [fixed, selected].count(true) == 1
+
+      raise ArgumentError, "Invalid price definition for #{path}: provide exactly one supported definition"
+    end
+
+    sig { params(body: Types::Payload, key: String).returns(Object) }
+    def payload_value(body, key)
+      body.key?(key) ? body[key] : body[key.to_sym]
     end
 
     sig { params(value: Object).returns(T::Boolean) }
