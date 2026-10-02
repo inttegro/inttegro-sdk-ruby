@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors = ["Inttegro Engineering"]
   spec.email = ["engineering@inttegro.com"]
 
-  spec.summary = "Typed Ruby SDK for Inttegro GHS checkout and Ghana Mobile Money payments"
-  spec.description = "Build Ghanaian commerce with typed Inttegro APIs for checkout, Mobile Money payments, orders, refunds, and payouts."
+  spec.summary = "Official Ruby SDK for the Inttegro API"
+  spec.description = "First-party Ruby client for working with orders, payments, payouts, notifications, and verification on Inttegro."
   spec.homepage = "https://studio.inttegro.com"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.0.0"
