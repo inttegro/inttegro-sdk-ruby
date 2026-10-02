@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+## [9.2.1] - 2026-10-02
+
+- Clarified the gem's GHS checkout and Ghana Mobile Money use cases in its
+  searchable RubyGems metadata and quickstart.
+
 ## [9.2.0] - 2026-10-01
 
 - Added typed fixed and customer-selected catalog price definitions, suggested

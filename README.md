@@ -2,7 +2,8 @@
 
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/inttegro/inttegro-sdk-ruby/badge)](https://scorecard.dev/viewer/?uri=github.com/inttegro/inttegro-sdk-ruby)
 
-The official Ruby client for building server-side Inttegro integrations.
+Accept GHS payments, present Ghana Mobile Money checkout, and manage orders,
+refunds, and payouts with Inttegro's typed server-side Ruby SDK.
 
 [API documentation](https://ruby.inttegro.dev/) · [Integration guides](https://studio.inttegro.com/sdks/ruby)
 
