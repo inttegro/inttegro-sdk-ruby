@@ -5,6 +5,7 @@
 
 require_relative "base"
 require_relative "merchant"
+require_relative "presentation"
 require_relative "price"
 require_relative "product"
 require_relative "quantity"
@@ -65,6 +66,12 @@ module Inttegro
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `price`.
   #   @return [Inttegro::PurchaseIntent::Price, nil]
   #
+  # @!attribute [r] presentation
+  #   Merchant-authored Buy page presentation settings.
+  #
+  #   Optional in the API payload; omitted values default to `nil`. Wire name: `presentation`.
+  #   @return [Inttegro::PurchaseIntent::Presentation, nil]
+  #
   # @!attribute [r] product
   #   Value of the `product` field in the Inttegro API payload.
   #
@@ -110,6 +117,7 @@ module Inttegro
     const :inactive_at, T.nilable(Time), default: nil
     const :merchant, T.nilable(Inttegro::PurchaseIntent::Merchant), default: nil
     const :price, T.nilable(Inttegro::PurchaseIntent::Price), default: nil
+    const :presentation, T.nilable(Inttegro::PurchaseIntent::Presentation), default: nil
     const :product, T.nilable(Inttegro::PurchaseIntent::Product), default: nil
     const :quantity, Inttegro::PurchaseIntent::Quantity
     const :status, Inttegro::PurchaseIntent::Status

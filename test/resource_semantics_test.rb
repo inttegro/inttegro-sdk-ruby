@@ -66,6 +66,11 @@ class InttegroResourceSemanticsTest < Minitest::Test
       "allow_variants" => false,
       "created_at" => "2026-09-09T12:00:00Z",
       "id" => "sale_123",
+      "presentation" => {
+        "buy_page" => {
+          "text" => { "checkout_section_title" => "Support this cause" }
+        }
+      },
       "quantity" => { "min" => 1 },
       "status" => "used",
       "usage" => {
@@ -93,6 +98,19 @@ class InttegroResourceSemanticsTest < Minitest::Test
 
     assert intent.single_use?
     assert_equal "or_123", intent.used_order_id
+    assert_equal "Support this cause", intent.presentation&.buy_page&.text&.checkout_section_title
+
+    create = Inttegro::PurchaseIntent::CreateRequest.new(
+      quantity: Inttegro::PurchaseIntent::CreateRequestQuantity.new(min: 1),
+      presentation: Inttegro::PurchaseIntent::CreatePresentation.new(
+        buy_page: Inttegro::PurchaseIntent::CreatePresentationBuyPage.new(
+          text: Inttegro::PurchaseIntent::CreatePresentationBuyPageText.new(
+            amount_field_label: "Your contribution"
+          )
+        )
+      )
+    )
+    assert_equal "Your contribution", create.serialize.dig("presentation", "buy_page", "text", "amount_field_label")
     assert product.published?
     assert product.ever_published?
     assert method.verified?

@@ -15,6 +15,7 @@ class InttegroClientTest < Minitest::Test
   EXTERNALLY_SUPPLIED_CAPABILITY_PATHS = ["/file_links/open", "/upload_requests/upload"].freeze
   CLIENT_CHECKOUT_PATHS = [
     "/checkout/lookup",
+    "/checkout/select_amount",
     "/checkout/pay",
     "/checkout/request_confirmation",
     "/checkout/confirm_payment"

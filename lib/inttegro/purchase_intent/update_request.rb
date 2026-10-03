@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "update_presentation"
 require_relative "update_request_quantity"
 
 module Inttegro
@@ -50,12 +51,20 @@ module Inttegro
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `reactivate`.
     #   @return [Boolean, nil]
+    #
+    # @!attribute [r] presentation
+    #   Sparse Buy page copy update. Omit a field to preserve it, or send null to restore the
+    #   product-aware default.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `presentation`.
+    #   @return [Inttegro::PurchaseIntent::UpdatePresentation, nil]
     class UpdateRequest < T::Struct
       const :expires_at, T.nilable(Time), default: nil
       const :id, T.nilable(String), default: nil
       const :quantity, T.nilable(Inttegro::PurchaseIntent::UpdateRequestQuantity), default: nil
       const :purchase_intent_id, T.nilable(String), default: nil
       const :reactivate, T.nilable(T::Boolean), default: nil
+      const :presentation, T.nilable(Inttegro::PurchaseIntent::UpdatePresentation), default: nil
     end
   end
 end
