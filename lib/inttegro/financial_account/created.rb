@@ -56,6 +56,15 @@ module Inttegro
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `description`.
     #   @return [String, nil]
     #
+    # @!attribute [r] fingerprint
+    #   Application-scoped value for recognizing the same underlying financial account within the
+    #   authenticated application. Matching nonempty fingerprints can be used to detect duplicate
+    #   connections. Compare fingerprints only within the same application. Omitted when reliable
+    #   fingerprint material is unavailable.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `fingerprint`.
+    #   @return [String, nil]
+    #
     # @!attribute [r] id
     #   Value of the `id` field in the Inttegro API payload.
     #
@@ -133,6 +142,7 @@ module Inttegro
       const :currency, String
       const :custom_data, T.nilable(Inttegro::CustomData), default: nil
       const :description, T.nilable(String), default: nil
+      const :fingerprint, T.nilable(String), default: nil
       const :id, String
       const :institution, T.nilable(Inttegro::Shared::FinancialInstitution), default: nil
       const :label, T.nilable(String), default: nil

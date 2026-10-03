@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "create_presentation"
 require_relative "create_request_price"
 require_relative "create_request_product"
 require_relative "create_request_quantity"
@@ -62,6 +63,13 @@ module Inttegro
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `expires_at`.
     #   @return [Time, nil]
+    #
+    # @!attribute [r] presentation
+    #   Optional merchant-authored copy for the hosted Buy page. Omit it to use product-aware
+    #   defaults.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `presentation`.
+    #   @return [Inttegro::PurchaseIntent::CreatePresentation, nil]
     class CreateRequest < T::Struct
       const :product, T.nilable(Inttegro::PurchaseIntent::CreateRequestProduct), default: nil
       const :product_id, T.nilable(String), default: nil
@@ -70,6 +78,7 @@ module Inttegro
       const :quantity, Inttegro::PurchaseIntent::CreateRequestQuantity
       const :usage, T.nilable(Inttegro::PurchaseIntent::CreateRequestUsage), default: nil
       const :expires_at, T.nilable(Time), default: nil
+      const :presentation, T.nilable(Inttegro::PurchaseIntent::CreatePresentation), default: nil
     end
   end
 end
