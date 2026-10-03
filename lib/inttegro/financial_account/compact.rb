@@ -41,13 +41,11 @@ module Inttegro
     #   @return [Time, nil]
     #
     # @!attribute [r] fingerprint
-    #   Application-scoped value for recognizing the same underlying financial account within the
-    #   authenticated application. Matching nonempty fingerprints can be used to detect duplicate
-    #   connections. Compare fingerprints only within the same application. Omitted when reliable
-    #   fingerprint material is unavailable.
+    #   A stable identifier for the underlying financial account within your application. Use it to
+    #   recognize when the same account has been connected more than once.
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `fingerprint`.
-    #   @return [String, nil]
+    #   Required in the API payload. Wire name: `fingerprint`.
+    #   @return [String]
     #
     # @!attribute [r] id
     #   Value of the `id` field in the Inttegro API payload.
@@ -71,7 +69,7 @@ module Inttegro
       const :currency, String
       const :description, T.nilable(String), default: nil
       const :disconnected_at, T.nilable(Time), default: nil
-      const :fingerprint, T.nilable(String), default: nil
+      const :fingerprint, String
       const :id, String
       const :label, T.nilable(String), default: nil
       const :type, Inttegro::FinancialAccount::Type
