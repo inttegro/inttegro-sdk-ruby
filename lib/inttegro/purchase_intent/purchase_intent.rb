@@ -67,7 +67,7 @@ module Inttegro
   #   @return [Inttegro::PurchaseIntent::Price, nil]
   #
   # @!attribute [r] presentation
-  #   Merchant-authored Buy page presentation settings.
+  #   Value of the `presentation` field in the Inttegro API payload.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `presentation`.
   #   @return [Inttegro::PurchaseIntent::Presentation, nil]
