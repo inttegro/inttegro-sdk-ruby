@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: inttegro/openapi
-          ref: 3fd00122c85a85fd49200b6b34668eecbfb62403
+          ref: 55f1fa81930efa95826a17b2230594f3f933f2af
           path: openapi
           persist-credentials: false
 
