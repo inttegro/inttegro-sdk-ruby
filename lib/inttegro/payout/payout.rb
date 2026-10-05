@@ -8,6 +8,7 @@ require_relative "../custom_data"
 require_relative "../money/amount"
 require_relative "balance_transaction"
 require_relative "error"
+require_relative "failure"
 require_relative "status"
 
 module Inttegro
@@ -60,7 +61,7 @@ module Inttegro
   #   @return [String]
   #
   # @!attribute [r] error
-  #   Public failure details returned when payout execution fails.
+  #   Deprecated compatibility projection of `failure`. New integrations should use `failure`.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `error`.
   #   @return [Inttegro::Payout::Error, nil]
@@ -84,10 +85,16 @@ module Inttegro
   #   @return [Time, nil]
   #
   # @!attribute [r] failed_at
-  #   When the payout entered its unsuccessful terminal state
+  #   When the payout entered the `failed` state.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `failed_at`.
   #   @return [Time, nil]
+  #
+  # @!attribute [r] failure
+  #   Caller-safe failure information. Present only when `status` is `failed`.
+  #
+  #   Optional in the API payload; omitted values default to `nil`. Wire name: `failure`.
+  #   @return [Inttegro::Payout::Failure, nil]
   #
   # @!attribute [r] id
   #   Unique payout identifier
@@ -172,6 +179,7 @@ module Inttegro
     const :executed_by, T.nilable(String), default: nil
     const :expected_at, T.nilable(Time), default: nil
     const :failed_at, T.nilable(Time), default: nil
+    const :failure, T.nilable(Inttegro::Payout::Failure), default: nil
     const :id, String
     const :initiated_at, Time
     const :initiated_by, T.nilable(String), default: nil

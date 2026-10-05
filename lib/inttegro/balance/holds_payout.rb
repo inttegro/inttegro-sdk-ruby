@@ -7,8 +7,7 @@ require_relative "base"
 
 module Inttegro
   module Balance
-    # Funds intentionally reserved for policy, risk, or remediation purposes at the snapshot
-    # cutoff
+    # Funds committed to in-flight or unresolved payouts.
     #
     # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
     # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire
@@ -21,7 +20,7 @@ module Inttegro
     #
     #   Required in the API payload. Wire name: `amount`.
     #   @return [Integer]
-    class CurrencySnapshotReserved < T::Struct
+    class HoldsPayout < T::Struct
       const :amount, Integer
     end
   end

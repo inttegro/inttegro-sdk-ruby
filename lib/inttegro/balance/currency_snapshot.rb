@@ -6,6 +6,7 @@
 require_relative "base"
 require_relative "currency_snapshot_refund"
 require_relative "currency_snapshot_reserved"
+require_relative "holds"
 require_relative "value"
 
 module Inttegro
@@ -24,6 +25,12 @@ module Inttegro
     #   Required in the API payload. Wire name: `available`.
     #   @return [Inttegro::Balance::Value]
     #
+    # @!attribute [r] held
+    #   Live operational commitments read from the canonical balance position.
+    #
+    #   Required in the API payload. Wire name: `held`.
+    #   @return [Inttegro::Balance::Holds]
+    #
     # @!attribute [r] includes_transactions_before
     #   The snapshot includes transactions created before this timestamp
     #
@@ -37,18 +44,20 @@ module Inttegro
     #   @return [Inttegro::Balance::Value]
     #
     # @!attribute [r] refund
-    #   Funds assigned to refund activity at the snapshot cutoff
+    #   Funds intentionally earmarked for future refund obligations at the snapshot cutoff
     #
     #   Required in the API payload. Wire name: `refund`.
     #   @return [Inttegro::Balance::CurrencySnapshotRefund]
     #
     # @!attribute [r] reserved
-    #   Funds held back from payout at the snapshot cutoff
+    #   Funds intentionally reserved for policy, risk, or remediation purposes at the snapshot
+    #   cutoff
     #
     #   Required in the API payload. Wire name: `reserved`.
     #   @return [Inttegro::Balance::CurrencySnapshotReserved]
     class CurrencySnapshot < T::Struct
       const :available, Inttegro::Balance::Value
+      const :held, Inttegro::Balance::Holds
       const :includes_transactions_before, Time
       const :pending, Inttegro::Balance::Value
       const :refund, Inttegro::Balance::CurrencySnapshotRefund

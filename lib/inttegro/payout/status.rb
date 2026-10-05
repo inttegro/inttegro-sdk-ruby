@@ -30,9 +30,9 @@ module Inttegro
         # Serialized wire value: `succeeded`.
         # @return [Inttegro::Payout::Status]
         SUCCEEDED = new("succeeded")
-        # Serialized wire value: `invalid`.
+        # Serialized wire value: `failed`.
         # @return [Inttegro::Payout::Status]
-        INVALID = new("invalid")
+        FAILED = new("failed")
         # Serialized wire value: `canceled`.
         # @return [Inttegro::Payout::Status]
         CANCELED = new("canceled")
