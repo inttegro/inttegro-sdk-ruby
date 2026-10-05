@@ -440,6 +440,11 @@ class InttegroClientTest < Minitest::Test
       {
         ghs: {
           available: { amount: 1_000 },
+          held: {
+            as_of: "2026-09-09T12:00:00Z",
+            payout: { amount: 0 },
+            refund: { amount: 0 }
+          },
           includes_transactions_before: "2026-09-09T12:00:00Z",
           pending: { amount: 200 },
           refund: { amount: 50 },
@@ -456,6 +461,11 @@ class InttegroClientTest < Minitest::Test
         {
           ghs: {
             available: { amount: 1_000 },
+            held: {
+              as_of: "2026-09-09T12:00:00Z",
+              payout: { amount: 0 },
+              refund: { amount: 0 }
+            },
             includes_transactions_before: "2026-09-09T12:00:00",
             pending: { amount: 200 },
             refund: { amount: 50 },
