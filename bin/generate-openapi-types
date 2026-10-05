@@ -188,7 +188,7 @@ class OpenAPITypeGenerator
     ["requested_by_customer", "duplicate", "fraudulent", "order_canceled", "item_returned", "item_damaged", "item_not_received", "item_not_as_described", "custom"] => "RefundReason",
     ["canceled", "failed", "pending", "processing", "succeeded"] => "RefundStatus",
     ["payment", "refund"] => "BalanceTransactionType",
-    ["initialized", "scheduled", "processing", "executing", "succeeded", "invalid", "canceled"] => "PayoutStatus",
+    ["initialized", "scheduled", "processing", "executing", "succeeded", "failed", "canceled"] => "PayoutStatus",
     ["phone", "email"] => "ChimeRecipientType",
     ["gmail_view_action", "schema_org_order", "schema_org_invoice"] => "ChimeEmailSchemaKind",
     ["numeric", "alpha", "alphanumeric"] => "OTPAlphabetType",
