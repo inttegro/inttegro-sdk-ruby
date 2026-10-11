@@ -52,8 +52,14 @@ module Inttegro
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `secret_key`.
   #   @return [Inttegro::Application::SecretKey, nil]
   #
+  # @!attribute [r] capabilities
+  #   Public capabilities currently available to this application.
+  #
+  #   Required in the API payload. Wire name: `capabilities`.
+  #   @return [Hash<String, untyped>]
+  #
   # @!attribute [r] relationship
-  #   Relationship receipt for the created child app.
+  #   Identifies the created app's direct placement relationship.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `relationship`.
   #   @return [Inttegro::Application::Relationship, nil]
@@ -63,6 +69,7 @@ module Inttegro
     const :alias, T.nilable(String), default: nil
     const :description, T.nilable(String), default: nil
     const :created_at, Time
+    const :capabilities, T::Hash[String, T.untyped]
     const :secret_key, T.nilable(Inttegro::Application::SecretKey), default: nil
     const :relationship, T.nilable(Inttegro::Application::Relationship), default: nil
   end

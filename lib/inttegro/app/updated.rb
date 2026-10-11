@@ -50,6 +50,12 @@ module Inttegro
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `updated_at`.
     #   @return [Time, nil]
+    #
+    # @!attribute [r] capabilities
+    #   Public capabilities currently available to this application.
+    #
+    #   Required in the API payload. Wire name: `capabilities`.
+    #   @return [Hash<String, untyped>]
     class Updated < T::Struct
       const :id, String
       const :name, String
@@ -57,6 +63,7 @@ module Inttegro
       const :description, T.nilable(String), default: nil
       const :created_at, Time
       const :updated_at, T.nilable(Time), default: nil
+      const :capabilities, T::Hash[String, T.untyped]
     end
   end
 end

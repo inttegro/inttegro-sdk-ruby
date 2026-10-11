@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "relationship"
 
 module Inttegro
   class Application
@@ -56,6 +57,18 @@ module Inttegro
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `archived_at`.
     #   @return [Time, nil]
+    #
+    # @!attribute [r] capabilities
+    #   Public capabilities currently available to this application.
+    #
+    #   Required in the API payload. Wire name: `capabilities`.
+    #   @return [Hash<String, untyped>]
+    #
+    # @!attribute [r] relationship
+    #   Direct placement relationship for this application.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `relationship`.
+    #   @return [Inttegro::Application::Relationship, nil]
     class LookedUp < T::Struct
       const :id, String
       const :name, String
@@ -64,6 +77,8 @@ module Inttegro
       const :created_at, Time
       const :updated_at, T.nilable(Time), default: nil
       const :archived_at, T.nilable(Time), default: nil
+      const :capabilities, T::Hash[String, T.untyped]
+      const :relationship, T.nilable(Inttegro::Application::Relationship), default: nil
     end
   end
 end
