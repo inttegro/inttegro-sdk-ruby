@@ -16,6 +16,7 @@ gem "opentelemetry-registry", "~> 0.3.1"
 gem "opentelemetry-semantic_conventions", "~> 1.10.1"
 
 gem "rubocop", "~> 1.91"
+gem "parallel", "< 2"
 
 gem "simplecov", "~> 0.22", require: false
 
