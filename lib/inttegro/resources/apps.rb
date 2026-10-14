@@ -31,6 +31,18 @@ module Inttegro
         @http.post_resource("/apps/lookup", Inttegro::Application, :app, {})
       end
 
+      # Retrieve the authenticated application's payment and payout capabilities.
+      #
+      # @return [Inttegro::Application::Capabilities] current capability states
+      def capabilities
+        @http.post_resource(
+          "/apps/capabilities",
+          Inttegro::Application::Capabilities,
+          :capabilities,
+          {}
+        )
+      end
+
       # Update mutable fields on the authenticated application.
       #
       # @param payload [Hash, Inttegro::Application::UpdateRequest] fields to change
