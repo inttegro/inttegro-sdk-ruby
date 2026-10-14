@@ -6,6 +6,7 @@
 require_relative "base"
 require_relative "../balance_transaction/balance_transaction"
 require_relative "../money/amount"
+require_relative "../order/receipt"
 require_relative "billing_details"
 require_relative "customer"
 require_relative "latest_attempt"
@@ -66,6 +67,12 @@ module Inttegro
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `billing_details`.
   #   @return [Inttegro::Payment::BillingDetails, nil]
+  #
+  # @!attribute [r] receipt
+  #   Receipt issued for a paid order payment.
+  #
+  #   Optional in the API payload; omitted values default to `nil`. Wire name: `receipt`.
+  #   @return [Inttegro::Order::Receipt, nil]
   #
   # @!attribute [r] customer
   #   Value of the `customer` field in the Inttegro API payload.
@@ -158,6 +165,7 @@ module Inttegro
     const :balance_transaction, T.nilable(Inttegro::BalanceTransaction), default: nil
     const :payment_method, T.nilable(Inttegro::Payment::PaymentMethod), default: nil
     const :billing_details, T.nilable(Inttegro::Payment::BillingDetails), default: nil
+    const :receipt, T.nilable(Inttegro::Order::Receipt), default: nil
     const :customer, T.nilable(Inttegro::Payment::Customer), default: nil
     const :latest_attempt, T.nilable(Inttegro::Payment::LatestAttempt), default: nil
     const :next_action, T.nilable(Inttegro::Payment::NextAction), default: nil

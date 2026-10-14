@@ -7,6 +7,9 @@ module Inttegro
       sig { params(http: Inttegro::HTTPClient).void }
       def initialize(http); end
 
+      sig { returns(Inttegro::Application::Capabilities) }
+      def capabilities(); end
+
       sig { params(payload: T.any(Inttegro::Application::CreateRequest, Inttegro::Types::Payload)).returns(Inttegro::Application) }
       def create(payload); end
 

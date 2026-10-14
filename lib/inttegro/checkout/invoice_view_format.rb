@@ -5,7 +5,6 @@
 
 require_relative "base"
 require_relative "invoice_view_format_pdf"
-require_relative "invoice_view_format_receipt"
 require_relative "invoice_view_format_web"
 
 module Inttegro
@@ -29,16 +28,9 @@ module Inttegro
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `pdf`.
     #   @return [Inttegro::Checkout::InvoiceViewFormatPdf, nil]
-    #
-    # @!attribute [r] receipt
-    #   Value of the `receipt` field in the Inttegro API payload.
-    #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `receipt`.
-    #   @return [Inttegro::Checkout::InvoiceViewFormatReceipt, nil]
     class InvoiceViewFormat < T::Struct
       const :web, T.nilable(Inttegro::Checkout::InvoiceViewFormatWeb), default: nil
       const :pdf, T.nilable(Inttegro::Checkout::InvoiceViewFormatPdf), default: nil
-      const :receipt, T.nilable(Inttegro::Checkout::InvoiceViewFormatReceipt), default: nil
     end
   end
 end

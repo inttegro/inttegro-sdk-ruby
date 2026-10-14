@@ -7,6 +7,7 @@ require_relative "base"
 require_relative "../custom_data"
 require_relative "../money/amount"
 require_relative "balance_transaction"
+require_relative "cancellation"
 require_relative "error"
 require_relative "failure"
 require_relative "status"
@@ -46,6 +47,13 @@ module Inttegro
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `canceled_at`.
   #   @return [Time, nil]
+  #
+  # @!attribute [r] cancellation
+  #   Caller-safe explanation and next step for a canceled payout. Present only when `status` is
+  #   `canceled`.
+  #
+  #   Optional in the API payload; omitted values default to `nil`. Wire name: `cancellation`.
+  #   @return [Inttegro::Payout::Cancellation, nil]
   #
   # @!attribute [r] custom_data
   #   Merchant-defined string values attached to a resource. SDKs expose this as a semantic
@@ -172,6 +180,7 @@ module Inttegro
     const :balance_transactions, T.nilable(T::Array[Inttegro::Payout::BalanceTransaction]), default: nil
     const :balance_transaction_id, T.nilable(String), default: nil
     const :canceled_at, T.nilable(Time), default: nil
+    const :cancellation, T.nilable(Inttegro::Payout::Cancellation), default: nil
     const :custom_data, T.nilable(Inttegro::CustomData), default: nil
     const :destination_id, String
     const :error, T.nilable(Inttegro::Payout::Error), default: nil

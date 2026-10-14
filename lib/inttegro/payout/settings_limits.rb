@@ -4,10 +4,11 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "amount_limits"
 
 module Inttegro
-  module Checkout
-    # Typed representation of the invoice view format receipt object in the Inttegro API.
+  class Payout
+    # Platform limits applied to payouts.
     #
     # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
     # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire
@@ -15,13 +16,13 @@ module Inttegro
     #
     # @api public
     #
-    # @!attribute [r] url
-    #   Value of the `url` field in the Inttegro API payload.
+    # @!attribute [r] amount
+    #   Inclusive payout amount range. Values use the currency's smallest unit.
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `url`.
-    #   @return [String, nil]
-    class InvoiceViewFormatReceipt < T::Struct
-      const :url, T.nilable(String), default: nil
+    #   Required in the API payload. Wire name: `amount`.
+    #   @return [Inttegro::Payout::AmountLimits]
+    class SettingsLimits < T::Struct
+      const :amount, Inttegro::Payout::AmountLimits
     end
   end
 end

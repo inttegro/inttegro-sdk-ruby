@@ -5,6 +5,7 @@
 
 require_relative "base"
 require_relative "destinations"
+require_relative "settings_limits"
 require_relative "settings_lookup_schedule"
 
 module Inttegro
@@ -29,6 +30,12 @@ module Inttegro
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `fx_enabled`.
     #   @return [Boolean, nil]
     #
+    # @!attribute [r] limits
+    #   Platform limits applied to payouts.
+    #
+    #   Required in the API payload. Wire name: `limits`.
+    #   @return [Inttegro::Payout::SettingsLimits]
+    #
     # @!attribute [r] schedule
     #   Active payout schedule returned when settings are retrieved.
     #
@@ -37,6 +44,7 @@ module Inttegro
     class SettingsLookup < T::Struct
       const :destinations, Inttegro::Payout::Destinations
       const :fx_enabled, T.nilable(T::Boolean), default: nil
+      const :limits, Inttegro::Payout::SettingsLimits
       const :schedule, T.nilable(Inttegro::Payout::SettingsLookupSchedule), default: nil
     end
   end
