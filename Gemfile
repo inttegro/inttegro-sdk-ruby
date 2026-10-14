@@ -7,7 +7,7 @@ gemspec
 
 gem "rake", "~> 13.0"
 
-gem "minitest", "~> 5.26.0"
+gem "minitest", "~> 5.25.0"
 
 gem "logger", "~> 1.7.0"
 gem "opentelemetry-sdk", "~> 1.7.0"
