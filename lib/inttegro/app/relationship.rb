@@ -31,7 +31,7 @@ module Inttegro
     #   @return [Inttegro::Application::RelationshipKind]
     #
     # @!attribute [r] parent
-    #   Application that directly contains this app.
+    #   Application that directly contains the created app.
     #
     #   Required in the API payload. Wire name: `parent`.
     #   @return [Inttegro::Application::RelationshipParent]

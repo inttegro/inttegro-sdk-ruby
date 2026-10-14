@@ -37,7 +37,7 @@ module Inttegro
     #   @return [String, nil]
     #
     # @!attribute [r] limits
-    #   Amount limits applied to payouts.
+    #   Platform limits applied to payouts.
     #
     #   Required in the API payload. Wire name: `limits`.
     #   @return [Inttegro::Payout::SettingsLimits]

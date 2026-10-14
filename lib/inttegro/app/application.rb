@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "capability_projection"
 require_relative "relationship"
 require_relative "secret_key"
 
@@ -46,17 +47,19 @@ module Inttegro
   #   Required in the API payload. Wire name: `created_at`.
   #   @return [Time]
   #
+  # @!attribute [r] capabilities
+  #   Public capability states currently available to the application. Newly created applications
+  #   can return an empty object until capabilities become available. New capability keys may
+  #   appear over time.
+  #
+  #   Required in the API payload. Wire name: `capabilities`.
+  #   @return [Inttegro::Application::CapabilityProjection]
+  #
   # @!attribute [r] secret_key
   #   Value of the `secret_key` field in the Inttegro API payload.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `secret_key`.
   #   @return [Inttegro::Application::SecretKey, nil]
-  #
-  # @!attribute [r] capabilities
-  #   Public capabilities currently available to this application.
-  #
-  #   Required in the API payload. Wire name: `capabilities`.
-  #   @return [Hash<String, Object>]
   #
   # @!attribute [r] relationship
   #   Identifies the created app's direct placement relationship.
@@ -69,7 +72,7 @@ module Inttegro
     const :alias, T.nilable(String), default: nil
     const :description, T.nilable(String), default: nil
     const :created_at, Time
-    const :capabilities, T::Hash[String, Object]
+    const :capabilities, Inttegro::Application::CapabilityProjection
     const :secret_key, T.nilable(Inttegro::Application::SecretKey), default: nil
     const :relationship, T.nilable(Inttegro::Application::Relationship), default: nil
   end

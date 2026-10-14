@@ -4,7 +4,8 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "relationship"
+require_relative "capability_projection"
+require_relative "looked_up_relationship"
 
 module Inttegro
   class Application
@@ -59,16 +60,18 @@ module Inttegro
     #   @return [Time, nil]
     #
     # @!attribute [r] capabilities
-    #   Public capabilities currently available to this application.
+    #   Public capability states currently available to the application. Newly created applications
+    #   can return an empty object until capabilities become available. New capability keys may
+    #   appear over time.
     #
     #   Required in the API payload. Wire name: `capabilities`.
-    #   @return [Hash<String, Object>]
+    #   @return [Inttegro::Application::CapabilityProjection]
     #
     # @!attribute [r] relationship
-    #   Direct placement relationship for this application.
+    #   Identifies the authenticated app's direct placement relationship. Omitted for root apps.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `relationship`.
-    #   @return [Inttegro::Application::Relationship, nil]
+    #   @return [Inttegro::Application::LookedUpRelationship, nil]
     class LookedUp < T::Struct
       const :id, String
       const :name, String
@@ -77,8 +80,8 @@ module Inttegro
       const :created_at, Time
       const :updated_at, T.nilable(Time), default: nil
       const :archived_at, T.nilable(Time), default: nil
-      const :capabilities, T::Hash[String, Object]
-      const :relationship, T.nilable(Inttegro::Application::Relationship), default: nil
+      const :capabilities, Inttegro::Application::CapabilityProjection
+      const :relationship, T.nilable(Inttegro::Application::LookedUpRelationship), default: nil
     end
   end
 end

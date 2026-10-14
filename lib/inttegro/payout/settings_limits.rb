@@ -17,7 +17,7 @@ module Inttegro
     # @api public
     #
     # @!attribute [r] amount
-    #   Amount range accepted for a payout.
+    #   Inclusive payout amount range. Values use the currency's smallest unit.
     #
     #   Required in the API payload. Wire name: `amount`.
     #   @return [Inttegro::Payout::AmountLimits]

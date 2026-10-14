@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "capability_projection"
 
 module Inttegro
   class Application
@@ -52,10 +53,12 @@ module Inttegro
     #   @return [Time, nil]
     #
     # @!attribute [r] capabilities
-    #   Public capabilities currently available to this application.
+    #   Public capability states currently available to the application. Newly created applications
+    #   can return an empty object until capabilities become available. New capability keys may
+    #   appear over time.
     #
     #   Required in the API payload. Wire name: `capabilities`.
-    #   @return [Hash<String, Object>]
+    #   @return [Inttegro::Application::CapabilityProjection]
     class Updated < T::Struct
       const :id, String
       const :name, String
@@ -63,7 +66,7 @@ module Inttegro
       const :description, T.nilable(String), default: nil
       const :created_at, Time
       const :updated_at, T.nilable(Time), default: nil
-      const :capabilities, T::Hash[String, Object]
+      const :capabilities, Inttegro::Application::CapabilityProjection
     end
   end
 end
