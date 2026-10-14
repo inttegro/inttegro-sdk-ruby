@@ -7,7 +7,7 @@ gemspec
 
 gem "rake", "~> 13.0"
 
-gem "minitest", "~> 5.26"
+gem "minitest", "~> 5.25.0"
 
 gem "logger", "~> 1.7.0"
 gem "opentelemetry-sdk", "~> 1.7.0"
@@ -16,6 +16,7 @@ gem "opentelemetry-registry", "~> 0.3.1"
 gem "opentelemetry-semantic_conventions", "~> 1.10.1"
 
 gem "rubocop", "~> 1.91"
+gem "parallel", "< 2"
 
 gem "simplecov", "~> 0.22", require: false
 
