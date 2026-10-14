@@ -9,6 +9,18 @@ require_relative "amount_limits"
 module Inttegro
   class Payout
     # Platform limits applied to payouts.
+    #
+    # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
+    # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire
+    # field names and serialized enum values.
+    #
+    # @api public
+    #
+    # @!attribute [r] amount
+    #   Amount range accepted for a payout.
+    #
+    #   Required in the API payload. Wire name: `amount`.
+    #   @return [Inttegro::Payout::AmountLimits]
     class SettingsLimits < T::Struct
       const :amount, Inttegro::Payout::AmountLimits
     end
