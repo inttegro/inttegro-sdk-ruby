@@ -33,11 +33,11 @@ module Inttegro
 
       # Retrieve the authenticated application's payment and payout capabilities.
       #
-      # @return [Inttegro::Application::Capabilities] current capability states
+      # @return [Inttegro::Application::CapabilitiesResponseCapabilities] current capability states
       def capabilities
         @http.post_resource(
           "/apps/capabilities",
-          Inttegro::Application::Capabilities,
+          Inttegro::Application::CapabilitiesResponseCapabilities,
           :capabilities,
           {}
         )
