@@ -36,6 +36,12 @@ module Inttegro
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `id`.
     #   @return [String, nil]
     #
+    # @!attribute [r] limits
+    #   Amount limits applied to payouts.
+    #
+    #   Required in the API payload. Wire name: `limits`.
+    #   @return [Inttegro::Payout::SettingsLimits]
+    #
     # @!attribute [r] schedule
     #   Updated payout schedule returned after a settings mutation.
     #
