@@ -5,6 +5,7 @@
 
 require_relative "base"
 require_relative "destinations"
+require_relative "settings_limits"
 require_relative "settings_mutation_schedule"
 
 module Inttegro
@@ -44,6 +45,7 @@ module Inttegro
       const :destinations, T.nilable(Inttegro::Payout::Destinations), default: nil
       const :fx_enabled, T.nilable(T::Boolean), default: nil
       const :id, T.nilable(String), default: nil
+      const :limits, Inttegro::Payout::SettingsLimits
       const :schedule, T.nilable(Inttegro::Payout::SettingsMutationSchedule), default: nil
     end
   end

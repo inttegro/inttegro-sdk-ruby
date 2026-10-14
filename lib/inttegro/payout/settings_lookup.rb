@@ -5,6 +5,7 @@
 
 require_relative "base"
 require_relative "destinations"
+require_relative "settings_limits"
 require_relative "settings_lookup_schedule"
 
 module Inttegro
@@ -37,6 +38,7 @@ module Inttegro
     class SettingsLookup < T::Struct
       const :destinations, Inttegro::Payout::Destinations
       const :fx_enabled, T.nilable(T::Boolean), default: nil
+      const :limits, Inttegro::Payout::SettingsLimits
       const :schedule, T.nilable(Inttegro::Payout::SettingsLookupSchedule), default: nil
     end
   end
