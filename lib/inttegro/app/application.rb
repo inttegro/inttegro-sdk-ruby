@@ -56,7 +56,7 @@ module Inttegro
   #   Public capabilities currently available to this application.
   #
   #   Required in the API payload. Wire name: `capabilities`.
-  #   @return [Hash<String, untyped>]
+  #   @return [Hash<String, Object>]
   #
   # @!attribute [r] relationship
   #   Identifies the created app's direct placement relationship.
@@ -69,7 +69,7 @@ module Inttegro
     const :alias, T.nilable(String), default: nil
     const :description, T.nilable(String), default: nil
     const :created_at, Time
-    const :capabilities, T::Hash[String, T.untyped]
+    const :capabilities, T::Hash[String, Object]
     const :secret_key, T.nilable(Inttegro::Application::SecretKey), default: nil
     const :relationship, T.nilable(Inttegro::Application::Relationship), default: nil
   end

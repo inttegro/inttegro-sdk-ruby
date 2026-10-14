@@ -55,7 +55,7 @@ module Inttegro
     #   Public capabilities currently available to this application.
     #
     #   Required in the API payload. Wire name: `capabilities`.
-    #   @return [Hash<String, untyped>]
+    #   @return [Hash<String, Object>]
     class Updated < T::Struct
       const :id, String
       const :name, String
@@ -63,7 +63,7 @@ module Inttegro
       const :description, T.nilable(String), default: nil
       const :created_at, Time
       const :updated_at, T.nilable(Time), default: nil
-      const :capabilities, T::Hash[String, T.untyped]
+      const :capabilities, T::Hash[String, Object]
     end
   end
 end

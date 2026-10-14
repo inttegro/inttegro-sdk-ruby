@@ -62,7 +62,7 @@ module Inttegro
     #   Public capabilities currently available to this application.
     #
     #   Required in the API payload. Wire name: `capabilities`.
-    #   @return [Hash<String, untyped>]
+    #   @return [Hash<String, Object>]
     #
     # @!attribute [r] relationship
     #   Direct placement relationship for this application.
@@ -77,7 +77,7 @@ module Inttegro
       const :created_at, Time
       const :updated_at, T.nilable(Time), default: nil
       const :archived_at, T.nilable(Time), default: nil
-      const :capabilities, T::Hash[String, T.untyped]
+      const :capabilities, T::Hash[String, Object]
       const :relationship, T.nilable(Inttegro::Application::Relationship), default: nil
     end
   end
