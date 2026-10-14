@@ -34,7 +34,7 @@ LEGACY_RETURN_TYPES = {
 }.freeze
 
 DOMAIN_RETURN_TYPES = {
-  "/apps/create" => "Inttegro::Application", "/apps/lookup" => "Inttegro::Application", "/apps/update" => "Inttegro::Application",
+  "/apps/capabilities" => "Inttegro::Application::Capabilities", "/apps/create" => "Inttegro::Application", "/apps/lookup" => "Inttegro::Application", "/apps/update" => "Inttegro::Application",
   "/balance_transactions/lookup" => "Inttegro::BalanceTransaction", "/balance_transactions/page" => "Inttegro::BalanceTransaction::Page", "/balances" => "Inttegro::Balance::Snapshot",
   "/broadcasts/cancel" => "Inttegro::Broadcast::CancelDetail", "/broadcasts/lookup" => "Inttegro::Broadcast::Detail",
   "/chimes/broadcast" => "Inttegro::Broadcast::CreationDetail", "/chimes/lookup" => "Inttegro::Chime", "/chimes/page" => "Inttegro::Chime::Page", "/chimes/schedule" => "Inttegro::Schedule::CreationDetail", "/chimes/send" => "Inttegro::Chime",

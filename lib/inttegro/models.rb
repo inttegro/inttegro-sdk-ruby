@@ -3,6 +3,7 @@
 
 # Generated resource models are loaded in dependency order by this manifest.
 require_relative "generated/models"
+require_relative "app/capabilities"
 
 # Hand-written behavior lives beside the resource it extends.
 require_relative "model_serialization"
