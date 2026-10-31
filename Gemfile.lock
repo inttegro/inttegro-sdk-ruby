@@ -60,7 +60,7 @@ GEM
     simplecov_json_formatter (0.1.4)
     sorbet (0.6.13558)
       sorbet-static (= 0.6.13558)
-    sorbet-runtime (0.6.13558)
+    sorbet-runtime (0.6.13599)
     sorbet-static (0.6.13558-universal-darwin)
     sorbet-static (0.6.13558-x86_64-linux)
     unicode-display_width (3.3.0)
