@@ -21,6 +21,12 @@ module Inttegro
     #   Required in the API payload. Wire name: `abide`.
     #   @return [String]
     #
+    # @!attribute [r] public_id
+    #   Public identifier for the balance transaction aging specification.
+    #
+    #   Required in the API payload. Wire name: `public_id`.
+    #   @return [String]
+    #
     # @!attribute [r] label
     #   Human-readable aging rule label.
     #
@@ -34,6 +40,7 @@ module Inttegro
     #   @return [String]
     class SettingsLookupScheduleAgingSpec < T::Struct
       const :abide, String
+      const :public_id, String
       const :label, String
       const :t_plus, String
     end
