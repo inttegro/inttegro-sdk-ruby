@@ -17,12 +17,12 @@ module Inttegro
     # @api public
     #
     # @!attribute [r] amount
-    #   Inclusive payout amount range. Values use the currency's smallest unit.
+    #   Inclusive payout amount ranges keyed by lowercase ISO currency code.
     #
     #   Required in the API payload. Wire name: `amount`.
-    #   @return [Inttegro::Payout::AmountLimits]
+    #   @return [Hash{String => Inttegro::Payout::AmountLimits}]
     class SettingsLimits < T::Struct
-      const :amount, Inttegro::Payout::AmountLimits
+      const :amount, T::Hash[String, Inttegro::Payout::AmountLimits]
     end
   end
 end

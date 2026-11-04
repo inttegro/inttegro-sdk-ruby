@@ -7,7 +7,7 @@ require_relative "base"
 
 module Inttegro
   module Checkout
-    # Typed representation of the lookup request variant2 object in the Inttegro API.
+    # Legacy Purchase Intent amount selection. New integrations should use `/checkout/pay`.
     #
     # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
     # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire

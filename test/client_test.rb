@@ -405,9 +405,25 @@ class InttegroClientTest < Minitest::Test
       body: {
         purchase_intent: {
           allow_variants: false,
+          application_id: "app_123",
           created_at: "2026-09-09T12:00:00Z",
           id: "sale_123",
-          merchant: { organization_name: "Tea House Ltd" },
+          merchant: {
+            branding: {
+              accent_color: "#00875A",
+              color_scheme: {
+                border: "#D9E2EC",
+                link: "#006644",
+                muted_text: "#52606D",
+                primary: "#00875A",
+                primary_foreground: "#FFFFFF",
+                surface: "#FFFFFF",
+                surface_muted: "#F0F4F8",
+                text: "#102A43"
+              }
+            },
+            profile: { name: "Tea House Ltd" }
+          },
           product: {
             active: true,
             created_at: "2026-09-09T11:00:00Z",
@@ -429,7 +445,7 @@ class InttegroClientTest < Minitest::Test
 
     intent = client.purchase_intents.lookup(id: "sale_123")
 
-    assert_equal "Tea House Ltd", intent.merchant&.organization_name
+    assert_equal "Tea House Ltd", intent.merchant&.profile&.name
     assert_equal 1024, intent.product&.dimensions&.digital&.bytes
     assert_equal "or_123", intent.usage.order&.id
     assert_equal Inttegro::PurchaseIntent::Status::ACTIVE, intent.status

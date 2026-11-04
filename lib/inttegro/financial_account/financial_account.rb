@@ -9,6 +9,7 @@ require_relative "../shared/dosh_account"
 require_relative "../shared/financial_institution"
 require_relative "../shared/resource_supply"
 require_relative "bank"
+require_relative "name_enquiry"
 require_relative "owner"
 require_relative "pull_configuration"
 require_relative "push_configuration"
@@ -80,6 +81,13 @@ module Inttegro
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `label`.
   #   @return [String, nil]
+  #
+  # @!attribute [r] account_name_enquiry
+  #   Evidence that the provider resolved the bank account holder name before the account was
+  #   persisted. This confirms account resolution, not ownership.
+  #
+  #   Optional in the API payload; omitted values default to `nil`. Wire name: `account_name_enquiry`.
+  #   @return [Inttegro::FinancialAccount::NameEnquiry, nil]
   #
   # @!attribute [r] pull_configuration
   #   Value of the `pull_configuration` field in the Inttegro API payload.
@@ -157,6 +165,7 @@ module Inttegro
     const :id, String
     const :institution, T.nilable(Inttegro::Shared::FinancialInstitution), default: nil
     const :label, T.nilable(String), default: nil
+    const :account_name_enquiry, T.nilable(Inttegro::FinancialAccount::NameEnquiry), default: nil
     const :pull_configuration, T.nilable(Inttegro::FinancialAccount::PullConfiguration), default: nil
     const :push_configuration, T.nilable(Inttegro::FinancialAccount::PushConfiguration), default: nil
     const :reference, T.nilable(String), default: nil

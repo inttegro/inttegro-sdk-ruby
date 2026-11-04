@@ -64,6 +64,7 @@ class InttegroResourceSemanticsTest < Minitest::Test
   def test_catalog_and_payment_method_questions
     intent = Inttegro::PurchaseIntent.from_hash(
       "allow_variants" => false,
+      "application_id" => "app_123",
       "created_at" => "2026-09-09T12:00:00Z",
       "id" => "sale_123",
       "presentation" => {
