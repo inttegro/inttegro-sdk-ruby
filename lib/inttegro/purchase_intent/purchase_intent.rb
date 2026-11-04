@@ -28,6 +28,13 @@ module Inttegro
   #   Required in the API payload. Wire name: `allow_variants`.
   #   @return [Boolean]
   #
+  # @!attribute [r] application_id
+  #   Application that owns the purchase intent. This is routing metadata, not merchant
+  #   presentation.
+  #
+  #   Required in the API payload. Wire name: `application_id`.
+  #   @return [String]
+  #
   # @!attribute [r] created_at
   #   Creation timestamp
   #
@@ -54,8 +61,8 @@ module Inttegro
   #   @return [Time, nil]
   #
   # @!attribute [r] merchant
-  #   Merchant identity captured for the hosted checkout. Individual fields are omitted when
-  #   unavailable.
+  #   Current public merchant presentation resolved from the purchase intent's application. It is
+  #   hydrated at lookup time and is not stored on the purchase intent.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `merchant`.
   #   @return [Inttegro::PurchaseIntent::Merchant, nil]
@@ -111,6 +118,7 @@ module Inttegro
   #   @return [Inttegro::PurchaseIntent::VariantSet, nil]
   class PurchaseIntent
     const :allow_variants, T::Boolean
+    const :application_id, String
     const :created_at, Time
     const :expires_at, T.nilable(Time), default: nil
     const :id, String

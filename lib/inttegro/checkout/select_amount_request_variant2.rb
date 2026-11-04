@@ -4,7 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "selected_amount"
+require_relative "select_amount_request_variant2_line_items_item"
 
 module Inttegro
   module Checkout
@@ -22,14 +22,14 @@ module Inttegro
     #   Required in the API payload. Wire name: `order_id`.
     #   @return [String]
     #
-    # @!attribute [r] selected_amount
-    #   Value of the `selected_amount` field in the Inttegro API payload.
+    # @!attribute [r] line_items
+    #   Customer-selected amounts keyed by the Order line-item IDs returned by checkout lookup.
     #
-    #   Required in the API payload. Wire name: `selected_amount`.
-    #   @return [Inttegro::Checkout::SelectedAmount]
+    #   Required in the API payload. Wire name: `line_items`.
+    #   @return [Array<Inttegro::Checkout::SelectAmountRequestVariant2LineItemsItem>]
     class SelectAmountRequestVariant2 < T::Struct
       const :order_id, String
-      const :selected_amount, Inttegro::Checkout::SelectedAmount
+      const :line_items, T::Array[Inttegro::Checkout::SelectAmountRequestVariant2LineItemsItem]
     end
   end
 end

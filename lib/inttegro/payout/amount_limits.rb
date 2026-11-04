@@ -4,7 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "../money/amount"
+require_relative "limit_value"
 
 module Inttegro
   class Payout
@@ -17,19 +17,21 @@ module Inttegro
     # @api public
     #
     # @!attribute [r] min
-    #   Value of the `min` field in the Inttegro API payload.
+    #   A payout limit in the currency's smallest unit. The enclosing map key identifies the
+    #   currency.
     #
     #   Required in the API payload. Wire name: `min`.
-    #   @return [Inttegro::Money::Amount]
+    #   @return [Inttegro::Payout::LimitValue]
     #
     # @!attribute [r] max
-    #   Value of the `max` field in the Inttegro API payload.
+    #   A payout limit in the currency's smallest unit. The enclosing map key identifies the
+    #   currency.
     #
     #   Required in the API payload. Wire name: `max`.
-    #   @return [Inttegro::Money::Amount]
+    #   @return [Inttegro::Payout::LimitValue]
     class AmountLimits < T::Struct
-      const :min, Inttegro::Money::Amount
-      const :max, Inttegro::Money::Amount
+      const :min, Inttegro::Payout::LimitValue
+      const :max, Inttegro::Payout::LimitValue
     end
   end
 end
