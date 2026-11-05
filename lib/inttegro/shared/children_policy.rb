@@ -22,12 +22,6 @@ module Inttegro
     #   Required in the API payload. Wire name: `id`.
     #   @return [String]
     #
-    # @!attribute [r] owner_application_id
-    #   Value of the `owner_application_id` field in the Inttegro API payload.
-    #
-    #   Required in the API payload. Wire name: `owner_application_id`.
-    #   @return [String]
-    #
     # @!attribute [r] version
     #   Value of the `version` field in the Inttegro API payload.
     #
@@ -77,7 +71,6 @@ module Inttegro
     #   @return [Time]
     class ChildrenPolicy < T::Struct
       const :id, String
-      const :owner_application_id, String
       const :version, Integer
       const :active_version, Integer
       const :name, String

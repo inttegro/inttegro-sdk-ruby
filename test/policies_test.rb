@@ -17,7 +17,7 @@ class InttegroPoliciesTest < Minitest::Test
       resource = if uri.path == "/children_policies/lookup"
         {
           children_policy: {
-            id: "cp_123", owner_application_id: "app_123", version: 1, active_version: 1,
+            id: "cp_123", version: 1, active_version: 1,
             name: "Default", capabilities: {}, created_at: "2026-11-05T10:00:00Z",
             updated_at: "2026-11-05T10:00:00Z", version_created_at: "2026-11-05T10:00:00Z"
           }
