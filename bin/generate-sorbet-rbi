@@ -170,6 +170,12 @@ def render_parameter(name, kind)
   end
 end
 
+def method_parameters(resource, method_name)
+  method = resource.instance_method(method_name)
+  signature = T::Utils.signature_for_method(method)
+  signature ? signature.method.parameters : method.parameters
+end
+
 def render_resource(sdk_root, name, resource)
   aliases = RESOURCE_ALIASES.fetch(name, [])
   paths = method_paths(sdk_root, name)
@@ -182,7 +188,7 @@ def render_resource(sdk_root, name, resource)
     next if aliases.include?(method_name)
 
     path = paths[method_name]
-    parameters = resource.instance_method(method_name).parameters
+    parameters = method_parameters(resource, method_name)
     sig_params = parameters.map do |kind, parameter_name|
       "#{parameter_name}: #{parameter_type(parameter_name, kind, path: path)}"
     end
@@ -202,7 +208,7 @@ def render_resource(sdk_root, name, resource)
     lines << "      private"
 
     private_methods.each do |method_name|
-      parameters = resource.instance_method(method_name).parameters
+      parameters = method_parameters(resource, method_name)
       sig_params = parameters.map do |kind, parameter_name|
         "#{parameter_name}: #{private_parameter_type(parameter_name, kind)}"
       end

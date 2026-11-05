@@ -54,8 +54,8 @@ module Inttegro
       sig { params(http: Inttegro::HTTPClient).void }
       def initialize(http); end
 
-      sig { params(args: Inttegro::Types::WireValue, **: Inttegro::Types::WireValue, blk: Inttegro::Types::WireValue).returns(Inttegro::Shared::ChildrenPolicy) }
-      def lookup(*args, ****, &blk); end
+      sig { returns(Inttegro::Shared::ChildrenPolicy) }
+      def lookup(); end
     end
 
     class Chimes
@@ -255,14 +255,14 @@ module Inttegro
       sig { params(http: Inttegro::HTTPClient).void }
       def initialize(http); end
 
-      sig { params(args: Inttegro::Types::WireValue, **: Inttegro::Types::WireValue, blk: Inttegro::Types::WireValue).returns(Inttegro::Shared::OperatingPolicy) }
-      def create(*args, ****, &blk); end
+      sig { params(payload: T.any(Inttegro::Shared::CreateOperatingPolicyRequest, Inttegro::Types::Payload)).returns(Inttegro::Shared::OperatingPolicy) }
+      def create(payload); end
 
-      sig { params(args: Inttegro::Types::WireValue, **: Inttegro::Types::WireValue, blk: Inttegro::Types::WireValue).returns(Inttegro::Shared::OperatingPolicy) }
-      def lookup(*args, ****, &blk); end
+      sig { params(operating_policy_id: Inttegro::Types::WireValue).returns(Inttegro::Shared::OperatingPolicy) }
+      def lookup(operating_policy_id); end
 
-      sig { params(args: Inttegro::Types::WireValue, **: Inttegro::Types::WireValue, blk: Inttegro::Types::WireValue).returns(Inttegro::Shared::OperatingPolicy) }
-      def update(*args, ****, &blk); end
+      sig { params(payload: T.any(Inttegro::Shared::UpdateOperatingPolicyRequest, Inttegro::Types::Payload)).returns(Inttegro::Shared::OperatingPolicy) }
+      def update(payload); end
     end
 
     class Orders
