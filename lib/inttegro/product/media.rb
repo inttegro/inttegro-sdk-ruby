@@ -16,43 +16,44 @@ module Inttegro
     # @api public
     #
     # @!attribute [r] hero_image
-    #   Value of the `hero_image` field in the Inttegro API payload.
+    #   An Inttegro Files API file or file-link reference. Remote URLs are not accepted.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `hero_image`.
     #   @return [String, nil]
     #
     # @!attribute [r] thumbnail
-    #   Value of the `thumbnail` field in the Inttegro API payload.
+    #   An Inttegro Files API file or file-link reference. Remote URLs are not accepted.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `thumbnail`.
     #   @return [String, nil]
     #
     # @!attribute [r] web_page_url
-    #   Value of the `web_page_url` field in the Inttegro API payload.
+    #   Public HTTP or HTTPS URL for the product's canonical landing page. Credentials and local or
+    #   private literal addresses are rejected.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `web_page_url`.
     #   @return [String, nil]
     #
     # @!attribute [r] brand_logo
-    #   Value of the `brand_logo` field in the Inttegro API payload.
+    #   An Inttegro Files API file or file-link reference. Remote URLs are not accepted.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `brand_logo`.
     #   @return [String, nil]
     #
     # @!attribute [r] infographic
-    #   Value of the `infographic` field in the Inttegro API payload.
+    #   An Inttegro Files API file or file-link reference. Remote URLs are not accepted.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `infographic`.
     #   @return [String, nil]
     #
     # @!attribute [r] promo_video
-    #   Value of the `promo_video` field in the Inttegro API payload.
+    #   An Inttegro Files API file or file-link reference. Remote URLs are not accepted.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `promo_video`.
     #   @return [String, nil]
     #
     # @!attribute [r] demo_video
-    #   Value of the `demo_video` field in the Inttegro API payload.
+    #   An Inttegro Files API file or file-link reference. Remote URLs are not accepted.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `demo_video`.
     #   @return [String, nil]

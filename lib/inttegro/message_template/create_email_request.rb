@@ -4,7 +4,6 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "attachment_ids"
 require_relative "create_email_request_channel"
 require_relative "email_content"
 require_relative "variable_input"
@@ -30,7 +29,7 @@ module Inttegro
     #   stored-template attachments.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `attachments`.
-    #   @return [Inttegro::MessageTemplate::AttachmentIDs, nil]
+    #   @return [Array<String>, nil]
     #
     # @!attribute [r] channel
     #   Value of the `channel` field in the Inttegro API payload.
@@ -69,7 +68,7 @@ module Inttegro
     #   @return [Array<Inttegro::MessageTemplate::VariableInput>, nil]
     class CreateEmailRequest < T::Struct
       const :about, T.nilable(String), default: nil
-      const :attachments, T.nilable(Inttegro::MessageTemplate::AttachmentIDs), default: nil
+      const :attachments, T.nilable(T::Array[String]), default: nil
       const :channel, Inttegro::MessageTemplate::CreateEmailRequestChannel
       const :email, Inttegro::MessageTemplate::EmailContent
       const :locale, T.nilable(String), default: nil

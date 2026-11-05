@@ -457,6 +457,7 @@ class OpenAPITypeGenerator
 
       referenced = dereference(schema)
       return type_expression(referenced, candidate, origin) if map_schema?(referenced)
+      return type_expression(referenced, candidate, origin) unless struct_type?(referenced) || referenced["enum"]
 
       return model_reference(constantize(schema.fetch("$ref").split("/").last))
     end

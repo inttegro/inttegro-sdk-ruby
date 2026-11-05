@@ -4,7 +4,6 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "attachment_ids"
 require_relative "channel"
 require_relative "rendered_email"
 require_relative "rendered_sms"
@@ -30,7 +29,7 @@ module Inttegro
     #   stored-template attachments.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `attachments`.
-    #   @return [Inttegro::MessageTemplate::AttachmentIDs, nil]
+    #   @return [Array<String>, nil]
     #
     # @!attribute [r] sms
     #   Value of the `sms` field in the Inttegro API payload.
@@ -45,7 +44,7 @@ module Inttegro
     #   @return [Inttegro::MessageTemplate::RenderedEmail, nil]
     class Rendered < T::Struct
       const :channel, Inttegro::MessageTemplate::Channel
-      const :attachments, T.nilable(Inttegro::MessageTemplate::AttachmentIDs), default: nil
+      const :attachments, T.nilable(T::Array[String]), default: nil
       const :sms, T.nilable(Inttegro::MessageTemplate::RenderedSMS), default: nil
       const :email, T.nilable(Inttegro::MessageTemplate::RenderedEmail), default: nil
     end

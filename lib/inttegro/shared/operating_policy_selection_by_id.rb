@@ -6,8 +6,8 @@
 require_relative "base"
 
 module Inttegro
-  class Chime
-    # Typed representation of the inline recipient variant2 email object in the Inttegro API.
+  module Shared
+    # Typed representation of the operating policy selection by id object in the Inttegro API.
     #
     # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
     # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire
@@ -15,13 +15,13 @@ module Inttegro
     #
     # @api public
     #
-    # @!attribute [r] address
-    #   Value of the `address` field in the Inttegro API payload.
+    # @!attribute [r] id
+    #   Active operating policy owned by the placement parent.
     #
-    #   Required in the API payload. Wire name: `address`.
+    #   Required in the API payload. Wire name: `id`.
     #   @return [String]
-    class InlineRecipientVariant2Email < T::Struct
-      const :address, String
+    class OperatingPolicySelectionByID < T::Struct
+      const :id, String
     end
   end
 end

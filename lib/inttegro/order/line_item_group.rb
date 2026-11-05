@@ -5,7 +5,10 @@
 
 require_relative "base"
 require_relative "../money/amount"
-require_relative "line_item"
+require_relative "discount_line_item"
+require_relative "fee_line_item"
+require_relative "product_line_item"
+require_relative "shipping_line_item"
 
 module Inttegro
   class Order
@@ -21,7 +24,7 @@ module Inttegro
     #   Array of products, fees, and shipping charges
     #
     #   Required in the API payload. Wire name: `line_items`.
-    #   @return [Array<Inttegro::Order::LineItem>]
+    #   @return [Array<Inttegro::Order::ProductLineItem, Inttegro::Order::FeeLineItem, Inttegro::Order::ShippingLineItem, Inttegro::Order::DiscountLineItem>]
     #
     # @!attribute [r] total
     #   Value of the `total` field in the Inttegro API payload.
@@ -29,7 +32,7 @@ module Inttegro
     #   Required in the API payload. Wire name: `total`.
     #   @return [Inttegro::Money::Amount]
     class LineItemGroup < T::Struct
-      const :line_items, T::Array[Inttegro::Order::LineItem]
+      const :line_items, T::Array[T.any(Inttegro::Order::ProductLineItem, Inttegro::Order::FeeLineItem, Inttegro::Order::ShippingLineItem, Inttegro::Order::DiscountLineItem)]
       const :total, Inttegro::Money::Amount
 
       extend T::Sig

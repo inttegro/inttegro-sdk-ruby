@@ -4,6 +4,8 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "../shared/inline_operating_policy_selection"
+require_relative "../shared/operating_policy_selection_by_id"
 
 module Inttegro
   class Application
@@ -38,11 +40,19 @@ module Inttegro
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `legal_entity_type`.
     #   @return [String, nil]
+    #
+    # @!attribute [r] operating_policy
+    #   Mutually exclusive named-template or inline operating policy selection. Available only to
+    #   internal Commerce services and `children_policy_v1` private-beta callers.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `operating_policy`.
+    #   @return [Inttegro::Shared::OperatingPolicySelectionByID, Inttegro::Shared::InlineOperatingPolicySelection, nil]
     class UpdateRequest < T::Struct
       const :name, T.nilable(String), default: nil
       const :alias, T.nilable(String), default: nil
       const :description, T.nilable(String), default: nil
       const :legal_entity_type, T.nilable(String), default: nil
+      const :operating_policy, T.nilable(T.any(Inttegro::Shared::OperatingPolicySelectionByID, Inttegro::Shared::InlineOperatingPolicySelection)), default: nil
     end
   end
 end

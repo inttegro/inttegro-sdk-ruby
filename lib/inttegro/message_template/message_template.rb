@@ -4,7 +4,6 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "attachment_ids"
 require_relative "channel"
 require_relative "email_content"
 require_relative "sms_content"
@@ -109,7 +108,7 @@ module Inttegro
   #   stored-template attachments.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `attachments`.
-  #   @return [Inttegro::MessageTemplate::AttachmentIDs, nil]
+  #   @return [Array<String>, nil]
   #
   # @!attribute [r] created_at
   #   Value of the `created_at` field in the Inttegro API payload.
@@ -149,7 +148,7 @@ module Inttegro
     const :variables, T.nilable(T::Array[Inttegro::MessageTemplate::Variable]), default: nil
     const :sms, T.nilable(Inttegro::MessageTemplate::SMSContent), default: nil
     const :email, T.nilable(Inttegro::MessageTemplate::EmailContent), default: nil
-    const :attachments, T.nilable(Inttegro::MessageTemplate::AttachmentIDs), default: nil
+    const :attachments, T.nilable(T::Array[String]), default: nil
     const :created_at, Time
     const :updated_at, Time
     const :published_at, T.nilable(Time), default: nil

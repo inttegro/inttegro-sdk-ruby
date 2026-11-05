@@ -5,8 +5,10 @@
 
 require_relative "base"
 require_relative "../custom_data"
+require_relative "../product/line_item"
+require_relative "../shared/fee_line_item"
 require_relative "../shared/invoice_settings"
-require_relative "../shared/line_item"
+require_relative "../shared/shipping_line_item"
 require_relative "update_request_payment_method_data"
 
 module Inttegro
@@ -52,7 +54,7 @@ module Inttegro
     #   unchanged.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `line_items`.
-    #   @return [Array<Inttegro::Shared::LineItem>, nil]
+    #   @return [Array<Inttegro::Product::LineItem, Inttegro::Shared::FeeLineItem, Inttegro::Shared::ShippingLineItem>, nil]
     #
     # @!attribute [r] number
     #   Replacement order number.
@@ -105,7 +107,7 @@ module Inttegro
       const :custom_data, T.nilable(Inttegro::CustomData), default: nil
       const :invoice_settings, T.nilable(Inttegro::Shared::InvoiceSettings), default: nil
       const :finalize, T.nilable(T::Boolean), default: nil
-      const :line_items, T.nilable(T::Array[Inttegro::Shared::LineItem]), default: nil
+      const :line_items, T.nilable(T::Array[T.any(Inttegro::Product::LineItem, Inttegro::Shared::FeeLineItem, Inttegro::Shared::ShippingLineItem)]), default: nil
       const :number, T.nilable(String), default: nil
       const :receipt_number, T.nilable(String), default: nil
       const :order_id, String

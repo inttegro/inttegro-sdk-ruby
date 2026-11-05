@@ -88,7 +88,7 @@ module Inttegro
     #   @return [Inttegro::Product::Media, nil]
     #
     # @!attribute [r] images
-    #   Legacy image list. Mutually exclusive with `media`.
+    #   Legacy image list of Inttegro file or file-link references. Mutually exclusive with `media`.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `images`.
     #   @return [Array<String>, nil]

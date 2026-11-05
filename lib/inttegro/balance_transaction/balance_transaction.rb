@@ -4,11 +4,12 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "allocation"
 require_relative "amount"
 require_relative "available_amount"
+require_relative "payout_allocation"
 require_relative "payout_configuration"
 require_relative "pending_amount"
+require_relative "refund_allocation"
 require_relative "spent_amount"
 require_relative "type"
 
@@ -50,7 +51,7 @@ module Inttegro
   #   All current pending and completed allocations. Released allocations are omitted.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `allocations`.
-  #   @return [Array<Inttegro::BalanceTransaction::Allocation>, nil]
+  #   @return [Array<Inttegro::BalanceTransaction::RefundAllocation, Inttegro::BalanceTransaction::PayoutAllocation>, nil]
   #
   # @!attribute [r] available_amount
   #   Amount still available for a refund or payout.
@@ -124,7 +125,7 @@ module Inttegro
     const :created_at, Time
     const :id, String
     const :type, Inttegro::BalanceTransaction::Type
-    const :allocations, T.nilable(T::Array[Inttegro::BalanceTransaction::Allocation]), default: nil
+    const :allocations, T.nilable(T::Array[T.any(Inttegro::BalanceTransaction::RefundAllocation, Inttegro::BalanceTransaction::PayoutAllocation)]), default: nil
     const :available_amount, T.nilable(Inttegro::BalanceTransaction::AvailableAmount), default: nil
     const :available_at, T.nilable(Time), default: nil
     const :claimed_at, T.nilable(Time), default: nil

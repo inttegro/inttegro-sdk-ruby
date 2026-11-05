@@ -8,8 +8,9 @@ require_relative "../custom_data"
 require_relative "../money/amount"
 require_relative "failure"
 require_relative "line_item"
+require_relative "offline_settlement"
+require_relative "payment_method_settlement"
 require_relative "reason"
-require_relative "settlement"
 require_relative "status"
 
 module Inttegro
@@ -112,7 +113,7 @@ module Inttegro
   #   original payment method; `offline` records settlement for an order paid outside Inttegro.
   #
   #   Required in the API payload. Wire name: `settlement`.
-  #   @return [Inttegro::Refund::Settlement]
+  #   @return [Inttegro::Refund::OfflineSettlement, Inttegro::Refund::PaymentMethodSettlement]
   #
   # @!attribute [r] status
   #   Value of the `status` field in the Inttegro API payload.
@@ -146,7 +147,7 @@ module Inttegro
     const :reason, Inttegro::Refund::Reason
     const :reason_details, T.nilable(String), default: nil
     const :reference, T.nilable(String), default: nil
-    const :settlement, Inttegro::Refund::Settlement
+    const :settlement, T.any(Inttegro::Refund::OfflineSettlement, Inttegro::Refund::PaymentMethodSettlement)
     const :status, Inttegro::Refund::Status
     const :succeeded_at, T.nilable(Time), default: nil
     const :total, Inttegro::Money::Amount

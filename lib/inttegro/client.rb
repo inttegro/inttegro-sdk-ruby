@@ -26,6 +26,8 @@ require_relative "resources/balances"
 require_relative "resources/upload_requests"
 require_relative "resources/apps"
 require_relative "resources/keys"
+require_relative "resources/children_policies"
+require_relative "resources/operating_policies"
 
 module Inttegro
   # Main entry point for interacting with the Inttegro API.
@@ -101,6 +103,12 @@ module Inttegro
     sig { returns(Resources::UploadRequests) }
     attr_reader :upload_requests
 
+    sig { returns(Resources::ChildrenPolicies) }
+    attr_reader :children_policies
+
+    sig { returns(Resources::OperatingPolicies) }
+    attr_reader :operating_policies
+
     sig do
       params(
         token_value: T.nilable(String),
@@ -166,6 +174,8 @@ module Inttegro
       @keys = T.let(Resources::Keys.new(@http), Resources::Keys)
       @spec = T.let(Resources::Spec.new(@http), Resources::Spec)
       @upload_requests = T.let(Resources::UploadRequests.new(@http), Resources::UploadRequests)
+      @children_policies = T.let(Resources::ChildrenPolicies.new(@http), Resources::ChildrenPolicies)
+      @operating_policies = T.let(Resources::OperatingPolicies.new(@http), Resources::OperatingPolicies)
     end
   end
 end
