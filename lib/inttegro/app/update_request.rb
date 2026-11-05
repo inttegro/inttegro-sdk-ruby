@@ -42,8 +42,7 @@ module Inttegro
     #   @return [String, nil]
     #
     # @!attribute [r] operating_policy
-    #   Mutually exclusive named-template or inline operating policy selection. Available only to
-    #   internal Commerce services and `children_policy_v1` private-beta callers.
+    #   Mutually exclusive named-template or inline operating policy selection.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `operating_policy`.
     #   @return [Inttegro::Shared::OperatingPolicySelectionByID, Inttegro::Shared::InlineOperatingPolicySelection, nil]

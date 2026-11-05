@@ -9,8 +9,7 @@ require_relative "operating_policy_selection_by_id"
 
 module Inttegro
   module Shared
-    # Mutually exclusive named-template or inline operating policy selection. Available only to
-    # internal Commerce services and `children_policy_v1` private-beta callers.
+    # Mutually exclusive named-template or inline operating policy selection.
     #
     # @api public
     # @return [Inttegro::Shared::OperatingPolicySelectionByID, Inttegro::Shared::InlineOperatingPolicySelection]

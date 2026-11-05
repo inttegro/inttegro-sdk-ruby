@@ -69,8 +69,7 @@ module Inttegro
     #   @return [Inttegro::Application::CapabilityProjection]
     #
     # @!attribute [r] operating_policy
-    #   Immutable operating policy snapshot applied to the application. This field is returned only
-    #   to `children_policy_v1` callers.
+    #   Immutable operating policy snapshot applied to the application.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `operating_policy`.
     #   @return [Inttegro::Application::OperatingPolicy, nil]

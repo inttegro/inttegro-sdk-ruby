@@ -9,8 +9,7 @@ require_relative "../shared/operating_policy_source"
 
 module Inttegro
   class Application
-    # Immutable operating policy snapshot applied to the application. This field is returned only
-    # to `children_policy_v1` callers.
+    # Immutable operating policy snapshot applied to the application.
     #
     # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
     # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire

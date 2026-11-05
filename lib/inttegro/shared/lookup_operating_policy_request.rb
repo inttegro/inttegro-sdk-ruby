@@ -20,8 +20,15 @@ module Inttegro
     #
     #   Required in the API payload. Wire name: `operating_policy_id`.
     #   @return [String]
+    #
+    # @!attribute [r] version
+    #   Immutable version to return. Omit to return the latest active version.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `version`.
+    #   @return [Integer, nil]
     class LookupOperatingPolicyRequest < T::Struct
       const :operating_policy_id, String
+      const :version, T.nilable(Integer), default: nil
     end
   end
 end

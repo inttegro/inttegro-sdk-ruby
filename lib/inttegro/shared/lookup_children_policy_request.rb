@@ -7,16 +7,21 @@ require_relative "base"
 
 module Inttegro
   module Shared
-    # Public lookup accepts no selectors and always returns the authenticated application's active
-    # policy.
+    # Typed representation of the lookup children policy request object in the Inttegro API.
     #
     # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
     # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire
     # field names and serialized enum values.
     #
     # @api public
+    #
+    # @!attribute [r] version
+    #   Immutable version to return. Omit to return the latest active version.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `version`.
+    #   @return [Integer, nil]
     class LookupChildrenPolicyRequest < T::Struct
-      # This object intentionally has no fields.
+      const :version, T.nilable(Integer), default: nil
     end
   end
 end
