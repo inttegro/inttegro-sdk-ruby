@@ -141,7 +141,8 @@ def parameter_type(name, kind, path: nil)
   when :file, :purpose, :url, :upload_url, :disposition,
        :order_id, :payment_method_id, :transaction_id, :account_id,
        :chime_id, :customer_id, :file_id, :payout_id, :product_id, :price_id, :schedule_id,
-       :broadcast_id, :template_id, :secret_key_id, :key_id, :refund_id, :id,
+       :broadcast_id, :template_id, :secret_key_id, :key_id, :refund_id,
+       :operating_policy_id, :id,
        :title, :idempotency_key, :save_to, :action
     "String"
   else

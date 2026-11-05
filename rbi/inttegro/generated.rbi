@@ -258,7 +258,7 @@ module Inttegro
       sig { params(payload: T.any(Inttegro::Shared::CreateOperatingPolicyRequest, Inttegro::Types::Payload)).returns(Inttegro::Shared::OperatingPolicy) }
       def create(payload); end
 
-      sig { params(operating_policy_id: Inttegro::Types::WireValue).returns(Inttegro::Shared::OperatingPolicy) }
+      sig { params(operating_policy_id: String).returns(Inttegro::Shared::OperatingPolicy) }
       def lookup(operating_policy_id); end
 
       sig { params(payload: T.any(Inttegro::Shared::UpdateOperatingPolicyRequest, Inttegro::Types::Payload)).returns(Inttegro::Shared::OperatingPolicy) }
