@@ -7,10 +7,12 @@ require_relative "base"
 require_relative "../custom_data"
 require_relative "../customer/data"
 require_relative "../payment_method/data"
+require_relative "../product/line_item"
 require_relative "../shared/billing_details"
+require_relative "../shared/fee_line_item"
 require_relative "../shared/invoice_settings"
-require_relative "../shared/line_item"
 require_relative "../shared/shipping"
+require_relative "../shared/shipping_line_item"
 require_relative "create_new_customer_checkout_settings"
 require_relative "create_new_customer_request_meta"
 require_relative "payout_settings_request"
@@ -108,7 +110,7 @@ module Inttegro
     #   with explicit `price`, or `product_id` with `price_id`.
     #
     #   Required in the API payload. Wire name: `line_items`.
-    #   @return [Array<Inttegro::Shared::LineItem>]
+    #   @return [Array<Inttegro::Product::LineItem, Inttegro::Shared::FeeLineItem, Inttegro::Shared::ShippingLineItem>]
     #
     # @!attribute [r] custom_data
     #   Merchant-defined string values attached to a resource. SDKs expose this as a semantic
@@ -141,7 +143,7 @@ module Inttegro
       const :checkout_settings, T.nilable(Inttegro::Order::CreateNewCustomerCheckoutSettings), default: nil
       const :invoice_settings, T.nilable(Inttegro::Shared::InvoiceSettings), default: nil
       const :payout_settings, T.nilable(Inttegro::Order::PayoutSettingsRequest), default: nil
-      const :line_items, T::Array[Inttegro::Shared::LineItem]
+      const :line_items, T::Array[T.any(Inttegro::Product::LineItem, Inttegro::Shared::FeeLineItem, Inttegro::Shared::ShippingLineItem)]
       const :custom_data, T.nilable(Inttegro::CustomData), default: nil
       const :billing_details, T.nilable(Inttegro::Shared::BillingDetails), default: nil
       const :shipping, T.nilable(Inttegro::Shared::Shipping), default: nil

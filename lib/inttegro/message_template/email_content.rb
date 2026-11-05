@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "email_content_from"
 require_relative "mailbox"
 
 module Inttegro
@@ -29,10 +30,12 @@ module Inttegro
     #   @return [String]
     #
     # @!attribute [r] from
-    #   Value of the `from` field in the Inttegro API payload.
+    #   Optional sender identity. When omitted, Mercurio stores and uses the configured default
+    #   sender. A supplied address must be a literal sender approved for the authenticated
+    #   application; template expressions are not accepted in the sender address.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `from`.
-    #   @return [Inttegro::MessageTemplate::Mailbox, nil]
+    #   @return [Inttegro::MessageTemplate::EmailContentFrom, nil]
     #
     # @!attribute [r] reply_to
     #   Value of the `reply_to` field in the Inttegro API payload.
@@ -48,7 +51,7 @@ module Inttegro
     class EmailContent < T::Struct
       const :subject, String
       const :html, String
-      const :from, T.nilable(Inttegro::MessageTemplate::Mailbox), default: nil
+      const :from, T.nilable(Inttegro::MessageTemplate::EmailContentFrom), default: nil
       const :reply_to, T.nilable(Inttegro::MessageTemplate::Mailbox), default: nil
       const :headers, T.nilable(T::Hash[String, String]), default: nil
     end

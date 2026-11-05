@@ -5,7 +5,9 @@
 
 require_relative "base"
 require_relative "../money/amount"
-require_relative "../shared/line_item"
+require_relative "../product/line_item"
+require_relative "../shared/fee_line_item"
+require_relative "../shared/shipping_line_item"
 
 module Inttegro
   module Checkout
@@ -21,7 +23,7 @@ module Inttegro
     #   Value of the `line_items` field in the Inttegro API payload.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `line_items`.
-    #   @return [Array<Inttegro::Shared::LineItem>, nil]
+    #   @return [Array<Inttegro::Product::LineItem, Inttegro::Shared::FeeLineItem, Inttegro::Shared::ShippingLineItem>, nil]
     #
     # @!attribute [r] total
     #   Value of the `total` field in the Inttegro API payload.
@@ -29,7 +31,7 @@ module Inttegro
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `total`.
     #   @return [Inttegro::Money::Amount, nil]
     class OrderLineItemGroup < T::Struct
-      const :line_items, T.nilable(T::Array[Inttegro::Shared::LineItem]), default: nil
+      const :line_items, T.nilable(T::Array[T.any(Inttegro::Product::LineItem, Inttegro::Shared::FeeLineItem, Inttegro::Shared::ShippingLineItem)]), default: nil
       const :total, T.nilable(Inttegro::Money::Amount), default: nil
 
       extend T::Sig

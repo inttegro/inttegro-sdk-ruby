@@ -5,6 +5,7 @@
 
 require_relative "base"
 require_relative "capability_projection"
+require_relative "operating_policy"
 
 module Inttegro
   class Application
@@ -59,6 +60,13 @@ module Inttegro
     #
     #   Required in the API payload. Wire name: `capabilities`.
     #   @return [Inttegro::Application::CapabilityProjection]
+    #
+    # @!attribute [r] operating_policy
+    #   Immutable operating policy snapshot applied to the application. This field is returned only
+    #   to `children_policy_v1` callers.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `operating_policy`.
+    #   @return [Inttegro::Application::OperatingPolicy, nil]
     class Updated < T::Struct
       const :id, String
       const :name, String
@@ -67,6 +75,7 @@ module Inttegro
       const :created_at, Time
       const :updated_at, T.nilable(Time), default: nil
       const :capabilities, Inttegro::Application::CapabilityProjection
+      const :operating_policy, T.nilable(Inttegro::Application::OperatingPolicy), default: nil
     end
   end
 end

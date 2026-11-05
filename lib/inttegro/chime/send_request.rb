@@ -7,8 +7,10 @@ require_relative "base"
 require_relative "../custom_data"
 require_relative "../message_template/reference"
 require_relative "email_message_input"
-require_relative "recipient"
+require_relative "saved_customer_recipient"
 require_relative "send_request_cooldown"
+require_relative "send_request_recipient_variant1_variant1"
+require_relative "send_request_recipient_variant1_variant2"
 require_relative "send_request_request_meta"
 
 module Inttegro
@@ -26,7 +28,7 @@ module Inttegro
     #   Value of the `recipient` field in the Inttegro API payload.
     #
     #   Required in the API payload. Wire name: `recipient`.
-    #   @return [Inttegro::Chime::Recipient]
+    #   @return [Inttegro::Chime::SendRequestRecipientVariant1Variant1, Inttegro::Chime::SendRequestRecipientVariant1Variant2, Inttegro::Chime::SavedCustomerRecipient]
     #
     # @!attribute [r] full_message
     #   Complete SMS message content. Use only with SMS recipients.
@@ -78,7 +80,7 @@ module Inttegro
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `request_meta`.
     #   @return [Inttegro::Chime::SendRequestRequestMeta, nil]
     class SendRequest < T::Struct
-      const :recipient, Inttegro::Chime::Recipient
+      const :recipient, T.any(T.any(Inttegro::Chime::SendRequestRecipientVariant1Variant1, Inttegro::Chime::SendRequestRecipientVariant1Variant2), Inttegro::Chime::SavedCustomerRecipient)
       const :full_message, T.nilable(String), default: nil
       const :email, T.nilable(Inttegro::Chime::EmailMessageInput), default: nil
       const :message_template, T.nilable(Inttegro::MessageTemplate::Reference), default: nil

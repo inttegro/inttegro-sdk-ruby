@@ -5,7 +5,8 @@
 
 require_relative "base"
 require_relative "payment_method_settlement_type"
-require_relative "settlement_payment_method"
+require_relative "settlement_bank_account_payment_method"
+require_relative "settlement_mobile_money_payment_method"
 
 module Inttegro
   class Refund
@@ -22,7 +23,7 @@ module Inttegro
     #   management-only payment-method data is never included.
     #
     #   Required in the API payload. Wire name: `payment_method`.
-    #   @return [Inttegro::Refund::SettlementPaymentMethod]
+    #   @return [Inttegro::Refund::SettlementMobileMoneyPaymentMethod, Inttegro::Refund::SettlementBankAccountPaymentMethod]
     #
     # @!attribute [r] type
     #   The refund returns to the original payment method used for the order.
@@ -30,7 +31,7 @@ module Inttegro
     #   Required in the API payload. Wire name: `type`.
     #   @return [Inttegro::Refund::PaymentMethodSettlementType]
     class PaymentMethodSettlement < T::Struct
-      const :payment_method, Inttegro::Refund::SettlementPaymentMethod
+      const :payment_method, T.any(Inttegro::Refund::SettlementMobileMoneyPaymentMethod, Inttegro::Refund::SettlementBankAccountPaymentMethod)
       const :type, Inttegro::Refund::PaymentMethodSettlementType
 
       extend T::Sig

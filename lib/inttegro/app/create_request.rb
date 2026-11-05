@@ -4,6 +4,8 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "../shared/inline_operating_policy_selection"
+require_relative "../shared/operating_policy_selection_by_id"
 require_relative "create_request_relationship_policy"
 
 module Inttegro
@@ -47,6 +49,13 @@ module Inttegro
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `placement_parent_application_id`.
     #   @return [String, nil]
     #
+    # @!attribute [r] operating_policy
+    #   Mutually exclusive named-template or inline operating policy selection. Available only to
+    #   internal Commerce services and `children_policy_v1` private-beta callers.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `operating_policy`.
+    #   @return [Inttegro::Shared::OperatingPolicySelectionByID, Inttegro::Shared::InlineOperatingPolicySelection, nil]
+    #
     # @!attribute [r] relationship_policy
     #   Optional direct-placement relationship policy. Omitted values default to parent management
     #   and child credentials.
@@ -59,6 +68,7 @@ module Inttegro
       const :description, T.nilable(String), default: nil
       const :legal_entity_type, T.nilable(String), default: nil
       const :placement_parent_application_id, T.nilable(String), default: nil
+      const :operating_policy, T.nilable(T.any(Inttegro::Shared::OperatingPolicySelectionByID, Inttegro::Shared::InlineOperatingPolicySelection)), default: nil
       const :relationship_policy, T.nilable(Inttegro::Application::CreateRequestRelationshipPolicy), default: nil
     end
   end

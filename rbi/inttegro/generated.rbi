@@ -50,6 +50,14 @@ module Inttegro
       def lookup(broadcast_id:); end
     end
 
+    class ChildrenPolicies
+      sig { params(http: Inttegro::HTTPClient).void }
+      def initialize(http); end
+
+      sig { returns(Inttegro::Shared::ChildrenPolicy) }
+      def lookup(); end
+    end
+
     class Chimes
       sig { params(http: Inttegro::HTTPClient).void }
       def initialize(http); end
@@ -147,10 +155,10 @@ module Inttegro
       sig { params(http: Inttegro::HTTPClient).void }
       def initialize(http); end
 
-      sig { params(payload: T.any(Inttegro::FinancialAccount::CreateRequest, Inttegro::Types::Payload)).returns(Inttegro::FinancialAccount) }
+      sig { params(payload: T.any(T.any(Inttegro::FinancialAccount::WalletRequest, Inttegro::FinancialAccount::BankRequest, Inttegro::FinancialAccount::DoshRequest), Inttegro::Types::Payload)).returns(Inttegro::FinancialAccount) }
       def connect(payload); end
 
-      sig { params(payload: T.any(Inttegro::FinancialAccount::CreateRequest, Inttegro::Types::Payload)).returns(Inttegro::FinancialAccount) }
+      sig { params(payload: T.any(T.any(Inttegro::FinancialAccount::WalletRequest, Inttegro::FinancialAccount::BankRequest, Inttegro::FinancialAccount::DoshRequest), Inttegro::Types::Payload)).returns(Inttegro::FinancialAccount) }
       def create(payload); end
 
       sig { params(account_id: String).returns(Inttegro::FinancialAccount) }
@@ -219,7 +227,7 @@ module Inttegro
       sig { params(template_id: String, idempotency_key: T.nilable(String)).returns(Inttegro::MessageTemplate) }
       def archive(template_id:, idempotency_key: nil); end
 
-      sig { params(payload: T.any(Inttegro::MessageTemplate::CreateRequest, Inttegro::Types::Payload), idempotency_key: T.nilable(String)).returns(Inttegro::MessageTemplate) }
+      sig { params(payload: T.any(T.any(Inttegro::MessageTemplate::CreateSMSRequest, Inttegro::MessageTemplate::CreateEmailRequest), Inttegro::Types::Payload), idempotency_key: T.nilable(String)).returns(Inttegro::MessageTemplate) }
       def create(payload, idempotency_key: nil); end
 
       sig { params(template_id: String).returns(Inttegro::MessageTemplate) }
@@ -241,6 +249,20 @@ module Inttegro
 
       sig { params(idempotency_key: T.nilable(String)).returns(Inttegro::Types::Headers) }
       def idempotency_headers(idempotency_key); end
+    end
+
+    class OperatingPolicies
+      sig { params(http: Inttegro::HTTPClient).void }
+      def initialize(http); end
+
+      sig { params(payload: T.any(Inttegro::Shared::CreateOperatingPolicyRequest, Inttegro::Types::Payload)).returns(Inttegro::Shared::OperatingPolicy) }
+      def create(payload); end
+
+      sig { params(operating_policy_id: String).returns(Inttegro::Shared::OperatingPolicy) }
+      def lookup(operating_policy_id); end
+
+      sig { params(payload: T.any(Inttegro::Shared::UpdateOperatingPolicyRequest, Inttegro::Types::Payload)).returns(Inttegro::Shared::OperatingPolicy) }
+      def update(payload); end
     end
 
     class Orders
@@ -532,7 +554,7 @@ module Inttegro
       sig { params(payload: T.nilable(T.any(Inttegro::UploadRequest::PageRequest, Inttegro::Types::Payload))).returns(Inttegro::UploadRequest::Page) }
       def page(payload = nil); end
 
-      sig { params(payload: T.any(Inttegro::UploadRequest::ReviewAttemptRequest, Inttegro::Types::Payload), idempotency_key: T.nilable(String)).returns(Inttegro::UploadRequest::Details) }
+      sig { params(payload: T.any(T.any(Inttegro::UploadRequest::ReviewAttemptByIDRequest, Inttegro::UploadRequest::ReviewAttemptByOrdinalRequest), Inttegro::Types::Payload), idempotency_key: T.nilable(String)).returns(Inttegro::UploadRequest::Details) }
       def review(payload, idempotency_key: nil); end
 
       private

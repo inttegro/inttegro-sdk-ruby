@@ -4,7 +4,10 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "details"
+require_relative "catalog_with_customer_selected_price"
+require_relative "catalog_with_price_data"
+require_relative "catalog_with_price_reference"
+require_relative "inline_details"
 require_relative "line_item_type"
 
 module Inttegro
@@ -30,10 +33,10 @@ module Inttegro
     #   product's default unit price during order creation.
     #
     #   Required in the API payload. Wire name: `product`.
-    #   @return [Inttegro::Product::Details]
+    #   @return [Inttegro::Product::InlineDetails, Inttegro::Product::CatalogWithPriceData, Inttegro::Product::CatalogWithPriceReference, Inttegro::Product::CatalogWithCustomerSelectedPrice]
     class LineItem < T::Struct
       const :type, Inttegro::Product::LineItemType
-      const :product, Inttegro::Product::Details
+      const :product, T.any(Inttegro::Product::InlineDetails, Inttegro::Product::CatalogWithPriceData, Inttegro::Product::CatalogWithPriceReference, Inttegro::Product::CatalogWithCustomerSelectedPrice)
     end
   end
 end

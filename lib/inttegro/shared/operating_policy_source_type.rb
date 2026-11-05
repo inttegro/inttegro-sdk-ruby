@@ -6,19 +6,22 @@
 require_relative "base"
 
 module Inttegro
-  class Chime
+  module Shared
     # String-backed values accepted by the Inttegro API for
-    # Inttegro::Chime::InlineRecipientVariant2Type.
+    # Inttegro::Shared::OperatingPolicySourceType.
     #
     # Use the constants below when constructing a request. `#serialize` returns the documented
     # string wire value received from or sent to the API.
     #
     # @api public
-    class InlineRecipientVariant2Type < T::Enum
+    class OperatingPolicySourceType < T::Enum
       enums do
-        # Serialized wire value: `email`.
-        # @return [Inttegro::Chime::InlineRecipientVariant2Type]
-        EMAIL = new("email")
+        # Serialized wire value: `inline`.
+        # @return [Inttegro::Shared::OperatingPolicySourceType]
+        INLINE = new("inline")
+        # Serialized wire value: `template`.
+        # @return [Inttegro::Shared::OperatingPolicySourceType]
+        TEMPLATE = new("template")
       end
     end
   end

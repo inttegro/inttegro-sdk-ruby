@@ -5,7 +5,9 @@
 
 require_relative "base"
 require_relative "../chime/email_message_input"
-require_relative "../chime/recipient"
+require_relative "../chime/saved_customer_recipient"
+require_relative "../chime/send_request_recipient_variant1_variant1"
+require_relative "../chime/send_request_recipient_variant1_variant2"
 require_relative "../message_template/reference"
 require_relative "chime_request_request_meta"
 
@@ -30,7 +32,7 @@ module Inttegro
     #   inline contact details or `customer_id`.
     #
     #   Required in the API payload. Wire name: `recipients`.
-    #   @return [Array<Inttegro::Chime::Recipient>]
+    #   @return [Array<Inttegro::Chime::SendRequestRecipientVariant1Variant1, Inttegro::Chime::SendRequestRecipientVariant1Variant2, Inttegro::Chime::SavedCustomerRecipient>]
     #
     # @!attribute [r] send_after
     #   ISO 8601 timestamp for when to send the chime (must be in the future)
@@ -69,7 +71,7 @@ module Inttegro
     #   @return [String, nil]
     class ChimeRequest < T::Struct
       const :request_meta, T.nilable(Inttegro::Schedule::ChimeRequestRequestMeta), default: nil
-      const :recipients, T::Array[Inttegro::Chime::Recipient]
+      const :recipients, T::Array[T.any(T.any(Inttegro::Chime::SendRequestRecipientVariant1Variant1, Inttegro::Chime::SendRequestRecipientVariant1Variant2), Inttegro::Chime::SavedCustomerRecipient)]
       const :send_after, Time
       const :full_message, T.nilable(String), default: nil
       const :email, T.nilable(Inttegro::Chime::EmailMessageInput), default: nil

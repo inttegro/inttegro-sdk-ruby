@@ -6,8 +6,9 @@
 require_relative "base"
 
 module Inttegro
-  module Checkout
-    # Legacy Purchase Intent amount selection. New integrations should use `/checkout/pay`.
+  class Chime
+    # Typed representation of the send request recipient variant1 variant2 email object in the
+    # Inttegro API.
     #
     # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
     # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire
@@ -15,13 +16,13 @@ module Inttegro
     #
     # @api public
     #
-    # @!attribute [r] purchase_intent_id
-    #   Purchase Intent whose customer-selected amount policy should be loaded.
+    # @!attribute [r] address
+    #   Value of the `address` field in the Inttegro API payload.
     #
-    #   Required in the API payload. Wire name: `purchase_intent_id`.
+    #   Required in the API payload. Wire name: `address`.
     #   @return [String]
-    class LookupRequestVariant2 < T::Struct
-      const :purchase_intent_id, String
+    class SendRequestRecipientVariant1Variant2Email < T::Struct
+      const :address, String
     end
   end
 end

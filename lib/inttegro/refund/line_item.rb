@@ -5,7 +5,9 @@
 
 require_relative "base"
 require_relative "../money/amount"
-require_relative "order_line_item"
+require_relative "order_fee_line_item"
+require_relative "order_product_line_item"
+require_relative "order_shipping_line_item"
 require_relative "reason"
 
 module Inttegro
@@ -36,7 +38,7 @@ module Inttegro
     #   cannot be resolved.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `order_line_item`.
-    #   @return [Inttegro::Refund::OrderLineItem, nil]
+    #   @return [Inttegro::Refund::OrderProductLineItem, Inttegro::Refund::OrderFeeLineItem, Inttegro::Refund::OrderShippingLineItem, nil]
     #
     # @!attribute [r] original_amount_paid
     #   Value of the `original_amount_paid` field in the Inttegro API payload.
@@ -64,7 +66,7 @@ module Inttegro
     class LineItem < T::Struct
       const :id, String
       const :order_line_item_id, String
-      const :order_line_item, T.nilable(Inttegro::Refund::OrderLineItem), default: nil
+      const :order_line_item, T.nilable(T.any(Inttegro::Refund::OrderProductLineItem, Inttegro::Refund::OrderFeeLineItem, Inttegro::Refund::OrderShippingLineItem)), default: nil
       const :original_amount_paid, Inttegro::Money::Amount
       const :reason, T.nilable(Inttegro::Refund::Reason), default: nil
       const :reason_details, T.nilable(String), default: nil
