@@ -3,13 +3,13 @@
 require "test_helper"
 
 class InttegroPolicyWireNamesTest < Minitest::Test
-  def test_aging_spec_exposes_public_id
+  def test_aging_spec_exposes_id
     spec = Inttegro::Shared::PolicyBTAgingSpec.from_hash(
-      "public_id" => "bt_aging_spec_immediate",
+      "id" => "bt_aging_spec_immediate",
       "t_plus" => "0h"
     )
 
-    assert_equal Inttegro::Shared::PolicyBTAgingSpecPublicId::BT_AGING_SPEC_IMMEDIATE, spec.public_id
-    assert_equal({ "public_id" => "bt_aging_spec_immediate", "t_plus" => "0h" }, spec.serialize)
+    assert_equal Inttegro::Shared::PolicyBTAgingSpecId::BT_AGING_SPEC_IMMEDIATE, spec.id
+    assert_equal({ "id" => "bt_aging_spec_immediate", "t_plus" => "0h" }, spec.serialize)
   end
 end

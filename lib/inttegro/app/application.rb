@@ -8,6 +8,7 @@ require_relative "capability_projection"
 require_relative "operating_policy"
 require_relative "relationship"
 require_relative "secret_key"
+require_relative "../shared/children_policy"
 
 module Inttegro
   # Typed representation of the application object in the Inttegro API.
@@ -62,6 +63,12 @@ module Inttegro
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `operating_policy`.
   #   @return [Inttegro::Application::OperatingPolicy, nil]
   #
+  # @!attribute [r] children_policy
+  #   Active children policy assigned to the application.
+  #
+  #   Optional in the API payload; omitted values default to `nil`. Wire name: `children_policy`.
+  #   @return [Inttegro::Shared::ChildrenPolicy, nil]
+  #
   # @!attribute [r] secret_key
   #   Value of the `secret_key` field in the Inttegro API payload.
   #
@@ -80,6 +87,7 @@ module Inttegro
     const :description, T.nilable(String), default: nil
     const :created_at, Time
     const :capabilities, Inttegro::Application::CapabilityProjection
+    const :children_policy, T.nilable(Inttegro::Shared::ChildrenPolicy), default: nil
     const :operating_policy, T.nilable(Inttegro::Application::OperatingPolicy), default: nil
     const :secret_key, T.nilable(Inttegro::Application::SecretKey), default: nil
     const :relationship, T.nilable(Inttegro::Application::Relationship), default: nil
