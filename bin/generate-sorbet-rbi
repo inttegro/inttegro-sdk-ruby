@@ -17,10 +17,12 @@ RESOURCE_ALIASES = {
 }.freeze
 
 RESOURCE_PRIVATE_RETURN_TYPES = {
+  ChildrenPolicies: { pagination_payload: "Inttegro::Types::Payload", validate_version!: "void" },
   FileLinks: { headers: "Inttegro::Types::Headers" },
   Keys: { identifier_payload: "Inttegro::Types::Payload" },
   MessageTemplates: { idempotency_headers: "Inttegro::Types::Headers" },
   Orders: { stable_order_request_meta: "Inttegro::Types::Payload" },
+  OperatingPolicies: { validate_version!: "void" },
   PaymentMethods: { stable_payment_method_request_meta: "Inttegro::Types::Payload" },
   UploadRequests: { headers: "Inttegro::Types::Headers" }
 }.freeze
@@ -35,7 +37,7 @@ LEGACY_RETURN_TYPES = {
 
 DOMAIN_RETURN_TYPES = {
   "/apps/capabilities" => "Inttegro::Application::Capabilities", "/apps/create" => "Inttegro::Application", "/apps/lookup" => "Inttegro::Application", "/apps/update" => "Inttegro::Application",
-  "/children_policies/lookup" => "Inttegro::Shared::ChildrenPolicy",
+  "/children_policies/lookup" => "Inttegro::Shared::ChildrenPolicy", "/children_policies/page" => "Inttegro::Shared::ChildrenPolicyVersionsPage",
   "/balance_transactions/lookup" => "Inttegro::BalanceTransaction", "/balance_transactions/page" => "Inttegro::BalanceTransaction::Page", "/balances" => "Inttegro::Balance::Snapshot",
   "/broadcasts/cancel" => "Inttegro::Broadcast::CancelDetail", "/broadcasts/lookup" => "Inttegro::Broadcast::Detail",
   "/chimes/broadcast" => "Inttegro::Broadcast::CreationDetail", "/chimes/lookup" => "Inttegro::Chime", "/chimes/page" => "Inttegro::Chime::Page", "/chimes/schedule" => "Inttegro::Schedule::CreationDetail", "/chimes/send" => "Inttegro::Chime",
@@ -46,7 +48,7 @@ DOMAIN_RETURN_TYPES = {
   "/keys/destroy" => "Inttegro::SecretKey", "/keys/generate" => "Inttegro::SecretKey::Generated", "/keys/lookup" => "Inttegro::SecretKey", "/keys/page" => "Inttegro::SecretKey::Page", "/keys/update" => "Inttegro::SecretKey", "/keys/usage" => "Inttegro::SecretKey::Usage",
   "/message_templates/archive" => "Inttegro::MessageTemplate", "/message_templates/create" => "Inttegro::MessageTemplate", "/message_templates/lookup" => "Inttegro::MessageTemplate", "/message_templates/page" => "Inttegro::MessageTemplate::Page", "/message_templates/publish" => "Inttegro::MessageTemplate", "/message_templates/render_preview" => "Inttegro::MessageTemplate::Preview", "/message_templates/update" => "Inttegro::MessageTemplate",
   "/orders/cancel" => "Inttegro::Order", "/orders/complete" => "Inttegro::Order", "/orders/confirm_payment" => "Inttegro::Order", "/orders/create" => "Inttegro::Order", "/orders/finalize" => "Inttegro::Order", "/orders/lookup" => "Inttegro::Order", "/orders/page" => "Inttegro::Order::Page", "/orders/pay" => "Inttegro::Order", "/orders/request_confirmation" => "Inttegro::Order", "/orders/search" => "Inttegro::Search::Page", "/orders/send_invoice" => "Inttegro::Order::DocumentDeliveryResult", "/orders/send_receipt" => "Inttegro::Order::DocumentDeliveryResult", "/orders/update" => "Inttegro::Order",
-  "/operating_policies/create" => "Inttegro::Shared::OperatingPolicy", "/operating_policies/lookup" => "Inttegro::Shared::OperatingPolicy", "/operating_policies/update" => "Inttegro::Shared::OperatingPolicy",
+  "/operating_policies/create" => "Inttegro::Shared::OperatingPolicy", "/operating_policies/lookup" => "Inttegro::Shared::OperatingPolicy", "/operating_policies/page" => "Inttegro::Shared::OperatingPolicyVersionsPage", "/operating_policies/update" => "Inttegro::Shared::OperatingPolicy",
   "/otp/initiate" => "Inttegro::OTP::Transaction", "/otp/lookup" => "Inttegro::OTP::Transaction", "/otp/verify" => "Inttegro::OTP::Verification",
   "/payment_methods/activate" => "Inttegro::PaymentMethod", "/payment_methods/archive" => "Inttegro::PaymentMethod", "/payment_methods/confirm_verification" => "Inttegro::PaymentMethod", "/payment_methods/disactivate" => "Inttegro::PaymentMethod", "/payment_methods/lookup" => "Inttegro::PaymentMethod", "/payment_methods/page" => "Inttegro::PaymentMethod::Page", "/payment_methods/settings" => "Inttegro::PaymentMethod::Settings", "/payment_methods/tokenize" => "Inttegro::PaymentMethod", "/payment_methods/unarchive" => "Inttegro::PaymentMethod", "/payment_methods/update" => "Inttegro::PaymentMethod",
   "/payouts/cancel" => "Inttegro::Payout", "/payouts/disable" => "Inttegro::Payout::SettingsMutation", "/payouts/disable_fx" => "Inttegro::Payout::SettingsMutation", "/payouts/enable" => "Inttegro::Payout::SettingsMutation", "/payouts/enable_fx" => "Inttegro::Payout::SettingsMutation", "/payouts/lookup" => "Inttegro::Payout", "/payouts/page" => "Inttegro::Payout::Page", "/payouts/schedule" => "Inttegro::Payout", "/payouts/search" => "Inttegro::Search::Page", "/payouts/set_destinations" => "Inttegro::Payout::SettingsMutation", "/payouts/settings" => "Inttegro::Payout::SettingsLookup",
@@ -138,6 +140,8 @@ def parameter_type(name, kind, path: nil)
     "Inttegro::Types::Payload"
   when :destinations
     "Inttegro::Payout::Destinations"
+  when :version
+    "Integer"
   when :file, :purpose, :url, :upload_url, :disposition,
        :order_id, :payment_method_id, :transaction_id, :account_id,
        :chime_id, :customer_id, :file_id, :payout_id, :product_id, :price_id, :schedule_id,
@@ -154,6 +158,7 @@ end
 
 def private_parameter_type(name, kind)
   return "T.nilable(String)" if %i[id idempotency_key key_id secret_key_id].include?(name)
+  return "T.nilable(Integer)" if name == :version
 
   parameter_type(name, kind)
 end
@@ -219,7 +224,11 @@ def render_resource(sdk_root, name, resource)
       end
 
       lines << ""
-      signature = sig_params.empty? ? "returns(#{result})" : "params(#{sig_params.join(', ')}).returns(#{result})"
+      signature = if result == "void"
+        sig_params.empty? ? "void" : "params(#{sig_params.join(', ')}).void"
+      else
+        sig_params.empty? ? "returns(#{result})" : "params(#{sig_params.join(', ')}).returns(#{result})"
+      end
       lines << "      sig { #{signature} }"
       lines << "      def #{method_name}(#{rendered_params.join(', ')}); end"
     end

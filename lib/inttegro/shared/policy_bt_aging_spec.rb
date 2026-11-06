@@ -4,7 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "policy_bt_aging_spec_public_id"
+require_relative "policy_bt_aging_spec_id"
 
 module Inttegro
   module Shared
@@ -16,11 +16,11 @@ module Inttegro
     #
     # @api public
     #
-    # @!attribute [r] public_id
-    #   Value of the `public_id` field in the Inttegro API payload.
+    # @!attribute [r] id
+    #   Value of the `id` field in the Inttegro API payload.
     #
-    #   Required in the API payload. Wire name: `public_id`.
-    #   @return [Inttegro::Shared::PolicyBTAgingSpecPublicId]
+    #   Required in the API payload. Wire name: `id`.
+    #   @return [Inttegro::Shared::PolicyBTAgingSpecId]
     #
     # @!attribute [r] t_plus
     #   Platform-owned whole-hour aging duration.
@@ -28,7 +28,7 @@ module Inttegro
     #   Required in the API payload. Wire name: `t_plus`.
     #   @return [String]
     class PolicyBTAgingSpec < T::Struct
-      const :public_id, Inttegro::Shared::PolicyBTAgingSpecPublicId
+      const :id, Inttegro::Shared::PolicyBTAgingSpecId
       const :t_plus, String
     end
   end
