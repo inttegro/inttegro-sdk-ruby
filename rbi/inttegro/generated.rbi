@@ -57,8 +57,16 @@ module Inttegro
       sig { params(version: T.nilable(Integer)).returns(Inttegro::Shared::ChildrenPolicy) }
       def lookup(version: nil); end
 
-      sig { params(number: T.nilable(Integer), size: T.nilable(Integer)).returns(Inttegro::Shared::ChildrenPolicyVersionsPage) }
+      sig { params(number: T.nilable(Inttegro::Types::WireValue), size: T.nilable(Inttegro::Types::WireValue)).returns(Inttegro::Shared::ChildrenPolicyVersionsPage) }
       def page(number: nil, size: nil); end
+
+      private
+
+      sig { params(number: Inttegro::Types::WireValue, size: Inttegro::Types::WireValue).returns(Inttegro::Types::Payload) }
+      def pagination_payload(number, size); end
+
+      sig { params(version: T.nilable(Integer)).void }
+      def validate_version!(version); end
     end
 
     class Chimes
@@ -264,11 +272,16 @@ module Inttegro
       sig { params(operating_policy_id: String, version: T.nilable(Integer)).returns(Inttegro::Shared::OperatingPolicy) }
       def lookup(operating_policy_id, version: nil); end
 
-      sig { params(operating_policy_id: String, number: T.nilable(Integer), size: T.nilable(Integer)).returns(Inttegro::Shared::OperatingPolicyVersionsPage) }
+      sig { params(operating_policy_id: String, number: T.nilable(Inttegro::Types::WireValue), size: T.nilable(Inttegro::Types::WireValue)).returns(Inttegro::Shared::OperatingPolicyVersionsPage) }
       def page(operating_policy_id, number: nil, size: nil); end
 
       sig { params(payload: T.any(Inttegro::Shared::UpdateOperatingPolicyRequest, Inttegro::Types::Payload)).returns(Inttegro::Shared::OperatingPolicy) }
       def update(payload); end
+
+      private
+
+      sig { params(version: T.nilable(Integer)).void }
+      def validate_version!(version); end
     end
 
     class Orders

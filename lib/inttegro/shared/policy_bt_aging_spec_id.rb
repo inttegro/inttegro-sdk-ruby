@@ -7,8 +7,7 @@ require_relative "base"
 
 module Inttegro
   module Shared
-    # String-backed values accepted by the Inttegro API for
-    # Inttegro::Shared::PolicyBTAgingSpecId.
+    # String-backed values accepted by the Inttegro API for Inttegro::Shared::PolicyBTAgingSpecId.
     #
     # Use the constants below when constructing a request. `#serialize` returns the documented
     # string wire value received from or sent to the API.

@@ -4,11 +4,11 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "../shared/children_policy"
 require_relative "capability_projection"
 require_relative "operating_policy"
 require_relative "relationship"
 require_relative "secret_key"
-require_relative "../shared/children_policy"
 
 module Inttegro
   # Typed representation of the application object in the Inttegro API.
@@ -57,17 +57,19 @@ module Inttegro
   #   Required in the API payload. Wire name: `capabilities`.
   #   @return [Inttegro::Application::CapabilityProjection]
   #
-  # @!attribute [r] operating_policy
-  #   Immutable operating policy snapshot applied to the application.
-  #
-  #   Optional in the API payload; omitted values default to `nil`. Wire name: `operating_policy`.
-  #   @return [Inttegro::Application::OperatingPolicy, nil]
-  #
   # @!attribute [r] children_policy
-  #   Active children policy assigned to the application.
+  #   Active children policy assigned to the application. Omitted when the private beta is
+  #   unavailable to the caller.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `children_policy`.
   #   @return [Inttegro::Shared::ChildrenPolicy, nil]
+  #
+  # @!attribute [r] operating_policy
+  #   Immutable operating policy applied to the application. Omitted for root applications and
+  #   when the private beta is unavailable to the caller.
+  #
+  #   Optional in the API payload; omitted values default to `nil`. Wire name: `operating_policy`.
+  #   @return [Inttegro::Application::OperatingPolicy, nil]
   #
   # @!attribute [r] secret_key
   #   Value of the `secret_key` field in the Inttegro API payload.
