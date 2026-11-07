@@ -4,6 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "../request/response"
 
 module Inttegro
   class Chime
@@ -20,8 +21,15 @@ module Inttegro
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `idempotency_key`.
     #   @return [String, nil]
+    #
+    # @!attribute [r] response
+    #   Caller-controlled preferences for computing and representing the successful response.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `response`.
+    #   @return [Inttegro::Request::Response, nil]
     class SendRequestRequestMeta < T::Struct
       const :idempotency_key, T.nilable(String), default: nil
+      const :response, T.nilable(Inttegro::Request::Response), default: nil
     end
   end
 end
