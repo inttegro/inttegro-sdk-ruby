@@ -622,19 +622,6 @@ class InttegroClientTest < Minitest::Test
     assert_match(/must respond to #code/, error.message)
   end
 
-  def test_read_style_posts_reject_top_level_idempotency_keys
-    requests = []
-    adapter = make_adapter(requests: requests)
-    client = Inttegro::Client.new(token: "test", base_url: "https://api.inttegro.com", adapter: adapter)
-
-    error = assert_raises(ArgumentError) do
-      client.orders.lookup(order_id: "or_123", idempotency_key: "legacy")
-    end
-
-    assert_match(/top-level idempotency_key is not supported/, error.message)
-    assert_empty requests
-  end
-
   def test_read_style_posts_do_not_generate_idempotency_metadata
     requests = []
     adapter = make_adapter(requests: requests)

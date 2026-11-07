@@ -497,11 +497,6 @@ module Inttegro
     def with_request_meta_idempotency(method, path, body, headers)
       return body unless body.is_a?(Hash)
 
-      if body.key?(:idempotency_key) || body.key?("idempotency_key")
-        raise ArgumentError,
-              "top-level idempotency_key is not supported; use request_meta.idempotency_key or the Idempotency-Key header"
-      end
-
       payload = body.dup
       return payload unless method.to_s.downcase == "post" && idempotent_mutation_path?(path)
       return payload if header_present?(headers, "Idempotency-Key")
