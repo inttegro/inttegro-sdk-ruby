@@ -51,6 +51,7 @@ class OpenAPITypeGenerator
     "File" => { directory: "file", tokens: %w[File] },
     "Money" => { directory: "money", tokens: [] },
     "Search" => { directory: "search", tokens: %w[ResourceSearch SearchResource] },
+    "Request" => { directory: "request", tokens: [] },
     "Shared" => { directory: "shared", tokens: [] }
   }.freeze
   CLASS_PACKAGES = %w[
@@ -281,6 +282,7 @@ class OpenAPITypeGenerator
   end
 
   def package_for_name(name)
+    return "Request" if %w[RequestPropertySelection RequestResponse].include?(name)
     return "Payment" if name.start_with?("PaymentMethodSnapshot")
     return "Money" if %w[Amount AmountParams Currency].include?(name)
     return "Price" if %w[
@@ -299,6 +301,7 @@ class OpenAPITypeGenerator
   end
 
   def local_name_for(name, package)
+    return name.delete_prefix("Request") if package == "Request"
     return name if name == package
     return "PaymentMethod" if package == "Payment" && name == "PaymentMethodSnapshot"
 
@@ -978,6 +981,8 @@ class OpenAPITypeGenerator
       props = properties.map { |property| property.fetch(:definition) }
       sections = []
       sections << (props.empty? ? "# This object intentionally has no fields." : props.join("\n"))
+      custom_body = render_custom_model_body(node)
+      sections << custom_body if custom_body
       discriminator_decoder = render_discriminator_decoder(properties)
       sections << discriminator_decoder if discriminator_decoder
       body = sections.join("\n\n")
@@ -1010,6 +1015,33 @@ class OpenAPITypeGenerator
       "#{documentation}\n#{location.local_name} = T.type_alias { #{expression} }"
     end
     render_in_package(location, definition, dependency_paths: dependency_require_paths(node, location))
+  end
+
+  def render_custom_model_body(node)
+    return unless node.name == "RequestPropertySelection"
+
+    <<~RUBY.chomp
+      extend T::Sig
+
+      sig { params(paths: String).returns(T.attached_class) }
+      def self.pick(*paths)
+        validate_paths!("pick", paths)
+        new(pick: paths)
+      end
+
+      sig { params(paths: String).returns(T.attached_class) }
+      def self.omit(*paths)
+        validate_paths!("omit", paths)
+        new(omit: paths)
+      end
+
+      sig { params(mode: String, paths: T::Array[String]).void }
+      private_class_method def self.validate_paths!(mode, paths)
+        if paths.empty? || paths.any? { |path| path.strip.empty? }
+          raise ArgumentError, "\#{mode} must contain non-blank property paths"
+        end
+      end
+    RUBY
   end
 
   def render_discriminator_decoder(properties)

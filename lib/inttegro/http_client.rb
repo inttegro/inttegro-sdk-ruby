@@ -498,8 +498,6 @@ module Inttegro
       return body unless body.is_a?(Hash)
 
       payload = body.dup
-      payload.delete(:idempotency_key)
-      payload.delete("idempotency_key")
       return payload unless method.to_s.downcase == "post" && idempotent_mutation_path?(path)
       return payload if header_present?(headers, "Idempotency-Key")
 
