@@ -16,7 +16,7 @@ module Inttegro
     # @api public
     #
     # @!attribute [r] idempotency_key
-    #   Body-level compatibility key. Prefer the `Idempotency-Key` header for new integrations.
+    #   Stable retry key carried inside `request_meta`. It must match the `Idempotency-Key` header when both are provided.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `idempotency_key`.
     #   @return [String, nil]
