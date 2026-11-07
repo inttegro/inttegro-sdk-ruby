@@ -25,7 +25,6 @@ class InttegroEnumTypesTest < Minitest::Test
       "id" => "pr_123",
       "active" => true,
       "type" => "fixed_amount",
-      "nominal" => { "currency" => "ghs", "value" => 3005 },
       "fixed_amount" => { "currency" => "ghs", "value" => 3005 },
       "product_id" => "prod_123",
       "created_at" => "2026-09-02T12:00:00Z"
@@ -41,6 +40,7 @@ class InttegroEnumTypesTest < Minitest::Test
       catalog.serialize
     )
     assert_equal "prod_123", returned.product_id
+    assert_equal 3005, returned.fixed_amount&.value
   end
 
   def test_financial_account_variants_have_focused_modules

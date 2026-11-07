@@ -49,12 +49,6 @@ module Inttegro
     #   Required in the API payload. Wire name: `type`.
     #   @return [Inttegro::Price::Type]
     #
-    # @!attribute [r] nominal
-    #   Legacy fixed price amount. Present only for fixed_amount prices.
-    #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `nominal`.
-    #   @return [Inttegro::Money::Amount, nil]
-    #
     # @!attribute [r] fixed_amount
     #   Fixed price amount. Present only for fixed_amount prices.
     #
@@ -102,7 +96,6 @@ module Inttegro
       const :about, T.nilable(String), default: nil
       const :active, T::Boolean
       const :type, Inttegro::Price::Type
-      const :nominal, T.nilable(Inttegro::Money::Amount), default: nil
       const :fixed_amount, T.nilable(Inttegro::Money::Amount), default: nil
       const :customer_selected_amount, T.nilable(Inttegro::Price::CustomerSelectedAmount), default: nil
       const :product_id, T.nilable(String), default: nil
