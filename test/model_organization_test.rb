@@ -93,6 +93,6 @@ class InttegroModelOrganizationTest < Minitest::Test
       Inttegro::Price::CatalogPrice
     )
     assert_equal 500, decoded.customer_selected_amount&.minimum
-    assert_nil decoded.nominal
+    assert_nil decoded.fixed_amount
   end
 end
