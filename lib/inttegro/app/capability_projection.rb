@@ -11,8 +11,7 @@ require_relative "restricted_capability"
 module Inttegro
   class Application
     # Public capability states currently available to the application. Newly created applications
-    # can return an empty object until capabilities become available. New capability keys may
-    # appear over time.
+    # can return an empty object until capabilities become available.
     #
     # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
     # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire

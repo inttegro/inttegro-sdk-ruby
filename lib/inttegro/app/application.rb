@@ -51,8 +51,7 @@ module Inttegro
   #
   # @!attribute [r] capabilities
   #   Public capability states currently available to the application. Newly created applications
-  #   can return an empty object until capabilities become available. New capability keys may
-  #   appear over time.
+  #   can return an empty object until capabilities become available.
   #
   #   Required in the API payload. Wire name: `capabilities`.
   #   @return [Inttegro::Application::CapabilityProjection]
