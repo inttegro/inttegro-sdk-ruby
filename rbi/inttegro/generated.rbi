@@ -87,6 +87,9 @@ module Inttegro
 
       sig { params(payload: T.any(Inttegro::Chime::SendRequest, Inttegro::Types::Payload)).returns(Inttegro::Chime) }
       def send(payload); end
+
+      sig { returns(Inttegro::Chime::SettingsResponse) }
+      def settings(); end
     end
 
     class Customers
@@ -190,7 +193,7 @@ module Inttegro
       sig { params(account_id: String).returns(Inttegro::FinancialAccount) }
       def lookup(account_id:); end
 
-      sig { params(payload: T.nilable(T.any(Inttegro::FinancialAccount::FinancialAccountPageRequest, Inttegro::Types::Payload))).returns(Inttegro::FinancialAccount::Page) }
+      sig { params(payload: T.nilable(T.any(Inttegro::FinancialAccount::PageRequest, Inttegro::Types::Payload))).returns(Inttegro::FinancialAccount::Page) }
       def page(payload = nil); end
 
       sig { params(account_id: String).returns(Inttegro::FinancialAccount) }
@@ -447,7 +450,7 @@ module Inttegro
       sig { params(price_id: String).returns(Inttegro::Price::CatalogPrice) }
       def archive(price_id:); end
 
-      sig { params(payload: T.any(Inttegro::Price::CatalogPriceParams, Inttegro::Types::Payload)).returns(Inttegro::Price::CatalogPrice) }
+      sig { params(payload: T.any(T.any(Inttegro::Price::FixedParams, Inttegro::Customer::SelectedCatalogPriceParams), Inttegro::Types::Payload)).returns(Inttegro::Price::CatalogPrice) }
       def create(payload); end
 
       sig { params(price_id: String).returns(Inttegro::Price::CatalogPrice) }
@@ -467,7 +470,7 @@ module Inttegro
       sig { params(http: Inttegro::HTTPClient).void }
       def initialize(http); end
 
-      sig { params(payload: T.any(Inttegro::Product::AddPriceRequest, Inttegro::Types::Payload)).returns(Inttegro::Price::CatalogPrice) }
+      sig { params(payload: T.any(T.any(Inttegro::Product::AddFixedPriceRequest, Inttegro::Customer::AddSelectedProductPriceRequest), Inttegro::Types::Payload)).returns(Inttegro::Price::CatalogPrice) }
       def add_price(payload); end
 
       sig { params(product_id: String).returns(Inttegro::Product) }
