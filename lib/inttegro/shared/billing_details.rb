@@ -25,14 +25,14 @@ module Inttegro
     # @!attribute [r] email_address
     #   Billing email address
     #
-    #   Required in the API payload. Wire name: `email_address`.
-    #   @return [String]
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `email_address`.
+    #   @return [String, nil]
     #
     # @!attribute [r] phone_number
     #   Billing phone number
     #
-    #   Required in the API payload. Wire name: `phone_number`.
-    #   @return [String]
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `phone_number`.
+    #   @return [String, nil]
     #
     # @!attribute [r] address
     #   Value of the `address` field in the Inttegro API payload.
@@ -41,8 +41,8 @@ module Inttegro
     #   @return [Inttegro::Shared::Address, nil]
     class BillingDetails < T::Struct
       const :name, String
-      const :email_address, String
-      const :phone_number, String
+      const :email_address, T.nilable(String), default: nil
+      const :phone_number, T.nilable(String), default: nil
       const :address, T.nilable(Inttegro::Shared::Address), default: nil
     end
   end

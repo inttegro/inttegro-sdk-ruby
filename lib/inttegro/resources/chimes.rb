@@ -36,6 +36,13 @@ module Inttegro
         @http.post_resource("/chimes/page", Inttegro::Chime::Page, :page, payload || {})
       end
 
+      # Retrieve the effective, non-secret Chime delivery settings.
+      #
+      # @return [Inttegro::Chime::Settings] typed SMS and email defaults
+      def settings
+        @http.post_resource("/chimes/settings", Inttegro::Chime::Settings, :settings, {})
+      end
+
       # Schedule one or more Chimes for future delivery.
       #
       # @param payload [Hash, Inttegro::Schedule::ChimeRequest] schedule and message data

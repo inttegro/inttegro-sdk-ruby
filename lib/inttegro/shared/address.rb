@@ -18,20 +18,20 @@ module Inttegro
     # @!attribute [r] name
     #   Recipient name
     #
-    #   Required in the API payload. Wire name: `name`.
-    #   @return [String]
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `name`.
+    #   @return [String, nil]
     #
     # @!attribute [r] phone_number
     #   Contact phone number
     #
-    #   Required in the API payload. Wire name: `phone_number`.
-    #   @return [String]
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `phone_number`.
+    #   @return [String, nil]
     #
     # @!attribute [r] line1
     #   Street address line 1
     #
-    #   Required in the API payload. Wire name: `line1`.
-    #   @return [String]
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `line1`.
+    #   @return [String, nil]
     #
     # @!attribute [r] line2
     #   Street address line 2 (optional)
@@ -39,11 +39,11 @@ module Inttegro
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `line2`.
     #   @return [String, nil]
     #
-    # @!attribute [r] town
+    # @!attribute [r] city
     #   City or town
     #
-    #   Required in the API payload. Wire name: `town`.
-    #   @return [String]
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `city`.
+    #   @return [String, nil]
     #
     # @!attribute [r] region
     #   State, province, or region
@@ -51,14 +51,8 @@ module Inttegro
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `region`.
     #   @return [String, nil]
     #
-    # @!attribute [r] district
-    #   District or area
-    #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `district`.
-    #   @return [String, nil]
-    #
     # @!attribute [r] country
-    #   Country name
+    #   Country value recorded for the address.
     #
     #   Required in the API payload. Wire name: `country`.
     #   @return [String]
@@ -69,13 +63,12 @@ module Inttegro
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `post_code`.
     #   @return [String, nil]
     class Address < T::Struct
-      const :name, String
-      const :phone_number, String
-      const :line1, String
+      const :name, T.nilable(String), default: nil
+      const :phone_number, T.nilable(String), default: nil
+      const :line1, T.nilable(String), default: nil
       const :line2, T.nilable(String), default: nil
-      const :town, String
+      const :city, T.nilable(String), default: nil
       const :region, T.nilable(String), default: nil
-      const :district, T.nilable(String), default: nil
       const :country, String
       const :post_code, T.nilable(String), default: nil
     end

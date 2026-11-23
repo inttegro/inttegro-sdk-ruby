@@ -21,12 +21,12 @@ module Inttegro
         # Serialized wire value: `requires_payment`.
         # @return [Inttegro::Order::Status]
         REQUIRES_PAYMENT = new("requires_payment")
-        # Serialized wire value: `paid`.
-        # @return [Inttegro::Order::Status]
-        PAID = new("paid")
         # Serialized wire value: `completed`.
         # @return [Inttegro::Order::Status]
         COMPLETED = new("completed")
+        # Serialized wire value: `paid`.
+        # @return [Inttegro::Order::Status]
+        PAID = new("paid")
         # Serialized wire value: `canceled`.
         # @return [Inttegro::Order::Status]
         CANCELED = new("canceled")

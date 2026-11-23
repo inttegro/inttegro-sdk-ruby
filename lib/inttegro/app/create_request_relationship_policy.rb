@@ -4,7 +4,6 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "credential_owner"
 require_relative "management_role"
 
 module Inttegro
@@ -35,11 +34,11 @@ module Inttegro
     #   child. In V1, apps/create still returns the initial child key to the caller.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `credentials`.
-    #   @return [Inttegro::Application::CredentialOwner, nil]
+    #   @return [Inttegro::Application::ManagementRole, nil]
     class CreateRequestRelationshipPolicy < T::Struct
       const :child_standing, T.nilable(String), default: nil
       const :management, T.nilable(Inttegro::Application::ManagementRole), default: nil
-      const :credentials, T.nilable(Inttegro::Application::CredentialOwner), default: nil
+      const :credentials, T.nilable(Inttegro::Application::ManagementRole), default: nil
     end
   end
 end

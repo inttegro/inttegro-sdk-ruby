@@ -1,0 +1,25 @@
+# frozen_string_literal: true
+# typed: strict
+
+# Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
+
+require_relative "base"
+
+module Inttegro
+  class Payout
+    # String-backed values accepted by the Inttegro API for
+    # Inttegro::Payout::SearchResponseSearchResourceTypesItem.
+    #
+    # Use the constants below when constructing a request. `#serialize` returns the documented
+    # string wire value received from or sent to the API.
+    #
+    # @api public
+    class SearchResponseSearchResourceTypesItem < T::Enum
+      enums do
+        # Serialized wire value: `payout`.
+        # @return [Inttegro::Payout::SearchResponseSearchResourceTypesItem]
+        PAYOUT = new("payout")
+      end
+    end
+  end
+end

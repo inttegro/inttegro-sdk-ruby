@@ -7,10 +7,10 @@ require_relative "base"
 require_relative "../custom_data"
 require_relative "../message_template/reference"
 require_relative "email_message_input"
+require_relative "email_recipient"
+require_relative "phone_recipient"
 require_relative "saved_customer_recipient"
 require_relative "send_request_cooldown"
-require_relative "send_request_recipient_variant1_variant1"
-require_relative "send_request_recipient_variant1_variant2"
 require_relative "send_request_request_meta"
 
 module Inttegro
@@ -28,7 +28,7 @@ module Inttegro
     #   Value of the `recipient` field in the Inttegro API payload.
     #
     #   Required in the API payload. Wire name: `recipient`.
-    #   @return [Inttegro::Chime::SendRequestRecipientVariant1Variant1, Inttegro::Chime::SendRequestRecipientVariant1Variant2, Inttegro::Chime::SavedCustomerRecipient]
+    #   @return [Inttegro::Chime::PhoneRecipient, Inttegro::Chime::EmailRecipient, Inttegro::Chime::SavedCustomerRecipient]
     #
     # @!attribute [r] full_message
     #   Complete SMS message content. Use only with SMS recipients.
@@ -80,7 +80,7 @@ module Inttegro
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `request_meta`.
     #   @return [Inttegro::Chime::SendRequestRequestMeta, nil]
     class SendRequest < T::Struct
-      const :recipient, T.any(T.any(Inttegro::Chime::SendRequestRecipientVariant1Variant1, Inttegro::Chime::SendRequestRecipientVariant1Variant2), Inttegro::Chime::SavedCustomerRecipient)
+      const :recipient, T.any(Inttegro::Chime::PhoneRecipient, Inttegro::Chime::EmailRecipient, Inttegro::Chime::SavedCustomerRecipient)
       const :full_message, T.nilable(String), default: nil
       const :email, T.nilable(Inttegro::Chime::EmailMessageInput), default: nil
       const :message_template, T.nilable(Inttegro::MessageTemplate::Reference), default: nil
@@ -89,6 +89,25 @@ module Inttegro
       const :cooldown, T.nilable(Inttegro::Chime::SendRequestCooldown), default: nil
       const :custom_data, T.nilable(Inttegro::CustomData), default: nil
       const :request_meta, T.nilable(Inttegro::Chime::SendRequestRequestMeta), default: nil
+
+      extend T::Sig
+
+      sig { params(hash: T::Hash[String, Object], strict: T::Boolean).returns(T.attached_class) }
+      def self.from_hash(hash, strict = false)
+        data = hash.dup
+        if (recipient_value = data["recipient"]).is_a?(Hash)
+          data["recipient"] = if recipient_value.key?("phone")
+            Inttegro::Chime::PhoneRecipient.from_hash(recipient_value)
+          elsif recipient_value.key?("email")
+            Inttegro::Chime::EmailRecipient.from_hash(recipient_value)
+          elsif recipient_value.key?("customer_id")
+            Inttegro::Chime::SavedCustomerRecipient.from_hash(recipient_value)
+          else
+            recipient_value
+          end
+        end
+        super(data, strict)
+      end
     end
   end
 end

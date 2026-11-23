@@ -19,10 +19,10 @@ module Inttegro
     # @!attribute [r] page
     #   A page of payouts ordered from newest to oldest.
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `page`.
-    #   @return [Inttegro::Payout::Page, nil]
+    #   Required in the API payload. Wire name: `page`.
+    #   @return [Inttegro::Payout::Page]
     class PageResponse < T::Struct
-      const :page, T.nilable(Inttegro::Payout::Page), default: nil
+      const :page, Inttegro::Payout::Page
     end
   end
 end

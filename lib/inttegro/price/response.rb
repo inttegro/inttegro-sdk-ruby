@@ -4,8 +4,8 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "../shared/error_payload"
-require_relative "catalog_price"
+require_relative "../customer/selected_catalog_price"
+require_relative "fixed"
 
 module Inttegro
   class Price
@@ -20,18 +20,28 @@ module Inttegro
     # @!attribute [r] price
     #   Value of the `price` field in the Inttegro API payload.
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `price`.
-    #   @return [Inttegro::Price::CatalogPrice, nil]
-    #
-    # @!attribute [r] error
-    #   Standard error response structure returned by all API endpoints. Provides machine-readable
-    #   codes, human-readable messages, and actionable guidance for resolution.
-    #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `error`.
-    #   @return [Inttegro::Shared::ErrorPayload, nil]
+    #   Required in the API payload. Wire name: `price`.
+    #   @return [Inttegro::Price::Fixed, Inttegro::Customer::SelectedCatalogPrice]
     class Response < T::Struct
-      const :price, T.nilable(Inttegro::Price::CatalogPrice), default: nil
-      const :error, T.nilable(Inttegro::Shared::ErrorPayload), default: nil
+      const :price, T.any(Inttegro::Price::Fixed, Inttegro::Customer::SelectedCatalogPrice)
+
+      extend T::Sig
+
+      sig { params(hash: T::Hash[String, Object], strict: T::Boolean).returns(T.attached_class) }
+      def self.from_hash(hash, strict = false)
+        data = hash.dup
+        if (price_value = data["price"]).is_a?(Hash)
+          data["price"] = case price_value["type"]
+          when "fixed_amount"
+            Inttegro::Price::Fixed.from_hash(price_value)
+          when "customer_selected_amount"
+            Inttegro::Customer::SelectedCatalogPrice.from_hash(price_value)
+          else
+            price_value
+          end
+        end
+        super(data, strict)
+      end
     end
   end
 end

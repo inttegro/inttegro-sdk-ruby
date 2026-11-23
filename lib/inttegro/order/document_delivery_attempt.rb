@@ -25,8 +25,8 @@ module Inttegro
     # @!attribute [r] channel
     #   Delivery channel.
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `channel`.
-    #   @return [Inttegro::Shared::DeliveryChannel, nil]
+    #   Required in the API payload. Wire name: `channel`.
+    #   @return [Inttegro::Shared::DeliveryChannel]
     #
     # @!attribute [r] chime_id
     #   Chime ID created for this delivery.
@@ -35,7 +35,7 @@ module Inttegro
     #   @return [String, nil]
     class DocumentDeliveryAttempt < T::Struct
       const :accepted_at, T.nilable(Time), default: nil
-      const :channel, T.nilable(Inttegro::Shared::DeliveryChannel), default: nil
+      const :channel, Inttegro::Shared::DeliveryChannel
       const :chime_id, T.nilable(String), default: nil
     end
   end

@@ -4,7 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "lookup_resource_request_variant2"
+require_relative "legacy_purchase_intent_lookup_request"
 require_relative "order_reference_request"
 
 module Inttegro
@@ -12,7 +12,7 @@ module Inttegro
     # Typed representation of the lookup request object in the Inttegro API.
     #
     # @api public
-    # @return [Inttegro::Checkout::OrderReferenceRequest, Inttegro::Checkout::LookupResourceRequestVariant2]
-    LookupRequest = T.type_alias { T.any(Inttegro::Checkout::OrderReferenceRequest, Inttegro::Checkout::LookupResourceRequestVariant2) }
+    # @return [Inttegro::Checkout::OrderReferenceRequest, Inttegro::Checkout::LegacyPurchaseIntentLookupRequest]
+    LookupRequest = T.type_alias { T.any(Inttegro::Checkout::OrderReferenceRequest, Inttegro::Checkout::LegacyPurchaseIntentLookupRequest) }
   end
 end

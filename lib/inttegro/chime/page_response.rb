@@ -19,10 +19,10 @@ module Inttegro
     # @!attribute [r] page
     #   Value of the `page` field in the Inttegro API payload.
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `page`.
-    #   @return [Inttegro::Chime::Page, nil]
+    #   Required in the API payload. Wire name: `page`.
+    #   @return [Inttegro::Chime::Page]
     class PageResponse < T::Struct
-      const :page, T.nilable(Inttegro::Chime::Page), default: nil
+      const :page, Inttegro::Chime::Page
     end
   end
 end

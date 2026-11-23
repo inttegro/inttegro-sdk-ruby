@@ -4,7 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "../money/amount_params"
+require_relative "../customer/selected_price_input_selected_amount"
 
 module Inttegro
   class Product
@@ -28,10 +28,10 @@ module Inttegro
     #   currency and range
     #
     #   Required in the API payload. Wire name: `selected_amount`.
-    #   @return [Inttegro::Money::AmountParams]
+    #   @return [Inttegro::Customer::SelectedPriceInputSelectedAmount]
     class CustomerSelectedPriceInput < T::Struct
       const :price_id, String
-      const :selected_amount, Inttegro::Money::AmountParams
+      const :selected_amount, Inttegro::Customer::SelectedPriceInputSelectedAmount
     end
   end
 end

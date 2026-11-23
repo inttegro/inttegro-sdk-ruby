@@ -5,11 +5,12 @@
 
 require_relative "base"
 require_relative "../custom_data"
-require_relative "../money/amount"
+require_relative "amount"
 require_relative "balance_transaction"
-require_relative "cancellation"
-require_relative "error"
-require_relative "failure"
+require_relative "cancellation_inline"
+require_relative "error_inline"
+require_relative "failure_inline"
+require_relative "max_amount"
 require_relative "status"
 
 module Inttegro
@@ -25,7 +26,7 @@ module Inttegro
   #   Value of the `amount` field in the Inttegro API payload.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `amount`.
-  #   @return [Inttegro::Money::Amount, nil]
+  #   @return [Inttegro::Payout::Amount, nil]
   #
   # @!attribute [r] balance_transactions
   #   Balance transactions that contributed to this payout. Each item includes the source
@@ -53,7 +54,7 @@ module Inttegro
   #   `canceled`.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `cancellation`.
-  #   @return [Inttegro::Payout::Cancellation, nil]
+  #   @return [Inttegro::Payout::CancellationInline, nil]
   #
   # @!attribute [r] custom_data
   #   Merchant-defined string values attached to a resource. SDKs expose this as a semantic
@@ -72,7 +73,7 @@ module Inttegro
   #   Deprecated compatibility projection of `failure`. New integrations should use `failure`.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `error`.
-  #   @return [Inttegro::Payout::Error, nil]
+  #   @return [Inttegro::Payout::ErrorInline, nil]
   #
   # @!attribute [r] execute_after
   #   Earliest moment payout execution may begin
@@ -102,7 +103,7 @@ module Inttegro
   #   Caller-safe failure information. Present only when `status` is `failed`.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `failure`.
-  #   @return [Inttegro::Payout::Failure, nil]
+  #   @return [Inttegro::Payout::FailureInline, nil]
   #
   # @!attribute [r] id
   #   Unique payout identifier
@@ -126,7 +127,7 @@ module Inttegro
   #   Value of the `max_amount` field in the Inttegro API payload.
   #
   #   Required in the API payload. Wire name: `max_amount`.
-  #   @return [Inttegro::Money::Amount]
+  #   @return [Inttegro::Payout::MaxAmount]
   #
   # @!attribute [r] reference
   #   Merchant reference carried on the payout
@@ -176,23 +177,23 @@ module Inttegro
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `succeeded_at`.
   #   @return [Time, nil]
   class Payout
-    const :amount, T.nilable(Inttegro::Money::Amount), default: nil
+    const :amount, T.nilable(Inttegro::Payout::Amount), default: nil
     const :balance_transactions, T.nilable(T::Array[Inttegro::Payout::BalanceTransaction]), default: nil
     const :balance_transaction_id, T.nilable(String), default: nil
     const :canceled_at, T.nilable(Time), default: nil
-    const :cancellation, T.nilable(Inttegro::Payout::Cancellation), default: nil
+    const :cancellation, T.nilable(Inttegro::Payout::CancellationInline), default: nil
     const :custom_data, T.nilable(Inttegro::CustomData), default: nil
     const :destination_id, String
-    const :error, T.nilable(Inttegro::Payout::Error), default: nil
+    const :error, T.nilable(Inttegro::Payout::ErrorInline), default: nil
     const :execute_after, Time
     const :executed_by, T.nilable(String), default: nil
     const :expected_at, T.nilable(Time), default: nil
     const :failed_at, T.nilable(Time), default: nil
-    const :failure, T.nilable(Inttegro::Payout::Failure), default: nil
+    const :failure, T.nilable(Inttegro::Payout::FailureInline), default: nil
     const :id, String
     const :initiated_at, Time
     const :initiated_by, T.nilable(String), default: nil
-    const :max_amount, Inttegro::Money::Amount
+    const :max_amount, Inttegro::Payout::MaxAmount
     const :reference, T.nilable(String), default: nil
     const :schedule_id, T.nilable(String), default: nil
     const :scheduled_at, T.nilable(Time), default: nil

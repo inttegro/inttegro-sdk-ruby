@@ -5,9 +5,9 @@
 
 require_relative "base"
 require_relative "../chime/email_message_input"
+require_relative "../chime/email_recipient"
+require_relative "../chime/phone_recipient"
 require_relative "../chime/saved_customer_recipient"
-require_relative "../chime/send_request_recipient_variant1_variant1"
-require_relative "../chime/send_request_recipient_variant1_variant2"
 require_relative "../message_template/reference"
 require_relative "chime_request_request_meta"
 
@@ -32,7 +32,7 @@ module Inttegro
     #   inline contact details or `customer_id`.
     #
     #   Required in the API payload. Wire name: `recipients`.
-    #   @return [Array<Inttegro::Chime::SendRequestRecipientVariant1Variant1, Inttegro::Chime::SendRequestRecipientVariant1Variant2, Inttegro::Chime::SavedCustomerRecipient>]
+    #   @return [Array<Inttegro::Chime::PhoneRecipient, Inttegro::Chime::EmailRecipient, Inttegro::Chime::SavedCustomerRecipient>]
     #
     # @!attribute [r] send_after
     #   ISO 8601 timestamp for when to send the chime (must be in the future)
@@ -71,13 +71,35 @@ module Inttegro
     #   @return [String, nil]
     class ChimeRequest < T::Struct
       const :request_meta, T.nilable(Inttegro::Schedule::ChimeRequestRequestMeta), default: nil
-      const :recipients, T::Array[T.any(T.any(Inttegro::Chime::SendRequestRecipientVariant1Variant1, Inttegro::Chime::SendRequestRecipientVariant1Variant2), Inttegro::Chime::SavedCustomerRecipient)]
+      const :recipients, T::Array[T.any(Inttegro::Chime::PhoneRecipient, Inttegro::Chime::EmailRecipient, Inttegro::Chime::SavedCustomerRecipient)]
       const :send_after, Time
       const :full_message, T.nilable(String), default: nil
       const :email, T.nilable(Inttegro::Chime::EmailMessageInput), default: nil
       const :message_template, T.nilable(Inttegro::MessageTemplate::Reference), default: nil
       const :sender_id, T.nilable(String), default: nil
       const :purpose, T.nilable(String), default: nil
+
+      extend T::Sig
+
+      sig { params(hash: T::Hash[String, Object], strict: T::Boolean).returns(T.attached_class) }
+      def self.from_hash(hash, strict = false)
+        data = hash.dup
+        if (recipients_value = data["recipients"]).is_a?(Array)
+          data["recipients"] = recipients_value.map do |item|
+            next item unless item.is_a?(Hash)
+            if item.key?("phone")
+              Inttegro::Chime::PhoneRecipient.from_hash(item)
+            elsif item.key?("email")
+              Inttegro::Chime::EmailRecipient.from_hash(item)
+            elsif item.key?("customer_id")
+              Inttegro::Chime::SavedCustomerRecipient.from_hash(item)
+            else
+              item
+            end
+          end
+        end
+        super(data, strict)
+      end
     end
   end
 end

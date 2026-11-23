@@ -4,7 +4,8 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "../money/amount"
+require_relative "line_item_original_amount_paid"
+require_relative "line_item_refund_amount"
 require_relative "order_fee_line_item"
 require_relative "order_product_line_item"
 require_relative "order_shipping_line_item"
@@ -44,7 +45,7 @@ module Inttegro
     #   Value of the `original_amount_paid` field in the Inttegro API payload.
     #
     #   Required in the API payload. Wire name: `original_amount_paid`.
-    #   @return [Inttegro::Money::Amount]
+    #   @return [Inttegro::Refund::LineItemOriginalAmountPaid]
     #
     # @!attribute [r] reason
     #   Value of the `reason` field in the Inttegro API payload.
@@ -62,15 +63,15 @@ module Inttegro
     #   Value of the `refund_amount` field in the Inttegro API payload.
     #
     #   Required in the API payload. Wire name: `refund_amount`.
-    #   @return [Inttegro::Money::Amount]
+    #   @return [Inttegro::Refund::LineItemRefundAmount]
     class LineItem < T::Struct
       const :id, String
       const :order_line_item_id, String
       const :order_line_item, T.nilable(T.any(Inttegro::Refund::OrderProductLineItem, Inttegro::Refund::OrderFeeLineItem, Inttegro::Refund::OrderShippingLineItem)), default: nil
-      const :original_amount_paid, Inttegro::Money::Amount
+      const :original_amount_paid, Inttegro::Refund::LineItemOriginalAmountPaid
       const :reason, T.nilable(Inttegro::Refund::Reason), default: nil
       const :reason_details, T.nilable(String), default: nil
-      const :refund_amount, Inttegro::Money::Amount
+      const :refund_amount, Inttegro::Refund::LineItemRefundAmount
 
       extend T::Sig
 

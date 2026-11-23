@@ -19,10 +19,10 @@ module Inttegro
     # @!attribute [r] settings
     #   Payout settings fields returned after a mutation
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `settings`.
-    #   @return [Inttegro::Payout::SettingsMutation, nil]
+    #   Required in the API payload. Wire name: `settings`.
+    #   @return [Inttegro::Payout::SettingsMutation]
     class DisableAutomaticResponse < T::Struct
-      const :settings, T.nilable(Inttegro::Payout::SettingsMutation), default: nil
+      const :settings, Inttegro::Payout::SettingsMutation
     end
   end
 end

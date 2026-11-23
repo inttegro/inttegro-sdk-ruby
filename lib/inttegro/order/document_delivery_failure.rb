@@ -19,17 +19,10 @@ module Inttegro
     # @!attribute [r] channel
     #   Delivery channel.
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `channel`.
-    #   @return [Inttegro::Shared::DeliveryChannel, nil]
-    #
-    # @!attribute [r] error
-    #   Provider or Chime error for this channel.
-    #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `error`.
-    #   @return [String, nil]
+    #   Required in the API payload. Wire name: `channel`.
+    #   @return [Inttegro::Shared::DeliveryChannel]
     class DocumentDeliveryFailure < T::Struct
-      const :channel, T.nilable(Inttegro::Shared::DeliveryChannel), default: nil
-      const :error, T.nilable(String), default: nil
+      const :channel, Inttegro::Shared::DeliveryChannel
     end
   end
 end

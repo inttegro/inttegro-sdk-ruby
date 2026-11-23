@@ -4,7 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "mobile_money_data_network"
+require_relative "../shared/mobile_money_network"
 
 module Inttegro
   module Checkout
@@ -26,7 +26,7 @@ module Inttegro
     #   Value of the `network` field in the Inttegro API payload.
     #
     #   Required in the API payload. Wire name: `network`.
-    #   @return [Inttegro::Checkout::MobileMoneyDataNetwork]
+    #   @return [Inttegro::Shared::MobileMoneyNetwork]
     #
     # @!attribute [r] account_number
     #   Value of the `account_number` field in the Inttegro API payload.
@@ -35,7 +35,7 @@ module Inttegro
     #   @return [String]
     class MobileMoneyData < T::Struct
       const :reference, T.nilable(String), default: nil
-      const :network, Inttegro::Checkout::MobileMoneyDataNetwork
+      const :network, Inttegro::Shared::MobileMoneyNetwork
       const :account_number, String
     end
   end

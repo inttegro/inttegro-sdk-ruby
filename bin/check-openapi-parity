@@ -15,7 +15,7 @@ abort "OpenAPI spec not found at #{spec_path}" unless spec_path.file?
 spec_paths = YAML.load_file(spec_path).fetch("paths").keys.sort
 sources = Dir[sdk_root.join("lib", "inttegro", "resources", "*.rb")].sort.map { |path| File.read(path) }.join("\n")
 implemented_paths = sources.scan(
-  %r{@http\.(?:get|post|post_model|post_resource|post_object|post_with_headers|post_multipart|post_multipart_model|post_multipart_resource|post_binary_json)\(\s*["'](/[a-z0-9_/-]+)["']}
+  %r{@http\.(?:get|post|post_model|post_resource|post_union_resource|post_object|post_with_headers|post_multipart|post_multipart_model|post_multipart_resource|post_binary_json)\(\s*["'](/[a-z0-9_/-]+)["']}
 ).flatten.uniq.sort
 external_paths = ["/file_links/open", "/upload_requests/upload"]
 client_checkout_paths = [
@@ -32,7 +32,7 @@ errors = []
 end
 
 typed_calls = sources.scan(
-  %r{@http\.(?:post_model|post_resource|post_multipart_model|post_multipart_resource)\(\s*["'](/[a-z0-9_/-]+)["']\s*,\s*(Inttegro(?:::[A-Za-z0-9_]+)+)}
+  %r{@http\.(?:post_model|post_resource|post_union_resource|post_multipart_model|post_multipart_resource)\(\s*["'](/[a-z0-9_/-]+)["']\s*,\s*(?:\[\s*)?(Inttegro(?:::[A-Za-z0-9_]+)+)}
 ).to_h
 
 Inttegro::Operations::RESPONSE_MODELS.each_key do |path|

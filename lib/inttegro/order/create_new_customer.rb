@@ -6,7 +6,7 @@
 require_relative "base"
 require_relative "../custom_data"
 require_relative "../customer/data"
-require_relative "../payment_method/data"
+require_relative "../payment_method/type"
 require_relative "../product/line_item"
 require_relative "../shared/billing_details"
 require_relative "../shared/fee_line_item"
@@ -14,6 +14,7 @@ require_relative "../shared/invoice_settings"
 require_relative "../shared/shipping"
 require_relative "../shared/shipping_line_item"
 require_relative "create_new_customer_checkout_settings"
+require_relative "create_new_customer_payment_method_data"
 require_relative "create_new_customer_request_meta"
 require_relative "payout_settings_request"
 
@@ -33,11 +34,24 @@ module Inttegro
     #   Required in the API payload. Wire name: `customer_data`.
     #   @return [Inttegro::Customer::Data]
     #
+    # @!attribute [r] payment_method_types
+    #   Payment method types the order may accept. Omit or send an empty array to use all supported
+    #   types.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `payment_method_types`.
+    #   @return [Array<Inttegro::PaymentMethod::Type>, nil]
+    #
     # @!attribute [r] payment_method_data
     #   New payment instrument details to use when executing payment for the order.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `payment_method_data`.
-    #   @return [Inttegro::PaymentMethod::Data, nil]
+    #   @return [Inttegro::Order::CreateNewCustomerPaymentMethodData, nil]
+    #
+    # @!attribute [r] payment_due_after
+    #   Optional payment due time.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `payment_due_after`.
+    #   @return [Time, nil]
     #
     # @!attribute [r] number
     #   Optional order number for reference. When omitted, Inttegro uses the generated order ID.
@@ -132,7 +146,9 @@ module Inttegro
     #   @return [Inttegro::Shared::Shipping, nil]
     class CreateNewCustomer < T::Struct
       const :customer_data, Inttegro::Customer::Data
-      const :payment_method_data, T.nilable(Inttegro::PaymentMethod::Data), default: nil
+      const :payment_method_types, T.nilable(T::Array[Inttegro::PaymentMethod::Type]), default: nil
+      const :payment_method_data, T.nilable(Inttegro::Order::CreateNewCustomerPaymentMethodData), default: nil
+      const :payment_due_after, T.nilable(Time), default: nil
       const :number, T.nilable(String), default: nil
       const :receipt_number, T.nilable(String), default: nil
       const :statement_descriptor, T.nilable(String), default: nil

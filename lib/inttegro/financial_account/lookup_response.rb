@@ -19,10 +19,10 @@ module Inttegro
     # @!attribute [r] account
     #   Value of the `account` field in the Inttegro API payload.
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `account`.
-    #   @return [Inttegro::FinancialAccount, nil]
+    #   Required in the API payload. Wire name: `account`.
+    #   @return [Inttegro::FinancialAccount]
     class LookupResponse < T::Struct
-      const :account, T.nilable(Inttegro::FinancialAccount), default: nil
+      const :account, Inttegro::FinancialAccount
     end
   end
 end

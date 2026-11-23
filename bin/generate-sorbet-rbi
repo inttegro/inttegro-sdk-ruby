@@ -40,7 +40,7 @@ DOMAIN_RETURN_TYPES = {
   "/children_policies/lookup" => "Inttegro::Shared::ChildrenPolicy", "/children_policies/page" => "Inttegro::Shared::ChildrenPolicyVersionsPage",
   "/balance_transactions/lookup" => "Inttegro::BalanceTransaction", "/balance_transactions/page" => "Inttegro::BalanceTransaction::Page", "/balances" => "Inttegro::Balance::Snapshot",
   "/broadcasts/cancel" => "Inttegro::Broadcast::CancelDetail", "/broadcasts/lookup" => "Inttegro::Broadcast::Detail",
-  "/chimes/broadcast" => "Inttegro::Broadcast::CreationDetail", "/chimes/lookup" => "Inttegro::Chime", "/chimes/page" => "Inttegro::Chime::Page", "/chimes/schedule" => "Inttegro::Schedule::CreationDetail", "/chimes/send" => "Inttegro::Chime",
+  "/chimes/broadcast" => "Inttegro::Broadcast::CreationDetail", "/chimes/lookup" => "Inttegro::Chime", "/chimes/page" => "Inttegro::Chime::Page", "/chimes/schedule" => "Inttegro::Schedule::CreationDetail", "/chimes/send" => "Inttegro::Chime", "/chimes/settings" => "Inttegro::Chime::Settings",
   "/customers/create" => "Inttegro::Customer", "/customers/lookup" => "Inttegro::Customer", "/customers/page" => "Inttegro::Customer::Page", "/customers/search" => "Inttegro::Search::Page", "/customers/update" => "Inttegro::Customer",
   "/file_links/create" => "Inttegro::FileLink::Creation", "/file_links/lookup" => "Inttegro::FileLink", "/file_links/page" => "Inttegro::FileLink::Page", "/file_links/revoke" => "Inttegro::FileLink",
   "/file_references/reconcile" => "Inttegro::FileReference::Reconciliation", "/files/create" => "Inttegro::File", "/files/delete" => "Inttegro::File", "/files/lookup" => "Inttegro::File", "/files/page" => "Inttegro::File::Page",

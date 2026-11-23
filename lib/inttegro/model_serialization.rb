@@ -18,7 +18,7 @@ module Inttegro
     delivered_at disconnected_at due_at enabled_at execute_after executed_at
     expected_at expired_at expires_at expires_on failed_at fulfilled_at inactive_at
     includes_transactions_before initialized_at initiated_at issued_at last_accessed_at
-    last_attempted_at last_email_event_at last_used_at occurred_at paid_at payment_due_at
+    last_attempted_at last_used_at occurred_at paid_at payment_due_at
     processing_at published_at queued_at reviewed_at revoked_at scheduled_at sealed_at
     send_after sent_at succeeded_at supplied_at suppressed_at token_sent_at updated_at
     uploading_at valid_until verified_at

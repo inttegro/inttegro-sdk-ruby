@@ -4,6 +4,11 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "error_cause"
+require_relative "error_code"
+require_relative "error_documentation_url"
+require_relative "error_fix_code"
+require_relative "error_type"
 
 module Inttegro
   module Shared
@@ -27,7 +32,7 @@ module Inttegro
     #   "retry_with_exponential_backoff", "change_request_parameters").
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `fix_code`.
-    #   @return [String, nil]
+    #   @return [Inttegro::Shared::ErrorFixCode, nil]
     #
     # @!attribute [r] detail
     #   Explanation of the relevant rule and next safe action. It never contains raw dependency,
@@ -41,36 +46,36 @@ module Inttegro
     #   precondition, or a state conflict.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `cause`.
-    #   @return [String, nil]
+    #   @return [Inttegro::Shared::ErrorCause, nil]
     #
     # @!attribute [r] type
     #   Broad error category to help clients determine retry strategies (e.g.,
     #   "invalid_request_parameter", "transient_error").
     #
     #   Required in the API payload. Wire name: `type`.
-    #   @return [String]
+    #   @return [Inttegro::Shared::ErrorType]
     #
     # @!attribute [r] code
     #   Unique machine-readable identifier for this specific error condition. Unlike type and cause
     #   which group errors, code pinpoints the exact problem.
     #
     #   Required in the API payload. Wire name: `code`.
-    #   @return [String]
+    #   @return [Inttegro::Shared::ErrorCode]
     #
     # @!attribute [r] url
     #   Link to error reference documentation with detailed explanation, common causes, and
     #   resolution guidance.
     #
     #   Required in the API payload. Wire name: `url`.
-    #   @return [String]
+    #   @return [Inttegro::Shared::ErrorDocumentationURL]
     class ErrorPayload < T::Struct
       const :message, T.nilable(String), default: nil
-      const :fix_code, T.nilable(String), default: nil
+      const :fix_code, T.nilable(Inttegro::Shared::ErrorFixCode), default: nil
       const :detail, T.nilable(String), default: nil
-      const :cause, T.nilable(String), default: nil
-      const :type, String
-      const :code, String
-      const :url, String
+      const :cause, T.nilable(Inttegro::Shared::ErrorCause), default: nil
+      const :type, Inttegro::Shared::ErrorType
+      const :code, Inttegro::Shared::ErrorCode
+      const :url, Inttegro::Shared::ErrorDocumentationURL
     end
   end
 end

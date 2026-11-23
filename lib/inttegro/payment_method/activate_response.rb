@@ -19,10 +19,10 @@ module Inttegro
     # @!attribute [r] payment_method
     #   A tokenized payment instrument tied to a customer
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `payment_method`.
-    #   @return [Inttegro::PaymentMethod, nil]
+    #   Required in the API payload. Wire name: `payment_method`.
+    #   @return [Inttegro::PaymentMethod]
     class ActivateResponse < T::Struct
-      const :payment_method, T.nilable(Inttegro::PaymentMethod), default: nil
+      const :payment_method, Inttegro::PaymentMethod
     end
   end
 end

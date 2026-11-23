@@ -37,6 +37,12 @@ module Inttegro
     #   Required in the API payload. Wire name: `id`.
     #   @return [String]
     #
+    # @!attribute [r] refund
+    #   Value of the `refund` field in the Inttegro API payload.
+    #
+    #   Required in the API payload. Wire name: `refund`.
+    #   @return [Inttegro::BalanceTransaction::RefundAllocationRefund]
+    #
     # @!attribute [r] status
     #   Public effect of an allocation on the source payment balance transaction. Internal
     #   reservation and reconciliation states are not exposed.
@@ -55,20 +61,14 @@ module Inttegro
     #
     #   Required in the API payload. Wire name: `updated_at`.
     #   @return [Time]
-    #
-    # @!attribute [r] refund
-    #   Value of the `refund` field in the Inttegro API payload.
-    #
-    #   Required in the API payload. Wire name: `refund`.
-    #   @return [Inttegro::BalanceTransaction::RefundAllocationRefund]
     class RefundAllocation < T::Struct
       const :completed_at, T.nilable(Time), default: nil
       const :created_at, Time
       const :id, String
+      const :refund, Inttegro::BalanceTransaction::RefundAllocationRefund
       const :status, Inttegro::BalanceTransaction::AllocationStatus
       const :type, Inttegro::BalanceTransaction::RefundAllocationType
       const :updated_at, Time
-      const :refund, Inttegro::BalanceTransaction::RefundAllocationRefund
     end
   end
 end

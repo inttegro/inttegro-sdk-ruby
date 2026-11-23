@@ -1,0 +1,28 @@
+# frozen_string_literal: true
+# typed: strict
+
+# Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
+
+require_relative "base"
+
+module Inttegro
+  module Search
+    # String-backed values accepted by the Inttegro API for
+    # Inttegro::Search::ChronologicalSortDirection.
+    #
+    # Use the constants below when constructing a request. `#serialize` returns the documented
+    # string wire value received from or sent to the API.
+    #
+    # @api public
+    class ChronologicalSortDirection < T::Enum
+      enums do
+        # Serialized wire value: `asc`.
+        # @return [Inttegro::Search::ChronologicalSortDirection]
+        ASC = new("asc")
+        # Serialized wire value: `desc`.
+        # @return [Inttegro::Search::ChronologicalSortDirection]
+        DESC = new("desc")
+      end
+    end
+  end
+end

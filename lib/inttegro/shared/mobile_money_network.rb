@@ -7,7 +7,7 @@ require_relative "base"
 
 module Inttegro
   module Shared
-    # Mobile money service provider
+    # Mobile-money network provider.
     #
     # Use the constants below when constructing a request. `#serialize` returns the documented
     # string wire value received from or sent to the API.
@@ -15,18 +15,18 @@ module Inttegro
     # @api public
     class MobileMoneyNetwork < T::Enum
       enums do
-        # Serialized wire value: `airtel`.
-        # @return [Inttegro::Shared::MobileMoneyNetwork]
-        AIRTEL = new("airtel")
         # Serialized wire value: `mtn`.
         # @return [Inttegro::Shared::MobileMoneyNetwork]
         MTN = new("mtn")
-        # Serialized wire value: `telecel`.
-        # @return [Inttegro::Shared::MobileMoneyNetwork]
-        TELECEL = new("telecel")
         # Serialized wire value: `vodafone`.
         # @return [Inttegro::Shared::MobileMoneyNetwork]
         VODAFONE = new("vodafone")
+        # Serialized wire value: `airtel`.
+        # @return [Inttegro::Shared::MobileMoneyNetwork]
+        AIRTEL = new("airtel")
+        # Serialized wire value: `telecel`.
+        # @return [Inttegro::Shared::MobileMoneyNetwork]
+        TELECEL = new("telecel")
       end
     end
   end

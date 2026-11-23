@@ -34,13 +34,6 @@ module Inttegro
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `message_template`.
     #   @return [String, nil]
     #
-    # @!attribute [r] preferred_gateway
-    #   Optional SMS gateway; not valid for email OTP delivery. Email uses the configured default
-    #   provider.
-    #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `preferred_gateway`.
-    #   @return [String, nil]
-    #
     # @!attribute [r] purpose
     #   Customer action protected by the OTP. Controls safe, purpose-specific default email copy.
     #   Unknown values are rejected; use `unspecified` explicitly for a general verification
@@ -103,7 +96,6 @@ module Inttegro
     class InitiateRequest < T::Struct
       const :async_delivery, T.nilable(T::Boolean), default: nil
       const :message_template, T.nilable(String), default: nil
-      const :preferred_gateway, T.nilable(String), default: nil
       const :purpose, Inttegro::OTP::Purpose
       const :recipient, String
       const :sender, T.nilable(String), default: nil

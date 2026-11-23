@@ -19,10 +19,10 @@ module Inttegro
     # @!attribute [r] payout
     #   A payout scheduled from your Inttegro balance to a destination financial account
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `payout`.
-    #   @return [Inttegro::Payout, nil]
+    #   Required in the API payload. Wire name: `payout`.
+    #   @return [Inttegro::Payout]
     class Response < T::Struct
-      const :payout, T.nilable(Inttegro::Payout), default: nil
+      const :payout, Inttegro::Payout
     end
   end
 end

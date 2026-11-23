@@ -4,7 +4,6 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "../shared/error_payload"
 require_relative "customer"
 
 module Inttegro
@@ -20,18 +19,10 @@ module Inttegro
     # @!attribute [r] customer
     #   Value of the `customer` field in the Inttegro API payload.
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `customer`.
-    #   @return [Inttegro::Customer, nil]
-    #
-    # @!attribute [r] error
-    #   Standard error response structure returned by all API endpoints. Provides machine-readable
-    #   codes, human-readable messages, and actionable guidance for resolution.
-    #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `error`.
-    #   @return [Inttegro::Shared::ErrorPayload, nil]
+    #   Required in the API payload. Wire name: `customer`.
+    #   @return [Inttegro::Customer]
     class Response < T::Struct
-      const :customer, T.nilable(Inttegro::Customer), default: nil
-      const :error, T.nilable(Inttegro::Shared::ErrorPayload), default: nil
+      const :customer, Inttegro::Customer
     end
   end
 end

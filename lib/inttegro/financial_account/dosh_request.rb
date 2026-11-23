@@ -6,10 +6,11 @@
 require_relative "base"
 require_relative "../custom_data"
 require_relative "../shared/dosh_account"
+require_relative "currency"
+require_relative "dosh_request_pull_configuration"
+require_relative "dosh_request_push_configuration"
 require_relative "dosh_request_type"
 require_relative "owner_input"
-require_relative "request_base_pull_configuration"
-require_relative "request_base_push_configuration"
 
 module Inttegro
   class FinancialAccount
@@ -22,10 +23,10 @@ module Inttegro
     # @api public
     #
     # @!attribute [r] currency
-    #   Supported lowercase currency code
+    #   Currency currently supported for financial accounts.
     #
     #   Required in the API payload. Wire name: `currency`.
-    #   @return [String]
+    #   @return [Inttegro::FinancialAccount::Currency]
     #
     # @!attribute [r] custom_data
     #   Merchant-defined values accepted on resource creation. Values are serialized to strings
@@ -39,6 +40,13 @@ module Inttegro
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `description`.
     #   @return [String, nil]
+    #
+    # @!attribute [r] dosh_account
+    #   Dosh account marker. Dosh credentials and internal identifiers are not supplied by callers
+    #   or returned publicly.
+    #
+    #   Required in the API payload. Wire name: `dosh_account`.
+    #   @return [Inttegro::Shared::DoshAccount]
     #
     # @!attribute [r] label
     #   Value of the `label` field in the Inttegro API payload.
@@ -56,13 +64,13 @@ module Inttegro
     #   Value of the `pull_configuration` field in the Inttegro API payload.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `pull_configuration`.
-    #   @return [Inttegro::FinancialAccount::RequestBasePullConfiguration, nil]
+    #   @return [Inttegro::FinancialAccount::DoshRequestPullConfiguration, nil]
     #
     # @!attribute [r] push_configuration
     #   Value of the `push_configuration` field in the Inttegro API payload.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `push_configuration`.
-    #   @return [Inttegro::FinancialAccount::RequestBasePushConfiguration, nil]
+    #   @return [Inttegro::FinancialAccount::DoshRequestPushConfiguration, nil]
     #
     # @!attribute [r] reference
     #   Value of the `reference` field in the Inttegro API payload.
@@ -75,24 +83,17 @@ module Inttegro
     #
     #   Required in the API payload. Wire name: `type`.
     #   @return [Inttegro::FinancialAccount::DoshRequestType]
-    #
-    # @!attribute [r] dosh_account
-    #   Dosh account marker. Dosh credentials and internal identifiers are not supplied by callers
-    #   or returned publicly.
-    #
-    #   Required in the API payload. Wire name: `dosh_account`.
-    #   @return [Inttegro::Shared::DoshAccount]
     class DoshRequest < T::Struct
-      const :currency, String
+      const :currency, Inttegro::FinancialAccount::Currency
       const :custom_data, T.nilable(Inttegro::CustomDataInput), default: nil
       const :description, T.nilable(String), default: nil
+      const :dosh_account, Inttegro::Shared::DoshAccount
       const :label, String
       const :owner, Inttegro::FinancialAccount::OwnerInput
-      const :pull_configuration, T.nilable(Inttegro::FinancialAccount::RequestBasePullConfiguration), default: nil
-      const :push_configuration, T.nilable(Inttegro::FinancialAccount::RequestBasePushConfiguration), default: nil
+      const :pull_configuration, T.nilable(Inttegro::FinancialAccount::DoshRequestPullConfiguration), default: nil
+      const :push_configuration, T.nilable(Inttegro::FinancialAccount::DoshRequestPushConfiguration), default: nil
       const :reference, String
       const :type, Inttegro::FinancialAccount::DoshRequestType
-      const :dosh_account, Inttegro::Shared::DoshAccount
     end
   end
 end

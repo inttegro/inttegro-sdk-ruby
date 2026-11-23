@@ -4,10 +4,10 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "../shared/children_policy"
 require_relative "capability_projection"
+require_relative "looked_up_children_policy"
+require_relative "looked_up_operating_policy"
 require_relative "looked_up_relationship"
-require_relative "operating_policy"
 
 module Inttegro
   class Application
@@ -63,8 +63,7 @@ module Inttegro
     #
     # @!attribute [r] capabilities
     #   Public capability states currently available to the application. Newly created applications
-    #   can return an empty object until capabilities become available. New capability keys may
-    #   appear over time.
+    #   can return an empty object until capabilities become available.
     #
     #   Required in the API payload. Wire name: `capabilities`.
     #   @return [Inttegro::Application::CapabilityProjection]
@@ -74,14 +73,14 @@ module Inttegro
     #   unavailable to the caller.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `children_policy`.
-    #   @return [Inttegro::Shared::ChildrenPolicy, nil]
+    #   @return [Inttegro::Application::LookedUpChildrenPolicy, nil]
     #
     # @!attribute [r] operating_policy
     #   Immutable operating policy applied to the application. Omitted for root applications and
     #   when the private beta is unavailable to the caller.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `operating_policy`.
-    #   @return [Inttegro::Application::OperatingPolicy, nil]
+    #   @return [Inttegro::Application::LookedUpOperatingPolicy, nil]
     #
     # @!attribute [r] relationship
     #   Identifies the authenticated app's direct placement relationship. Omitted for root apps.
@@ -97,8 +96,8 @@ module Inttegro
       const :updated_at, T.nilable(Time), default: nil
       const :archived_at, T.nilable(Time), default: nil
       const :capabilities, Inttegro::Application::CapabilityProjection
-      const :children_policy, T.nilable(Inttegro::Shared::ChildrenPolicy), default: nil
-      const :operating_policy, T.nilable(Inttegro::Application::OperatingPolicy), default: nil
+      const :children_policy, T.nilable(Inttegro::Application::LookedUpChildrenPolicy), default: nil
+      const :operating_policy, T.nilable(Inttegro::Application::LookedUpOperatingPolicy), default: nil
       const :relationship, T.nilable(Inttegro::Application::LookedUpRelationship), default: nil
     end
   end

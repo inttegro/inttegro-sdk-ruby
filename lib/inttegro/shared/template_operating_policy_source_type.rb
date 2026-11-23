@@ -1,0 +1,25 @@
+# frozen_string_literal: true
+# typed: strict
+
+# Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
+
+require_relative "base"
+
+module Inttegro
+  module Shared
+    # String-backed values accepted by the Inttegro API for
+    # Inttegro::Shared::TemplateOperatingPolicySourceType.
+    #
+    # Use the constants below when constructing a request. `#serialize` returns the documented
+    # string wire value received from or sent to the API.
+    #
+    # @api public
+    class TemplateOperatingPolicySourceType < T::Enum
+      enums do
+        # Serialized wire value: `template`.
+        # @return [Inttegro::Shared::TemplateOperatingPolicySourceType]
+        TEMPLATE = new("template")
+      end
+    end
+  end
+end

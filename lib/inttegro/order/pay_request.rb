@@ -4,7 +4,8 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "../payment_method/data"
+require_relative "../payment_method/type"
+require_relative "pay_payment_method_data"
 
 module Inttegro
   class Order
@@ -22,17 +23,30 @@ module Inttegro
     #   Required in the API payload. Wire name: `order_id`.
     #   @return [String]
     #
+    # @!attribute [r] payment_method_types
+    #   Payment method types to expose for this payment attempt.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `payment_method_types`.
+    #   @return [Array<Inttegro::PaymentMethod::Type>, nil]
+    #
     # @!attribute [r] payment_method_data
-    #   Payment instrument details for tokenization
+    #   New mobile-money payment method details supplied while paying an order.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `payment_method_data`.
-    #   @return [Inttegro::PaymentMethod::Data, nil]
+    #   @return [Inttegro::Order::PayPaymentMethodData, nil]
     #
     # @!attribute [r] payment_method_id
     #   ID of a saved payment method to use for this payment
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `payment_method_id`.
     #   @return [String, nil]
+    #
+    # @!attribute [r] save_payment_method
+    #   Save a newly supplied payment method. When true and payment_method_data is present,
+    #   billing_details is required.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `save_payment_method`.
+    #   @return [Boolean, nil]
     #
     # @!attribute [r] paid_out_of_band
     #   Set to true if payment was received outside Inttegro (cash, bank transfer, check). Marks the
@@ -43,8 +57,10 @@ module Inttegro
     #   @return [Boolean, nil]
     class PayRequest < T::Struct
       const :order_id, String
-      const :payment_method_data, T.nilable(Inttegro::PaymentMethod::Data), default: nil
+      const :payment_method_types, T.nilable(T::Array[Inttegro::PaymentMethod::Type]), default: nil
+      const :payment_method_data, T.nilable(Inttegro::Order::PayPaymentMethodData), default: nil
       const :payment_method_id, T.nilable(String), default: nil
+      const :save_payment_method, T.nilable(T::Boolean), default: nil
       const :paid_out_of_band, T.nilable(T::Boolean), default: nil
     end
   end

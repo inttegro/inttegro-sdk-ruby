@@ -80,7 +80,7 @@ module Inttegro
   #   @return [String]
   #
   # @!attribute [r] transmission
-  #   Value of the `transmission` field in the Inttegro API payload.
+  #   Public delivery lifecycle for a Chime.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `transmission`.
   #   @return [Inttegro::Chime::Transmission, nil]

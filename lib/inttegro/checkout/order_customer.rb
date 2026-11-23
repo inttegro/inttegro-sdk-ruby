@@ -4,8 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "order_customer_billing_address"
-require_relative "order_customer_shipping_address"
+require_relative "../order/address"
 
 module Inttegro
   module Checkout
@@ -51,21 +50,21 @@ module Inttegro
     #   Value of the `billing_address` field in the Inttegro API payload.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `billing_address`.
-    #   @return [Inttegro::Checkout::OrderCustomerBillingAddress, nil]
+    #   @return [Inttegro::Order::Address, nil]
     #
     # @!attribute [r] shipping_address
     #   Value of the `shipping_address` field in the Inttegro API payload.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `shipping_address`.
-    #   @return [Inttegro::Checkout::OrderCustomerShippingAddress, nil]
+    #   @return [Inttegro::Order::Address, nil]
     class OrderCustomer < T::Struct
       const :id, T.nilable(String), default: nil
       const :guest, T.nilable(T::Boolean), default: nil
       const :name, T.nilable(String), default: nil
       const :email_address, T.nilable(String), default: nil
       const :phone_number, T.nilable(String), default: nil
-      const :billing_address, T.nilable(Inttegro::Checkout::OrderCustomerBillingAddress), default: nil
-      const :shipping_address, T.nilable(Inttegro::Checkout::OrderCustomerShippingAddress), default: nil
+      const :billing_address, T.nilable(Inttegro::Order::Address), default: nil
+      const :shipping_address, T.nilable(Inttegro::Order::Address), default: nil
     end
   end
 end
