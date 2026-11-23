@@ -16,12 +16,12 @@ class InttegroEnumTypesTest < Minitest::Test
   def test_amount_and_price_types_preserve_wire_shapes
     price = Inttegro::Price::PriceParams.new(currency: Inttegro::Money::Currency::GHS, value: 3005)
     amount = Inttegro::Money::AmountParams.new(currency: Inttegro::Money::Currency::GHS, value: 3005)
-    catalog = Inttegro::Price::CatalogPriceParams.new(
-      type: Inttegro::Price::Type::FIXED_AMOUNT,
+    catalog = Inttegro::Price::FixedParams.new(
+      type: Inttegro::Price::FixedParamsType::FIXED_AMOUNT,
       fixed_amount: amount,
       label: "Retail"
     )
-    returned = Inttegro::Price::CatalogPrice.from_hash(
+    returned = Inttegro::Price::Fixed.from_hash(
       "id" => "pr_123",
       "active" => true,
       "type" => "fixed_amount",

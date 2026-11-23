@@ -37,10 +37,10 @@ class InttegroModelOrganizationTest < Minitest::Test
   end
 
   def test_customer_selected_prices_preserve_tagged_catalog_shapes
-    selected = Inttegro::Price::CatalogPriceParams.new(
+    selected = Inttegro::Customer::SelectedCatalogPriceParams.new(
       product_id: "prod_donation",
-      type: Inttegro::Price::Type::CUSTOMER_SELECTED_AMOUNT,
-      customer_selected_amount: Inttegro::Price::CustomerSelectedAmountParams.new(
+      type: Inttegro::Customer::SelectedCatalogPriceParamsType::CUSTOMER_SELECTED_AMOUNT,
+      customer_selected_amount: Inttegro::Customer::SelectedCatalogPriceParamsCustomerSelectedAmount.new(
         currency: Inttegro::Money::Currency::GHS,
         minimum: 500,
         suggested_amounts: [
@@ -81,7 +81,7 @@ class InttegroModelOrganizationTest < Minitest::Test
     )
     assert_equal "pr_donation", catalog_product.serialize.dig("customer_selected_price", "price_id")
 
-    decoded = Inttegro.deserialize(
+    decoded = Inttegro::Customer::SelectedCatalogPrice.from_hash(
       {
         "id" => "pr_donation",
         "active" => true,
@@ -89,10 +89,8 @@ class InttegroModelOrganizationTest < Minitest::Test
         "customer_selected_amount" => { "currency" => "ghs", "minimum" => 500 },
         "product_id" => "prod_donation",
         "created_at" => "2026-10-01T10:00:00Z"
-      },
-      Inttegro::Price::CatalogPrice
+      }
     )
     assert_equal 500, decoded.customer_selected_amount&.minimum
-    assert_nil decoded.fixed_amount
   end
 end

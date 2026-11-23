@@ -18,7 +18,7 @@ module Inttegro
     #
     # @return [Boolean] whether {#usage} marks the purchase intent as single-use
     def single_use?
-      usage.single_use == true
+      usage.is_a?(Inttegro::PurchaseIntent::SingleUseUsage)
     end
 
     sig { returns(T.nilable(String)) }
@@ -31,7 +31,8 @@ module Inttegro
     def used_order_id
       return nil unless single_use?
 
-      id = usage.order&.id
+      single_use_usage = T.cast(usage, Inttegro::PurchaseIntent::SingleUseUsage)
+      id = single_use_usage.order&.id
       id unless id&.empty?
     end
   end

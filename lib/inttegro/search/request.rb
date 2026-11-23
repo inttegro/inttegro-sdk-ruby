@@ -64,6 +64,27 @@ module Inttegro
       const :sort, T.nilable(Inttegro::Search::Sort), default: nil
       const :page_size, T.nilable(Integer), default: nil
       const :cursor, T.nilable(String), default: nil
+
+      extend T::Sig
+
+      sig { params(hash: T::Hash[String, Object], strict: T::Boolean).returns(T.attached_class) }
+      def self.from_hash(hash, strict = false)
+        data = hash.dup
+        if (filters_value = data["filters"]).is_a?(Array)
+          data["filters"] = filters_value.map do |item|
+            next item unless item.is_a?(Hash)
+            case item["operator"]
+            when "eq"
+              Inttegro::Search::EqualsFilter.from_hash(item)
+            when "in"
+              Inttegro::Search::InFilter.from_hash(item)
+            else
+              item
+            end
+          end
+        end
+        super(data, strict)
+      end
     end
   end
 end

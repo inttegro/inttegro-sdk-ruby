@@ -24,6 +24,24 @@ module Inttegro
     #   @return [Inttegro::Price::ArchivedResponsePriceVariant1, Inttegro::Price::ArchivedResponsePriceVariant2]
     class ArchivedResponse < T::Struct
       const :price, T.any(Inttegro::Price::ArchivedResponsePriceVariant1, Inttegro::Price::ArchivedResponsePriceVariant2)
+
+      extend T::Sig
+
+      sig { params(hash: T::Hash[String, Object], strict: T::Boolean).returns(T.attached_class) }
+      def self.from_hash(hash, strict = false)
+        data = hash.dup
+        if (price_value = data["price"]).is_a?(Hash)
+          data["price"] = case price_value["type"]
+          when "fixed_amount"
+            Inttegro::Price::ArchivedResponsePriceVariant1.from_hash(price_value)
+          when "customer_selected_amount"
+            Inttegro::Price::ArchivedResponsePriceVariant2.from_hash(price_value)
+          else
+            price_value
+          end
+        end
+        super(data, strict)
+      end
     end
   end
 end

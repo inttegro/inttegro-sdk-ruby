@@ -447,7 +447,8 @@ class InttegroClientTest < Minitest::Test
 
     assert_equal "Tea House Ltd", intent.merchant&.profile&.name
     assert_equal 1024, intent.product&.dimensions&.digital&.bytes
-    assert_equal "or_123", intent.usage.order&.id
+    assert_instance_of Inttegro::PurchaseIntent::SingleUseUsage, intent.usage
+    assert_equal "or_123", T.cast(intent.usage, Inttegro::PurchaseIntent::SingleUseUsage).order&.id
     assert_equal Inttegro::PurchaseIntent::Status::ACTIVE, intent.status
   end
 
@@ -804,7 +805,7 @@ class InttegroClientTest < Minitest::Test
     resource_glob = File.expand_path("../lib/inttegro/resources/**/*.rb", __dir__)
     Dir[resource_glob].flat_map do |file|
       File.read(file).scan(
-        %r{@http\.(?:get|post|post_model|post_resource|post_resource_with_response|post_object|post_with_headers|post_multipart|post_multipart_model|post_multipart_resource|post_binary_json)\(\s*["'](/[a-z0-9_/-]+)["']}
+        %r{(?:@http\.(?:get|post|post_model|post_resource|post_union_resource|post_resource_with_response|post_object|post_with_headers|post_multipart|post_multipart_model|post_multipart_resource|post_binary_json)|post_catalog_price)\(\s*["'](/[a-z0-9_/-]+)["']}
       ).flatten
     end.uniq.sort
   end

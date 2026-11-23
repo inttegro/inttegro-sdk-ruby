@@ -89,6 +89,25 @@ module Inttegro
       const :cooldown, T.nilable(Inttegro::Chime::SendRequestCooldown), default: nil
       const :custom_data, T.nilable(Inttegro::CustomData), default: nil
       const :request_meta, T.nilable(Inttegro::Chime::SendRequestRequestMeta), default: nil
+
+      extend T::Sig
+
+      sig { params(hash: T::Hash[String, Object], strict: T::Boolean).returns(T.attached_class) }
+      def self.from_hash(hash, strict = false)
+        data = hash.dup
+        if (recipient_value = data["recipient"]).is_a?(Hash)
+          data["recipient"] = if recipient_value.key?("phone")
+            Inttegro::Chime::PhoneRecipient.from_hash(recipient_value)
+          elsif recipient_value.key?("email")
+            Inttegro::Chime::EmailRecipient.from_hash(recipient_value)
+          elsif recipient_value.key?("customer_id")
+            Inttegro::Chime::SavedCustomerRecipient.from_hash(recipient_value)
+          else
+            recipient_value
+          end
+        end
+        super(data, strict)
+      end
     end
   end
 end

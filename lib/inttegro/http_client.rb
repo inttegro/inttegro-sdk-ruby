@@ -150,6 +150,29 @@ module Inttegro
     end
 
     sig do
+      params(
+        path: String,
+        models: T::Array[T::Class[T::Struct]],
+        field: Symbol,
+        body: Types::RequestBody,
+        headers: Types::Headers,
+        query: T.nilable(Types::Query)
+      ).returns(T::Struct)
+    end
+    def post_union_resource(path, models, field, body, headers: {}, query: nil)
+      envelope = post_object(path, body, headers: headers, query: query)
+      envelope_model = response_model_for(path)
+      raise TypeError, "missing generated response model for #{path}" unless envelope_model
+
+      decoded_envelope = Inttegro.deserialize(envelope.to_h, envelope_model)
+      value = decoded_envelope.public_send(field)
+      return T.cast(value, T::Struct) if models.any? { |model| value.is_a?(model) }
+
+      expected = models.map(&:to_s).join(" or ")
+      raise TypeError, "expected #{expected} in #{field} from #{path}, got #{value.class}"
+    end
+
+    sig do
       type_parameters(:Model)
         .params(
           path: String,

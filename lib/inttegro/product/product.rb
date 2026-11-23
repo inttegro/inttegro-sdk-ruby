@@ -185,6 +185,22 @@ module Inttegro
           end
         end
       end
+      if (shipment_value = data["shipment"]).is_a?(Hash)
+        data["shipment"] = case shipment_value["type"]
+        when "delivery"
+          Inttegro::Product::ShipmentVariant1.from_hash(shipment_value)
+        when "download"
+          Inttegro::Product::ShipmentVariant2.from_hash(shipment_value)
+        when "render"
+          Inttegro::Product::ShipmentVariant3.from_hash(shipment_value)
+        when "service"
+          Inttegro::Product::ShipmentVariant4.from_hash(shipment_value)
+        when "stream"
+          Inttegro::Product::ShipmentVariant5.from_hash(shipment_value)
+        else
+          shipment_value
+        end
+      end
       super(data, strict)
     end
   end

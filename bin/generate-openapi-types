@@ -1098,6 +1098,20 @@ class OpenAPITypeGenerator
 
   def render_discriminator_case(variable, details, indent)
     padding = " " * indent
+    if details.fetch(:presence, false)
+      lines = []
+      details.fetch(:mapping).each_with_index do |(wire_property, model), index|
+        keyword = index.zero? ? "if" : "elsif"
+        prefix = index.zero? ? "" : padding
+        lines.concat([
+          "#{prefix}#{keyword} #{variable}.key?(#{wire_property.inspect})",
+          "#{padding}  #{model}.from_hash(#{variable})"
+        ])
+      end
+      lines.concat(["#{padding}else", "#{padding}  #{variable}", "#{padding}end"])
+      return lines
+    end
+
     lines = ["case #{variable}[#{details.fetch(:property).inspect}]"]
     details.fetch(:mapping).each do |wire_value, model|
       lines.concat([
@@ -1122,20 +1136,62 @@ class OpenAPITypeGenerator
     return nil if balance_transaction_union?(resolved)
 
     discriminator = resolved["discriminator"]
-    return nil unless discriminator.is_a?(Hash)
+    if discriminator.is_a?(Hash)
+      property = discriminator["propertyName"]
+      mapping = discriminator["mapping"]
+      if property.is_a?(String) && mapping.is_a?(Hash) && !mapping.empty?
+        models = mapping.filter_map do |wire_value, reference|
+          next unless reference.is_a?(String) && reference.start_with?("#/components/schemas/")
 
-    property = discriminator["propertyName"]
-    mapping = discriminator["mapping"]
-    return nil unless property.is_a?(String) && mapping.is_a?(Hash) && !mapping.empty?
+          [wire_value, model_reference(constantize(reference.split("/").last))]
+        end.to_h
+        return { array: array, mapping: models, property: property } unless models.empty?
+      end
+    end
 
-    models = mapping.filter_map do |wire_value, reference|
-      next unless reference.is_a?(String) && reference.start_with?("#/components/schemas/")
+    variants = resolved["oneOf"] || resolved["anyOf"]
+    return nil unless variants.is_a?(Array) && variants.length > 1
 
-      [wire_value, model_reference(constantize(reference.split("/").last))]
+    variant_details = variants.filter_map do |variant|
+      model = union_variant_model(variant)
+      next unless model
+
+      enum_properties = properties_for(variant).filter_map do |property, property_schema|
+        values = property_schema["enum"] if property_schema.is_a?(Hash)
+        [property, values.first] if values.is_a?(Array) && values.one?
+      end.to_h
+      [variant, model, enum_properties]
+    end
+    return nil unless variant_details.length == variants.length
+
+    common_properties = variant_details.map { |_, _, properties| properties.keys }.reduce { |left, right| left & right }
+    common_properties&.each do |property|
+      values = variant_details.map { |_, _, properties| properties.fetch(property) }
+      next unless values.uniq.length == values.length
+
+      mapping = variant_details.to_h { |_, model, properties| [properties.fetch(property), model] }
+      return { array: array, mapping: mapping, property: property }
+    end
+
+    required_sets = variant_details.map { |variant, _, _| required_for(variant) }
+    presence_mapping = variant_details.each_with_index.filter_map do |(_, model, _), index|
+      unique_property = required_sets[index].find do |property|
+        required_sets.each_with_index.none? { |other, other_index| other_index != index && other.include?(property) }
+      end
+      [unique_property, model] if unique_property
     end.to_h
-    return nil if models.empty?
+    return nil unless presence_mapping.length == variants.length
 
-    { array: array, mapping: models, property: property }
+    { array: array, mapping: presence_mapping, presence: true }
+  end
+
+  def union_variant_model(variant)
+    if variant.is_a?(Hash) && variant["$ref"]
+      return model_reference(constantize(variant.fetch("$ref").split("/").last))
+    end
+
+    name = @schema_names[variant.object_id] if variant.is_a?(Hash)
+    model_reference(name) if name
   end
 
   def render_in_package(location, definition, package_documentation: nil, dependency_paths: [])

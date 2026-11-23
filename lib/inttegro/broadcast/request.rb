@@ -65,6 +65,28 @@ module Inttegro
       const :purpose, T.nilable(String), default: nil
       const :recipients, T::Array[T.any(Inttegro::Chime::PhoneRecipient, Inttegro::Chime::EmailRecipient, Inttegro::Chime::SavedCustomerRecipient)]
       const :sender, T.nilable(String), default: nil
+
+      extend T::Sig
+
+      sig { params(hash: T::Hash[String, Object], strict: T::Boolean).returns(T.attached_class) }
+      def self.from_hash(hash, strict = false)
+        data = hash.dup
+        if (recipients_value = data["recipients"]).is_a?(Array)
+          data["recipients"] = recipients_value.map do |item|
+            next item unless item.is_a?(Hash)
+            if item.key?("phone")
+              Inttegro::Chime::PhoneRecipient.from_hash(item)
+            elsif item.key?("email")
+              Inttegro::Chime::EmailRecipient.from_hash(item)
+            elsif item.key?("customer_id")
+              Inttegro::Chime::SavedCustomerRecipient.from_hash(item)
+            else
+              item
+            end
+          end
+        end
+        super(data, strict)
+      end
     end
   end
 end

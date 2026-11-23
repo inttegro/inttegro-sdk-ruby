@@ -143,6 +143,23 @@ module Inttegro
       const :updated_at, T.nilable(Time), default: nil
       const :usage, T.any(Inttegro::PurchaseIntent::MultiUseUsage, Inttegro::PurchaseIntent::SingleUseUsage)
       const :variant_set, T.nilable(Inttegro::PurchaseIntent::VariantSet), default: nil
+
+      extend T::Sig
+
+      sig { params(hash: T::Hash[String, Object], strict: T::Boolean).returns(T.attached_class) }
+      def self.from_hash(hash, strict = false)
+        data = hash.dup
+        if (usage_value = data["usage"]).is_a?(Hash)
+          data["usage"] = if usage_value.key?("multi_use")
+            Inttegro::PurchaseIntent::MultiUseUsage.from_hash(usage_value)
+          elsif usage_value.key?("single_use")
+            Inttegro::PurchaseIntent::SingleUseUsage.from_hash(usage_value)
+          else
+            usage_value
+          end
+        end
+        super(data, strict)
+      end
     end
   end
 end
