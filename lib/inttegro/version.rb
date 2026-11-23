@@ -2,5 +2,5 @@
 # typed: strict
 
 module Inttegro
-  VERSION = "12.1.1"
+  VERSION = "13.0.0"
 end
