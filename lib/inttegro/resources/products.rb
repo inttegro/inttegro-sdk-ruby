@@ -25,11 +25,14 @@ module Inttegro
       # @param payload [Hash, Inttegro::Product::AddPriceRequest] product identifier and price fields
       # @return [Inttegro::Price::CatalogPrice] created price
       def add_price(payload)
-        @http.post_union_resource(
-          "/products/add_price",
-          [Inttegro::Price::Fixed, Inttegro::Customer::SelectedCatalogPrice],
-          :price,
-          payload
+        T.cast(
+          @http.post_union_resource(
+            "/products/add_price",
+            [Inttegro::Price::Fixed, Inttegro::Customer::SelectedCatalogPrice],
+            :price,
+            payload
+          ),
+          Inttegro::Price::CatalogPrice
         )
       end
 

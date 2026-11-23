@@ -17,11 +17,14 @@ module Inttegro
       # @param payload [Hash, Inttegro::Price::CatalogPriceParams] tagged price definition and optional metadata
       # @return [Inttegro::Price::CatalogPrice] created price
       def create(payload)
-        @http.post_union_resource(
-          "/prices/create",
-          [Inttegro::Price::Fixed, Inttegro::Customer::SelectedCatalogPrice],
-          :price,
-          payload
+        T.cast(
+          @http.post_union_resource(
+            "/prices/create",
+            [Inttegro::Price::Fixed, Inttegro::Customer::SelectedCatalogPrice],
+            :price,
+            payload
+          ),
+          Inttegro::Price::CatalogPrice
         )
       end
 
@@ -30,11 +33,14 @@ module Inttegro
       # @param price_id [String] unique price identifier
       # @return [Inttegro::Price::CatalogPrice] matching price
       def lookup(price_id:)
-        @http.post_union_resource(
-          "/prices/lookup",
-          [Inttegro::Price::Fixed, Inttegro::Customer::SelectedCatalogPrice],
-          :price,
-          { price_id: price_id }
+        T.cast(
+          @http.post_union_resource(
+            "/prices/lookup",
+            [Inttegro::Price::Fixed, Inttegro::Customer::SelectedCatalogPrice],
+            :price,
+            { price_id: price_id }
+          ),
+          Inttegro::Price::CatalogPrice
         )
       end
 
@@ -51,11 +57,14 @@ module Inttegro
       # @param payload [Hash, Inttegro::Price::UpdateRequest] price identifier and fields to change
       # @return [Inttegro::Price::CatalogPrice] updated price
       def update(payload)
-        @http.post_union_resource(
-          "/prices/update",
-          [Inttegro::Price::Fixed, Inttegro::Customer::SelectedCatalogPrice],
-          :price,
-          payload
+        T.cast(
+          @http.post_union_resource(
+            "/prices/update",
+            [Inttegro::Price::Fixed, Inttegro::Customer::SelectedCatalogPrice],
+            :price,
+            payload
+          ),
+          Inttegro::Price::CatalogPrice
         )
       end
 
@@ -64,11 +73,14 @@ module Inttegro
       # @param price_id [String] unique price identifier
       # @return [Inttegro::Price::CatalogPrice] activated price
       def activate(price_id:)
-        @http.post_union_resource(
-          "/prices/activate",
-          [Inttegro::Price::Fixed, Inttegro::Customer::SelectedCatalogPrice],
-          :price,
-          { price_id: price_id }
+        T.cast(
+          @http.post_union_resource(
+            "/prices/activate",
+            [Inttegro::Price::Fixed, Inttegro::Customer::SelectedCatalogPrice],
+            :price,
+            { price_id: price_id }
+          ),
+          Inttegro::Price::CatalogPrice
         )
       end
 
@@ -77,11 +89,14 @@ module Inttegro
       # @param price_id [String] unique price identifier
       # @return [Inttegro::Price::CatalogPrice] deactivated price
       def deactivate(price_id:)
-        @http.post_union_resource(
-          "/prices/deactivate",
-          [Inttegro::Price::Fixed, Inttegro::Customer::SelectedCatalogPrice],
-          :price,
-          { price_id: price_id }
+        T.cast(
+          @http.post_union_resource(
+            "/prices/deactivate",
+            [Inttegro::Price::Fixed, Inttegro::Customer::SelectedCatalogPrice],
+            :price,
+            { price_id: price_id }
+          ),
+          Inttegro::Price::CatalogPrice
         )
       end
 
@@ -90,11 +105,14 @@ module Inttegro
       # @param price_id [String] unique price identifier
       # @return [Inttegro::Price::CatalogPrice] archived price
       def archive(price_id:)
-        @http.post_union_resource(
-          "/prices/archive",
-          [Inttegro::Price::Fixed, Inttegro::Customer::SelectedCatalogPrice],
-          :price,
-          { price_id: price_id }
+        T.cast(
+          @http.post_union_resource(
+            "/prices/archive",
+            [Inttegro::Price::Fixed, Inttegro::Customer::SelectedCatalogPrice],
+            :price,
+            { price_id: price_id }
+          ),
+          Inttegro::Price::CatalogPrice
         )
       end
 
