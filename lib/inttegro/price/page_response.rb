@@ -4,7 +4,6 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "../shared/error_payload"
 require_relative "page"
 
 module Inttegro
@@ -20,18 +19,10 @@ module Inttegro
     # @!attribute [r] page
     #   Value of the `page` field in the Inttegro API payload.
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `page`.
-    #   @return [Inttegro::Price::Page, nil]
-    #
-    # @!attribute [r] error
-    #   Standard error response structure returned by all API endpoints. Provides machine-readable
-    #   codes, human-readable messages, and actionable guidance for resolution.
-    #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `error`.
-    #   @return [Inttegro::Shared::ErrorPayload, nil]
+    #   Required in the API payload. Wire name: `page`.
+    #   @return [Inttegro::Price::Page]
     class PageResponse < T::Struct
-      const :page, T.nilable(Inttegro::Price::Page), default: nil
-      const :error, T.nilable(Inttegro::Shared::ErrorPayload), default: nil
+      const :page, Inttegro::Price::Page
     end
   end
 end

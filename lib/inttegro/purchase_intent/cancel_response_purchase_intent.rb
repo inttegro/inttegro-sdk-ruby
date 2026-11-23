@@ -1,0 +1,148 @@
+# frozen_string_literal: true
+# typed: strict
+
+# Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
+
+require_relative "base"
+require_relative "bundle"
+require_relative "cancel_response_purchase_intent_status"
+require_relative "merchant"
+require_relative "multi_use_usage"
+require_relative "presentation"
+require_relative "price_inline"
+require_relative "product"
+require_relative "quantity"
+require_relative "single_use_usage"
+require_relative "variant_set"
+
+module Inttegro
+  class PurchaseIntent
+    # Typed representation of the cancel response purchase intent object in the Inttegro API.
+    #
+    # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
+    # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire
+    # field names and serialized enum values.
+    #
+    # @api public
+    #
+    # @!attribute [r] allow_variants
+    #   Whether the intent was configured with a variant set
+    #
+    #   Required in the API payload. Wire name: `allow_variants`.
+    #   @return [Boolean]
+    #
+    # @!attribute [r] application_id
+    #   Application that owns the purchase intent. This is routing metadata, not merchant
+    #   presentation.
+    #
+    #   Required in the API payload. Wire name: `application_id`.
+    #   @return [String]
+    #
+    # @!attribute [r] bundle
+    #   Value of the `bundle` field in the Inttegro API payload.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `bundle`.
+    #   @return [Inttegro::PurchaseIntent::Bundle, nil]
+    #
+    # @!attribute [r] created_at
+    #   Creation timestamp
+    #
+    #   Required in the API payload. Wire name: `created_at`.
+    #   @return [Time]
+    #
+    # @!attribute [r] expires_at
+    #   Timestamp at or after which the Buy link is expired
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `expires_at`.
+    #   @return [Time, nil]
+    #
+    # @!attribute [r] id
+    #   Unique purchase intent identifier with sale_ prefix. Append it to
+    #   https://pages.inttegro.com/buy/ to build the hosted Buy link.
+    #
+    #   Required in the API payload. Wire name: `id`.
+    #   @return [String]
+    #
+    # @!attribute [r] inactive_at
+    #   When the Buy link was explicitly canceled
+    #
+    #   Required in the API payload. Wire name: `inactive_at`.
+    #   @return [Time]
+    #
+    # @!attribute [r] merchant
+    #   Current public merchant presentation resolved from the purchase intent's application. It is
+    #   hydrated at lookup time and is not stored on the purchase intent.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `merchant`.
+    #   @return [Inttegro::PurchaseIntent::Merchant, nil]
+    #
+    # @!attribute [r] price
+    #   Effective Buy-link offer price. For a bundle without an explicit override, this is the
+    #   current catalog default.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `price`.
+    #   @return [Inttegro::PurchaseIntent::PriceInline, nil]
+    #
+    # @!attribute [r] presentation
+    #   Value of the `presentation` field in the Inttegro API payload.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `presentation`.
+    #   @return [Inttegro::PurchaseIntent::Presentation, nil]
+    #
+    # @!attribute [r] product
+    #   Value of the `product` field in the Inttegro API payload.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `product`.
+    #   @return [Inttegro::PurchaseIntent::Product, nil]
+    #
+    # @!attribute [r] quantity
+    #   Quantity bounds enforced by the hosted checkout. max is omitted when the offer has no upper
+    #   bound.
+    #
+    #   Required in the API payload. Wire name: `quantity`.
+    #   @return [Inttegro::PurchaseIntent::Quantity]
+    #
+    # @!attribute [r] status
+    #   Value of the `status` field in the Inttegro API payload.
+    #
+    #   Required in the API payload. Wire name: `status`.
+    #   @return [Inttegro::PurchaseIntent::CancelResponsePurchaseIntentStatus]
+    #
+    # @!attribute [r] updated_at
+    #   Last mutation timestamp
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `updated_at`.
+    #   @return [Time, nil]
+    #
+    # @!attribute [r] usage
+    #   Exactly one of multi_use or single_use is returned as true. Order is present after a
+    #   single-use intent is consumed.
+    #
+    #   Required in the API payload. Wire name: `usage`.
+    #   @return [Inttegro::PurchaseIntent::MultiUseUsage, Inttegro::PurchaseIntent::SingleUseUsage]
+    #
+    # @!attribute [r] variant_set
+    #   Value of the `variant_set` field in the Inttegro API payload.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `variant_set`.
+    #   @return [Inttegro::PurchaseIntent::VariantSet, nil]
+    class CancelResponsePurchaseIntent < T::Struct
+      const :allow_variants, T::Boolean
+      const :application_id, String
+      const :bundle, T.nilable(Inttegro::PurchaseIntent::Bundle), default: nil
+      const :created_at, Time
+      const :expires_at, T.nilable(Time), default: nil
+      const :id, String
+      const :inactive_at, Time
+      const :merchant, T.nilable(Inttegro::PurchaseIntent::Merchant), default: nil
+      const :price, T.nilable(Inttegro::PurchaseIntent::PriceInline), default: nil
+      const :presentation, T.nilable(Inttegro::PurchaseIntent::Presentation), default: nil
+      const :product, T.nilable(Inttegro::PurchaseIntent::Product), default: nil
+      const :quantity, Inttegro::PurchaseIntent::Quantity
+      const :status, Inttegro::PurchaseIntent::CancelResponsePurchaseIntentStatus
+      const :updated_at, T.nilable(Time), default: nil
+      const :usage, T.any(Inttegro::PurchaseIntent::MultiUseUsage, Inttegro::PurchaseIntent::SingleUseUsage)
+      const :variant_set, T.nilable(Inttegro::PurchaseIntent::VariantSet), default: nil
+    end
+  end
+end

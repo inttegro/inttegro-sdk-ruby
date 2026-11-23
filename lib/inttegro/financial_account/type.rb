@@ -7,7 +7,7 @@ require_relative "base"
 
 module Inttegro
   class FinancialAccount
-    # Type of financial account
+    # String-backed values accepted by the Inttegro API for Inttegro::FinancialAccount::Type.
     #
     # Use the constants below when constructing a request. `#serialize` returns the documented
     # string wire value received from or sent to the API.

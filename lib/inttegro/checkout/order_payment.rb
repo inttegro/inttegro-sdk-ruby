@@ -5,12 +5,13 @@
 
 require_relative "base"
 require_relative "../money/amount"
+require_relative "../order/payment_attempt"
+require_relative "../order/payment_billing_details"
+require_relative "../order/payment_error"
+require_relative "../payment/next_action"
+require_relative "../payment/payment_method"
 require_relative "invoice_view"
-require_relative "order_payment_billing_details"
-require_relative "order_payment_latest_attempt"
-require_relative "order_payment_latest_error"
-require_relative "order_payment_next_action"
-require_relative "order_payment_payment_method"
+require_relative "order_payment_status"
 
 module Inttegro
   module Checkout
@@ -44,13 +45,13 @@ module Inttegro
     #   Value of the `payment_method` field in the Inttegro API payload.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `payment_method`.
-    #   @return [Inttegro::Checkout::OrderPaymentPaymentMethod, nil]
+    #   @return [Inttegro::Payment::PaymentMethod, nil]
     #
     # @!attribute [r] billing_details
     #   Value of the `billing_details` field in the Inttegro API payload.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `billing_details`.
-    #   @return [Inttegro::Checkout::OrderPaymentBillingDetails, nil]
+    #   @return [Inttegro::Order::PaymentBillingDetails, nil]
     #
     # @!attribute [r] receipt
     #   Value of the `receipt` field in the Inttegro API payload.
@@ -62,7 +63,7 @@ module Inttegro
     #   Value of the `latest_attempt` field in the Inttegro API payload.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `latest_attempt`.
-    #   @return [Inttegro::Checkout::OrderPaymentLatestAttempt, nil]
+    #   @return [Inttegro::Order::PaymentAttempt, nil]
     #
     # @!attribute [r] amount
     #   Value of the `amount` field in the Inttegro API payload.
@@ -71,22 +72,22 @@ module Inttegro
     #   @return [Inttegro::Money::Amount, nil]
     #
     # @!attribute [r] next_action
-    #   Value of the `next_action` field in the Inttegro API payload.
+    #   Next action required to complete a payment
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `next_action`.
-    #   @return [Inttegro::Checkout::OrderPaymentNextAction, nil]
+    #   @return [Inttegro::Payment::NextAction, nil]
     #
     # @!attribute [r] latest_error
     #   Value of the `latest_error` field in the Inttegro API payload.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `latest_error`.
-    #   @return [Inttegro::Checkout::OrderPaymentLatestError, nil]
+    #   @return [Inttegro::Order::PaymentError, nil]
     #
     # @!attribute [r] status
     #   Value of the `status` field in the Inttegro API payload.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `status`.
-    #   @return [String, nil]
+    #   @return [Inttegro::Checkout::OrderPaymentStatus, nil]
     #
     # @!attribute [r] initiated_at
     #   Value of the `initiated_at` field in the Inttegro API payload.
@@ -139,14 +140,14 @@ module Inttegro
       const :id, T.nilable(String), default: nil
       const :statement_descriptor, T.nilable(String), default: nil
       const :payment_method_types, T.nilable(T::Array[String]), default: nil
-      const :payment_method, T.nilable(Inttegro::Checkout::OrderPaymentPaymentMethod), default: nil
-      const :billing_details, T.nilable(Inttegro::Checkout::OrderPaymentBillingDetails), default: nil
+      const :payment_method, T.nilable(Inttegro::Payment::PaymentMethod), default: nil
+      const :billing_details, T.nilable(Inttegro::Order::PaymentBillingDetails), default: nil
       const :receipt, T.nilable(Inttegro::Checkout::InvoiceView), default: nil
-      const :latest_attempt, T.nilable(Inttegro::Checkout::OrderPaymentLatestAttempt), default: nil
+      const :latest_attempt, T.nilable(Inttegro::Order::PaymentAttempt), default: nil
       const :amount, T.nilable(Inttegro::Money::Amount), default: nil
-      const :next_action, T.nilable(Inttegro::Checkout::OrderPaymentNextAction), default: nil
-      const :latest_error, T.nilable(Inttegro::Checkout::OrderPaymentLatestError), default: nil
-      const :status, T.nilable(String), default: nil
+      const :next_action, T.nilable(Inttegro::Payment::NextAction), default: nil
+      const :latest_error, T.nilable(Inttegro::Order::PaymentError), default: nil
+      const :status, T.nilable(Inttegro::Checkout::OrderPaymentStatus), default: nil
       const :initiated_at, T.nilable(Time), default: nil
       const :executed_at, T.nilable(Time), default: nil
       const :due_at, T.nilable(Time), default: nil

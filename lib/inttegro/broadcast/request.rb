@@ -5,9 +5,9 @@
 
 require_relative "base"
 require_relative "../chime/email_message_input"
+require_relative "../chime/email_recipient"
+require_relative "../chime/phone_recipient"
 require_relative "../chime/saved_customer_recipient"
-require_relative "../chime/send_request_recipient_variant1_variant1"
-require_relative "../chime/send_request_recipient_variant1_variant2"
 require_relative "../message_template/reference"
 require_relative "request_request_meta"
 
@@ -51,7 +51,7 @@ module Inttegro
     #   contact details or `customer_id`.
     #
     #   Required in the API payload. Wire name: `recipients`.
-    #   @return [Array<Inttegro::Chime::SendRequestRecipientVariant1Variant1, Inttegro::Chime::SendRequestRecipientVariant1Variant2, Inttegro::Chime::SavedCustomerRecipient>]
+    #   @return [Array<Inttegro::Chime::PhoneRecipient, Inttegro::Chime::EmailRecipient, Inttegro::Chime::SavedCustomerRecipient>]
     #
     # @!attribute [r] sender
     #   Sender identifier displayed to recipients.
@@ -63,7 +63,7 @@ module Inttegro
       const :message_template, T.nilable(T.any(String, Inttegro::MessageTemplate::Reference)), default: nil
       const :email, T.nilable(Inttegro::Chime::EmailMessageInput), default: nil
       const :purpose, T.nilable(String), default: nil
-      const :recipients, T::Array[T.any(T.any(Inttegro::Chime::SendRequestRecipientVariant1Variant1, Inttegro::Chime::SendRequestRecipientVariant1Variant2), Inttegro::Chime::SavedCustomerRecipient)]
+      const :recipients, T::Array[T.any(Inttegro::Chime::PhoneRecipient, Inttegro::Chime::EmailRecipient, Inttegro::Chime::SavedCustomerRecipient)]
       const :sender, T.nilable(String), default: nil
     end
   end

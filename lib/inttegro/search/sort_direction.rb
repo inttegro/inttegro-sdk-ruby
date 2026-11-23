@@ -7,7 +7,7 @@ require_relative "base"
 
 module Inttegro
   module Search
-    # Relevance supports descending order only.
+    # String-backed values accepted by the Inttegro API for Inttegro::Search::SortDirection.
     #
     # Use the constants below when constructing a request. `#serialize` returns the documented
     # string wire value received from or sent to the API.

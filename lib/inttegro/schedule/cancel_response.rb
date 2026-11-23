@@ -19,10 +19,10 @@ module Inttegro
     # @!attribute [r] scheduled_chime
     #   Value of the `scheduled_chime` field in the Inttegro API payload.
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `scheduled_chime`.
-    #   @return [Inttegro::Schedule::CancelDetail, nil]
+    #   Required in the API payload. Wire name: `scheduled_chime`.
+    #   @return [Inttegro::Schedule::CancelDetail]
     class CancelResponse < T::Struct
-      const :scheduled_chime, T.nilable(Inttegro::Schedule::CancelDetail), default: nil
+      const :scheduled_chime, Inttegro::Schedule::CancelDetail
     end
   end
 end

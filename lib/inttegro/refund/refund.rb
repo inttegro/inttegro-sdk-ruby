@@ -5,13 +5,14 @@
 
 require_relative "base"
 require_relative "../custom_data"
-require_relative "../money/amount"
-require_relative "failure"
+require_relative "failure_inline"
 require_relative "line_item"
 require_relative "offline_settlement"
+require_relative "order_amount"
 require_relative "payment_method_settlement"
 require_relative "reason"
 require_relative "status"
+require_relative "total"
 
 module Inttegro
   # Typed representation of the refund object in the Inttegro API.
@@ -58,7 +59,7 @@ module Inttegro
   #   provider outcome remains `processing` and does not produce this object.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `failure`.
-  #   @return [Inttegro::Refund::Failure, nil]
+  #   @return [Inttegro::Refund::FailureInline, nil]
   #
   # @!attribute [r] id
   #   Value of the `id` field in the Inttegro API payload.
@@ -82,7 +83,7 @@ module Inttegro
   #   Total amount of the originating order captured when the refund was created.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `order_amount`.
-  #   @return [Inttegro::Money::Amount, nil]
+  #   @return [Inttegro::Refund::OrderAmount, nil]
   #
   # @!attribute [r] processing_at
   #   Omitted until processing starts.
@@ -131,18 +132,18 @@ module Inttegro
   #   Value of the `total` field in the Inttegro API payload.
   #
   #   Required in the API payload. Wire name: `total`.
-  #   @return [Inttegro::Money::Amount]
+  #   @return [Inttegro::Refund::Total]
   class Refund
     const :cancel_reason, T.nilable(String), default: nil
     const :canceled_at, T.nilable(Time), default: nil
     const :created_at, Time
     const :custom_data, T.nilable(Inttegro::CustomData), default: nil
     const :failed_at, T.nilable(Time), default: nil
-    const :failure, T.nilable(Inttegro::Refund::Failure), default: nil
+    const :failure, T.nilable(Inttegro::Refund::FailureInline), default: nil
     const :id, String
     const :line_items, T::Array[Inttegro::Refund::LineItem]
     const :order_id, String
-    const :order_amount, T.nilable(Inttegro::Money::Amount), default: nil
+    const :order_amount, T.nilable(Inttegro::Refund::OrderAmount), default: nil
     const :processing_at, T.nilable(Time), default: nil
     const :reason, Inttegro::Refund::Reason
     const :reason_details, T.nilable(String), default: nil
@@ -150,7 +151,7 @@ module Inttegro
     const :settlement, T.any(Inttegro::Refund::OfflineSettlement, Inttegro::Refund::PaymentMethodSettlement)
     const :status, Inttegro::Refund::Status
     const :succeeded_at, T.nilable(Time), default: nil
-    const :total, Inttegro::Money::Amount
+    const :total, Inttegro::Refund::Total
 
     extend T::Sig
 

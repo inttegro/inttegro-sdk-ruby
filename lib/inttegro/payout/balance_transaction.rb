@@ -4,7 +4,8 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "../money/amount"
+require_relative "balance_transaction_allocated_amount"
+require_relative "balance_transaction_amount"
 require_relative "balance_transaction_status"
 
 module Inttegro
@@ -22,13 +23,13 @@ module Inttegro
     #   Value of the `allocated_amount` field in the Inttegro API payload.
     #
     #   Required in the API payload. Wire name: `allocated_amount`.
-    #   @return [Inttegro::Money::Amount]
+    #   @return [Inttegro::Payout::BalanceTransactionAllocatedAmount]
     #
     # @!attribute [r] amount
     #   Value of the `amount` field in the Inttegro API payload.
     #
     #   Required in the API payload. Wire name: `amount`.
-    #   @return [Inttegro::Money::Amount]
+    #   @return [Inttegro::Payout::BalanceTransactionAmount]
     #
     # @!attribute [r] id
     #   Unique balance transaction identifier.
@@ -43,8 +44,8 @@ module Inttegro
     #   Required in the API payload. Wire name: `status`.
     #   @return [Inttegro::Payout::BalanceTransactionStatus]
     class BalanceTransaction < T::Struct
-      const :allocated_amount, Inttegro::Money::Amount
-      const :amount, Inttegro::Money::Amount
+      const :allocated_amount, Inttegro::Payout::BalanceTransactionAllocatedAmount
+      const :amount, Inttegro::Payout::BalanceTransactionAmount
       const :id, String
       const :status, Inttegro::Payout::BalanceTransactionStatus
     end

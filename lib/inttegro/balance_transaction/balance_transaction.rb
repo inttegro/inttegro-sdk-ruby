@@ -23,35 +23,17 @@ module Inttegro
   #
   # @api public
   #
-  # @!attribute [r] amount
-  #   Value of the `amount` field in the Inttegro API payload.
-  #
-  #   Required in the API payload. Wire name: `amount`.
-  #   @return [Inttegro::BalanceTransaction::Amount]
-  #
-  # @!attribute [r] created_at
-  #   Value of the `created_at` field in the Inttegro API payload.
-  #
-  #   Required in the API payload. Wire name: `created_at`.
-  #   @return [Time]
-  #
-  # @!attribute [r] id
-  #   Value of the `id` field in the Inttegro API payload.
-  #
-  #   Required in the API payload. Wire name: `id`.
-  #   @return [String]
-  #
-  # @!attribute [r] type
-  #   Value of the `type` field in the Inttegro API payload.
-  #
-  #   Required in the API payload. Wire name: `type`.
-  #   @return [Inttegro::BalanceTransaction::Type]
-  #
   # @!attribute [r] allocations
   #   All current pending and completed allocations. Released allocations are omitted.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `allocations`.
   #   @return [Array<Inttegro::BalanceTransaction::RefundAllocation, Inttegro::BalanceTransaction::PayoutAllocation>, nil]
+  #
+  # @!attribute [r] amount
+  #   Value of the `amount` field in the Inttegro API payload.
+  #
+  #   Required in the API payload. Wire name: `amount`.
+  #   @return [Inttegro::BalanceTransaction::Amount]
   #
   # @!attribute [r] available_amount
   #   Amount still available for a refund or payout.
@@ -71,6 +53,18 @@ module Inttegro
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `claimed_at`.
   #   @return [Time, nil]
+  #
+  # @!attribute [r] created_at
+  #   Value of the `created_at` field in the Inttegro API payload.
+  #
+  #   Required in the API payload. Wire name: `created_at`.
+  #   @return [Time]
+  #
+  # @!attribute [r] id
+  #   Value of the `id` field in the Inttegro API payload.
+  #
+  #   Required in the API payload. Wire name: `id`.
+  #   @return [String]
   #
   # @!attribute [r] order_id
   #   Value of the `order_id` field in the Inttegro API payload.
@@ -115,20 +109,25 @@ module Inttegro
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `spent_amount`.
   #   @return [Inttegro::BalanceTransaction::SpentAmount, nil]
   #
+  # @!attribute [r] type
+  #   Value of the `type` field in the Inttegro API payload.
+  #
+  #   Required in the API payload. Wire name: `type`.
+  #   @return [Inttegro::BalanceTransaction::Type]
+  #
   # @!attribute [r] refund_id
   #   Value of the `refund_id` field in the Inttegro API payload.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `refund_id`.
   #   @return [String, nil]
   class BalanceTransaction
-    const :amount, Inttegro::BalanceTransaction::Amount
-    const :created_at, Time
-    const :id, String
-    const :type, Inttegro::BalanceTransaction::Type
     const :allocations, T.nilable(T::Array[T.any(Inttegro::BalanceTransaction::RefundAllocation, Inttegro::BalanceTransaction::PayoutAllocation)]), default: nil
+    const :amount, Inttegro::BalanceTransaction::Amount
     const :available_amount, T.nilable(Inttegro::BalanceTransaction::AvailableAmount), default: nil
     const :available_at, T.nilable(Time), default: nil
     const :claimed_at, T.nilable(Time), default: nil
+    const :created_at, Time
+    const :id, String
     const :order_id, T.nilable(String), default: nil
     const :paid_at, T.nilable(Time), default: nil
     const :payment_id, T.nilable(String), default: nil
@@ -136,6 +135,7 @@ module Inttegro
     const :payout_configuration, T.nilable(Inttegro::BalanceTransaction::PayoutConfiguration), default: nil
     const :pending_amount, T.nilable(Inttegro::BalanceTransaction::PendingAmount), default: nil
     const :spent_amount, T.nilable(Inttegro::BalanceTransaction::SpentAmount), default: nil
+    const :type, Inttegro::BalanceTransaction::Type
     const :refund_id, T.nilable(String), default: nil
 
     extend T::Sig

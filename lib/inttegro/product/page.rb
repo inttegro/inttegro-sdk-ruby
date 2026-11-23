@@ -19,24 +19,24 @@ module Inttegro
     # @!attribute [r] number
     #   The page number returned
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `number`.
-    #   @return [Integer, nil]
+    #   Required in the API payload. Wire name: `number`.
+    #   @return [Integer]
     #
     # @!attribute [r] size
     #   The number of products in this page
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `size`.
-    #   @return [Integer, nil]
+    #   Required in the API payload. Wire name: `size`.
+    #   @return [Integer]
     #
     # @!attribute [r] products
     #   Value of the `products` field in the Inttegro API payload.
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `products`.
-    #   @return [Array<Inttegro::Product>, nil]
+    #   Required in the API payload. Wire name: `products`.
+    #   @return [Array<Inttegro::Product>]
     class Page < T::Struct
-      const :number, T.nilable(Integer), default: nil
-      const :size, T.nilable(Integer), default: nil
-      const :products, T.nilable(T::Array[Inttegro::Product]), default: nil
+      const :number, Integer
+      const :size, Integer
+      const :products, T::Array[Inttegro::Product]
     end
   end
 end

@@ -4,8 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "../shared/error_payload"
-require_relative "wire_page"
+require_relative "page"
 
 module Inttegro
   class FinancialAccount
@@ -20,18 +19,10 @@ module Inttegro
     # @!attribute [r] page
     #   Value of the `page` field in the Inttegro API payload.
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `page`.
-    #   @return [Inttegro::FinancialAccount::WirePage, nil]
-    #
-    # @!attribute [r] error
-    #   Standard error response structure returned by all API endpoints. Provides machine-readable
-    #   codes, human-readable messages, and actionable guidance for resolution.
-    #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `error`.
-    #   @return [Inttegro::Shared::ErrorPayload, nil]
+    #   Required in the API payload. Wire name: `page`.
+    #   @return [Inttegro::FinancialAccount::Page]
     class PageResponse < T::Struct
-      const :page, T.nilable(Inttegro::FinancialAccount::WirePage), default: nil
-      const :error, T.nilable(Inttegro::Shared::ErrorPayload), default: nil
+      const :page, Inttegro::FinancialAccount::Page
     end
   end
 end

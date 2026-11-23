@@ -19,25 +19,19 @@ module Inttegro
     # @!attribute [r] name
     #   Customer's full name
     #
-    #   Required in the API payload. Wire name: `name`.
-    #   @return [String]
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `name`.
+    #   @return [String, nil]
     #
     # @!attribute [r] email_address
     #   Customer's email address
     #
-    #   Required in the API payload. Wire name: `email_address`.
-    #   @return [String]
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `email_address`.
+    #   @return [String, nil]
     #
     # @!attribute [r] phone_number
     #   Customer's phone number
     #
-    #   Required in the API payload. Wire name: `phone_number`.
-    #   @return [String]
-    #
-    # @!attribute [r] reference
-    #   External reference ID for the customer
-    #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `reference`.
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `phone_number`.
     #   @return [String, nil]
     #
     # @!attribute [r] custom_data
@@ -47,10 +41,9 @@ module Inttegro
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `custom_data`.
     #   @return [Inttegro::CustomDataInput, nil]
     class Data < T::Struct
-      const :name, String
-      const :email_address, String
-      const :phone_number, String
-      const :reference, T.nilable(String), default: nil
+      const :name, T.nilable(String), default: nil
+      const :email_address, T.nilable(String), default: nil
+      const :phone_number, T.nilable(String), default: nil
       const :custom_data, T.nilable(Inttegro::CustomDataInput), default: nil
     end
   end

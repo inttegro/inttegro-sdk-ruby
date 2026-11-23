@@ -1,0 +1,208 @@
+# frozen_string_literal: true
+# typed: strict
+
+# Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
+
+require_relative "base"
+require_relative "../custom_data"
+require_relative "../payout/amount"
+require_relative "../payout/balance_transaction"
+require_relative "../payout/cancellation_inline"
+require_relative "../payout/error_inline"
+require_relative "../payout/failure_inline"
+require_relative "../payout/max_amount"
+require_relative "payout_response_payout_status"
+
+module Inttegro
+  module Schedule
+    # A payout scheduled from your Inttegro balance to a destination financial account
+    #
+    # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
+    # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire
+    # field names and serialized enum values.
+    #
+    # @api public
+    #
+    # @!attribute [r] amount
+    #   Value of the `amount` field in the Inttegro API payload.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `amount`.
+    #   @return [Inttegro::Payout::Amount, nil]
+    #
+    # @!attribute [r] balance_transactions
+    #   Balance transactions that contributed to this payout. Each item includes the source
+    #   transaction's original amount and the exact portion allocated to this payout. The difference
+    #   between those two amounts is not necessarily still available because refunds or other
+    #   payouts may also consume the source.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `balance_transactions`.
+    #   @return [Array<Inttegro::Payout::BalanceTransaction>, nil]
+    #
+    # @!attribute [r] balance_transaction_id
+    #   Immutable debit balance transaction created when this payout succeeds.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `balance_transaction_id`.
+    #   @return [String, nil]
+    #
+    # @!attribute [r] canceled_at
+    #   When the payout was canceled
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `canceled_at`.
+    #   @return [Time, nil]
+    #
+    # @!attribute [r] cancellation
+    #   Caller-safe explanation and next step for a canceled payout. Present only when `status` is
+    #   `canceled`.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `cancellation`.
+    #   @return [Inttegro::Payout::CancellationInline, nil]
+    #
+    # @!attribute [r] custom_data
+    #   Merchant-defined string values attached to a resource. SDKs expose this as a semantic
+    #   collection rather than a raw map.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `custom_data`.
+    #   @return [Inttegro::CustomData, nil]
+    #
+    # @!attribute [r] destination_id
+    #   Financial account receiving the funds
+    #
+    #   Required in the API payload. Wire name: `destination_id`.
+    #   @return [String]
+    #
+    # @!attribute [r] error
+    #   Deprecated compatibility projection of `failure`. New integrations should use `failure`.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `error`.
+    #   @return [Inttegro::Payout::ErrorInline, nil]
+    #
+    # @!attribute [r] execute_after
+    #   Earliest moment payout execution may begin
+    #
+    #   Required in the API payload. Wire name: `execute_after`.
+    #   @return [Time]
+    #
+    # @!attribute [r] executed_by
+    #   Actor that executed the payout
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `executed_by`.
+    #   @return [String, nil]
+    #
+    # @!attribute [r] expected_at
+    #   Expected completion time
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `expected_at`.
+    #   @return [Time, nil]
+    #
+    # @!attribute [r] failed_at
+    #   When the payout entered the `failed` state.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `failed_at`.
+    #   @return [Time, nil]
+    #
+    # @!attribute [r] failure
+    #   Caller-safe failure information. Present only when `status` is `failed`.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `failure`.
+    #   @return [Inttegro::Payout::FailureInline, nil]
+    #
+    # @!attribute [r] id
+    #   Unique payout identifier
+    #
+    #   Required in the API payload. Wire name: `id`.
+    #   @return [String]
+    #
+    # @!attribute [r] initiated_at
+    #   When the payout was created
+    #
+    #   Required in the API payload. Wire name: `initiated_at`.
+    #   @return [Time]
+    #
+    # @!attribute [r] initiated_by
+    #   Actor that initiated the payout
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `initiated_by`.
+    #   @return [String, nil]
+    #
+    # @!attribute [r] max_amount
+    #   Value of the `max_amount` field in the Inttegro API payload.
+    #
+    #   Required in the API payload. Wire name: `max_amount`.
+    #   @return [Inttegro::Payout::MaxAmount]
+    #
+    # @!attribute [r] reference
+    #   Merchant reference carried on the payout
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `reference`.
+    #   @return [String, nil]
+    #
+    # @!attribute [r] schedule_id
+    #   Schedule associated with the payout
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `schedule_id`.
+    #   @return [String, nil]
+    #
+    # @!attribute [r] scheduled_at
+    #   When the payout was scheduled
+    #
+    #   Required in the API payload. Wire name: `scheduled_at`.
+    #   @return [Time]
+    #
+    # @!attribute [r] scheduled_by
+    #   Actor that scheduled the payout
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `scheduled_by`.
+    #   @return [String, nil]
+    #
+    # @!attribute [r] sent_at
+    #   When the transfer was sent
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `sent_at`.
+    #   @return [Time, nil]
+    #
+    # @!attribute [r] source_id
+    #   Source identifier associated with the payout
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `source_id`.
+    #   @return [String, nil]
+    #
+    # @!attribute [r] status
+    #   Value of the `status` field in the Inttegro API payload.
+    #
+    #   Required in the API payload. Wire name: `status`.
+    #   @return [Inttegro::Schedule::PayoutResponsePayoutStatus]
+    #
+    # @!attribute [r] succeeded_at
+    #   When the payout succeeded
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `succeeded_at`.
+    #   @return [Time, nil]
+    class PayoutResponsePayout < T::Struct
+      const :amount, T.nilable(Inttegro::Payout::Amount), default: nil
+      const :balance_transactions, T.nilable(T::Array[Inttegro::Payout::BalanceTransaction]), default: nil
+      const :balance_transaction_id, T.nilable(String), default: nil
+      const :canceled_at, T.nilable(Time), default: nil
+      const :cancellation, T.nilable(Inttegro::Payout::CancellationInline), default: nil
+      const :custom_data, T.nilable(Inttegro::CustomData), default: nil
+      const :destination_id, String
+      const :error, T.nilable(Inttegro::Payout::ErrorInline), default: nil
+      const :execute_after, Time
+      const :executed_by, T.nilable(String), default: nil
+      const :expected_at, T.nilable(Time), default: nil
+      const :failed_at, T.nilable(Time), default: nil
+      const :failure, T.nilable(Inttegro::Payout::FailureInline), default: nil
+      const :id, String
+      const :initiated_at, Time
+      const :initiated_by, T.nilable(String), default: nil
+      const :max_amount, Inttegro::Payout::MaxAmount
+      const :reference, T.nilable(String), default: nil
+      const :schedule_id, T.nilable(String), default: nil
+      const :scheduled_at, Time
+      const :scheduled_by, T.nilable(String), default: nil
+      const :sent_at, T.nilable(Time), default: nil
+      const :source_id, T.nilable(String), default: nil
+      const :status, Inttegro::Schedule::PayoutResponsePayoutStatus
+      const :succeeded_at, T.nilable(Time), default: nil
+    end
+  end
+end

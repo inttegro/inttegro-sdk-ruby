@@ -5,8 +5,9 @@
 
 require_relative "base"
 require_relative "../custom_data"
+require_relative "../customer/selected_product_price_summary"
 require_relative "dimensions"
-require_relative "price_summary"
+require_relative "fixed_price_summary"
 require_relative "type"
 
 module Inttegro
@@ -84,7 +85,7 @@ module Inttegro
     #   Value of the `prices` field in the Inttegro API payload.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `prices`.
-    #   @return [Array<Inttegro::Product::PriceSummary>, nil]
+    #   @return [Array<Inttegro::Product::FixedPriceSummary, Inttegro::Customer::SelectedProductPriceSummary>, nil]
     #
     # @!attribute [r] unit_dim
     #   Value of the `unit_dim` field in the Inttegro API payload.
@@ -114,10 +115,31 @@ module Inttegro
       const :category, T.nilable(String), default: nil
       const :custom_data, T.nilable(Inttegro::CustomData), default: nil
       const :dimensions, T.nilable(Inttegro::Product::Dimensions), default: nil
-      const :prices, T.nilable(T::Array[Inttegro::Product::PriceSummary]), default: nil
+      const :prices, T.nilable(T::Array[T.any(Inttegro::Product::FixedPriceSummary, Inttegro::Customer::SelectedProductPriceSummary)]), default: nil
       const :unit_dim, T.nilable(String), default: nil
       const :created_at, Time
       const :updated_at, T.nilable(Time), default: nil
+
+      extend T::Sig
+
+      sig { params(hash: T::Hash[String, Object], strict: T::Boolean).returns(T.attached_class) }
+      def self.from_hash(hash, strict = false)
+        data = hash.dup
+        if (prices_value = data["prices"]).is_a?(Array)
+          data["prices"] = prices_value.map do |item|
+            next item unless item.is_a?(Hash)
+            case item["type"]
+            when "fixed_amount"
+              Inttegro::Product::FixedPriceSummary.from_hash(item)
+            when "customer_selected_amount"
+              Inttegro::Customer::SelectedProductPriceSummary.from_hash(item)
+            else
+              item
+            end
+          end
+        end
+        super(data, strict)
+      end
     end
   end
 end

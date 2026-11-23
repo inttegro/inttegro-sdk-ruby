@@ -21,6 +21,9 @@ module Inttegro
         # Serialized wire value: `requires_action`.
         # @return [Inttegro::Payment::Status]
         REQUIRES_ACTION = new("requires_action")
+        # Serialized wire value: `processing`.
+        # @return [Inttegro::Payment::Status]
+        PROCESSING = new("processing")
         # Serialized wire value: `overdue`.
         # @return [Inttegro::Payment::Status]
         OVERDUE = new("overdue")

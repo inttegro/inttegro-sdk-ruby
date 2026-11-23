@@ -19,10 +19,10 @@ module Inttegro
     # @!attribute [r] product
     #   Value of the `product` field in the Inttegro API payload.
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `product`.
-    #   @return [Inttegro::Product::Updated, nil]
+    #   Required in the API payload. Wire name: `product`.
+    #   @return [Inttegro::Product::Updated]
     class UpdateResponse < T::Struct
-      const :product, T.nilable(Inttegro::Product::Updated), default: nil
+      const :product, Inttegro::Product::Updated
     end
   end
 end

@@ -4,9 +4,9 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "../shared/children_policy"
 require_relative "capability_projection"
-require_relative "operating_policy"
+require_relative "updated_children_policy"
+require_relative "updated_operating_policy"
 
 module Inttegro
   class Application
@@ -66,14 +66,14 @@ module Inttegro
     #   unavailable to the caller.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `children_policy`.
-    #   @return [Inttegro::Shared::ChildrenPolicy, nil]
+    #   @return [Inttegro::Application::UpdatedChildrenPolicy, nil]
     #
     # @!attribute [r] operating_policy
     #   Immutable operating policy applied to the application. Omitted for root applications and
     #   when the private beta is unavailable to the caller.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `operating_policy`.
-    #   @return [Inttegro::Application::OperatingPolicy, nil]
+    #   @return [Inttegro::Application::UpdatedOperatingPolicy, nil]
     class Updated < T::Struct
       const :id, String
       const :name, String
@@ -82,8 +82,8 @@ module Inttegro
       const :created_at, Time
       const :updated_at, T.nilable(Time), default: nil
       const :capabilities, Inttegro::Application::CapabilityProjection
-      const :children_policy, T.nilable(Inttegro::Shared::ChildrenPolicy), default: nil
-      const :operating_policy, T.nilable(Inttegro::Application::OperatingPolicy), default: nil
+      const :children_policy, T.nilable(Inttegro::Application::UpdatedChildrenPolicy), default: nil
+      const :operating_policy, T.nilable(Inttegro::Application::UpdatedOperatingPolicy), default: nil
     end
   end
 end

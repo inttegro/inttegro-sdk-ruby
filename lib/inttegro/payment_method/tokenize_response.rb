@@ -4,7 +4,7 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "payment_method"
+require_relative "tokenized_mobile_money_object"
 
 module Inttegro
   class PaymentMethod
@@ -19,10 +19,10 @@ module Inttegro
     # @!attribute [r] payment_method
     #   A tokenized payment instrument tied to a customer
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `payment_method`.
-    #   @return [Inttegro::PaymentMethod, nil]
+    #   Required in the API payload. Wire name: `payment_method`.
+    #   @return [Inttegro::PaymentMethod::TokenizedMobileMoneyObject]
     class TokenizeResponse < T::Struct
-      const :payment_method, T.nilable(Inttegro::PaymentMethod), default: nil
+      const :payment_method, Inttegro::PaymentMethod::TokenizedMobileMoneyObject
     end
   end
 end

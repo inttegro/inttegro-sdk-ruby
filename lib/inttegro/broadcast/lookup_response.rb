@@ -19,10 +19,10 @@ module Inttegro
     # @!attribute [r] broadcast
     #   Value of the `broadcast` field in the Inttegro API payload.
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `broadcast`.
-    #   @return [Inttegro::Broadcast::Detail, nil]
+    #   Required in the API payload. Wire name: `broadcast`.
+    #   @return [Inttegro::Broadcast::Detail]
     class LookupResponse < T::Struct
-      const :broadcast, T.nilable(Inttegro::Broadcast::Detail), default: nil
+      const :broadcast, Inttegro::Broadcast::Detail
     end
   end
 end

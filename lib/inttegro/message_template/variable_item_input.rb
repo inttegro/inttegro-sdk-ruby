@@ -23,7 +23,7 @@ module Inttegro
     #   @return [String, nil]
     #
     # @!attribute [r] default
-    #   Value of the `default` field in the Inttegro API payload.
+    #   Default value used when this variable is omitted.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `default`.
     #   @return [Object, nil]

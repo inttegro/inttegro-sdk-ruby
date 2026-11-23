@@ -28,15 +28,15 @@ module Inttegro
     # @!attribute [r] document_kind
     #   Hosted document that was delivered.
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `document_kind`.
-    #   @return [Inttegro::Order::DocumentKind, nil]
+    #   Required in the API payload. Wire name: `document_kind`.
+    #   @return [Inttegro::Order::DocumentKind]
     #
     # @!attribute [r] document_url
     #   Hosted invoice or receipt URL sent to the customer. Receipt URLs use the hosted receipt
     #   path, not the invoice PDF path.
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `document_url`.
-    #   @return [String, nil]
+    #   Required in the API payload. Wire name: `document_url`.
+    #   @return [String]
     #
     # @!attribute [r] failed_channels
     #   Channels that failed to send.
@@ -53,15 +53,15 @@ module Inttegro
     # @!attribute [r] sent_channels
     #   Channels accepted by Chime.
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `sent_channels`.
-    #   @return [Array<Inttegro::Shared::DeliveryChannel>, nil]
+    #   Required in the API payload. Wire name: `sent_channels`.
+    #   @return [Array<Inttegro::Shared::DeliveryChannel>]
     class DocumentDelivery < T::Struct
       const :deliveries, T.nilable(T::Array[Inttegro::Order::DocumentDeliveryAttempt]), default: nil
-      const :document_kind, T.nilable(Inttegro::Order::DocumentKind), default: nil
-      const :document_url, T.nilable(String), default: nil
+      const :document_kind, Inttegro::Order::DocumentKind
+      const :document_url, String
       const :failed_channels, T.nilable(T::Array[Inttegro::Shared::DeliveryChannel]), default: nil
       const :failures, T.nilable(T::Array[Inttegro::Order::DocumentDeliveryFailure]), default: nil
-      const :sent_channels, T.nilable(T::Array[Inttegro::Shared::DeliveryChannel]), default: nil
+      const :sent_channels, T::Array[Inttegro::Shared::DeliveryChannel]
     end
   end
 end

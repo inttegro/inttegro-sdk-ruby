@@ -24,7 +24,7 @@ module Inttegro
     #   @return [Inttegro::Search::SortField]
     #
     # @!attribute [r] direction
-    #   Relevance supports descending order only.
+    #   Value of the `direction` field in the Inttegro API payload.
     #
     #   Required in the API payload. Wire name: `direction`.
     #   @return [Inttegro::Search::SortDirection]

@@ -19,10 +19,10 @@ module Inttegro
     # @!attribute [r] chime
     #   A notification sent to one recipient
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `chime`.
-    #   @return [Inttegro::Chime, nil]
+    #   Required in the API payload. Wire name: `chime`.
+    #   @return [Inttegro::Chime]
     class Response < T::Struct
-      const :chime, T.nilable(Inttegro::Chime), default: nil
+      const :chime, Inttegro::Chime
     end
   end
 end

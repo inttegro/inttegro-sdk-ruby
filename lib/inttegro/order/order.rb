@@ -4,14 +4,13 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "../custom_data"
 require_relative "../payment/payment"
 require_relative "../refund/refund"
-require_relative "../shared/invoice_settings"
 require_relative "checkout_settings"
 require_relative "created_from"
 require_relative "customer"
 require_relative "invoice"
+require_relative "invoice_settings_response"
 require_relative "line_item_group"
 require_relative "status"
 
@@ -50,11 +49,10 @@ module Inttegro
   #   @return [Inttegro::Order::CreatedFrom, nil]
   #
   # @!attribute [r] custom_data
-  #   Merchant-defined string values attached to a resource. SDKs expose this as a semantic
-  #   collection rather than a raw map.
+  #   Merchant-defined string values attached to a resource when at least one value is present.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `custom_data`.
-  #   @return [Inttegro::CustomData, nil]
+  #   @return [Hash{String => String}, nil]
   #
   # @!attribute [r] customer
   #   Value of the `customer` field in the Inttegro API payload.
@@ -105,11 +103,10 @@ module Inttegro
   #   @return [Array<Inttegro::Refund>, nil]
   #
   # @!attribute [r] invoice_settings
-  #   Order-level invoice rendering data. Pages uses this data when rendering invoice web and
-  #   download views.
+  #   Persisted order-level invoice rendering data returned when at least one setting is present.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `invoice_settings`.
-  #   @return [Inttegro::Shared::InvoiceSettings, nil]
+  #   @return [Inttegro::Order::InvoiceSettingsResponse, nil]
   #
   # @!attribute [r] status
   #   Current lifecycle state of the order
@@ -157,7 +154,7 @@ module Inttegro
     const :checkout_settings, T.nilable(Inttegro::Order::CheckoutSettings), default: nil
     const :completed_at, T.nilable(Time), default: nil
     const :created_from, T.nilable(Inttegro::Order::CreatedFrom), default: nil
-    const :custom_data, T.nilable(Inttegro::CustomData), default: nil
+    const :custom_data, T.nilable(T::Hash[String, String]), default: nil
     const :customer, Inttegro::Order::Customer
     const :expires_at, T.nilable(Time), default: nil
     const :id, String
@@ -166,7 +163,7 @@ module Inttegro
     const :number, T.nilable(String), default: nil
     const :receipt_number, T.nilable(String), default: nil
     const :refunds, T.nilable(T::Array[Inttegro::Refund]), default: nil
-    const :invoice_settings, T.nilable(Inttegro::Shared::InvoiceSettings), default: nil
+    const :invoice_settings, T.nilable(Inttegro::Order::InvoiceSettingsResponse), default: nil
     const :status, Inttegro::Order::Status
     const :sealed_at, T.nilable(Time), default: nil
     const :line_item_group, T.nilable(Inttegro::Order::LineItemGroup), default: nil

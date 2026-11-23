@@ -4,13 +4,13 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "../order/status"
 require_relative "invoice_view"
 require_relative "order_checkout_settings"
 require_relative "order_created_from"
 require_relative "order_customer"
 require_relative "order_line_item_group"
 require_relative "order_payment"
-require_relative "order_status"
 
 module Inttegro
   module Checkout
@@ -51,7 +51,7 @@ module Inttegro
     #   Value of the `status` field in the Inttegro API payload.
     #
     #   Required in the API payload. Wire name: `status`.
-    #   @return [Inttegro::Checkout::OrderStatus]
+    #   @return [Inttegro::Order::Status]
     #
     # @!attribute [r] initiated_at
     #   Value of the `initiated_at` field in the Inttegro API payload.
@@ -135,7 +135,7 @@ module Inttegro
       const :number, T.nilable(String), default: nil
       const :receipt_number, T.nilable(String), default: nil
       const :reference, T.nilable(String), default: nil
-      const :status, Inttegro::Checkout::OrderStatus
+      const :status, Inttegro::Order::Status
       const :initiated_at, Time
       const :sealed_at, T.nilable(Time), default: nil
       const :completed_at, T.nilable(Time), default: nil

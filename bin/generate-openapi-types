@@ -346,7 +346,7 @@ class OpenAPITypeGenerator
 
   def enum_backed_node?(node)
     node.schema.is_a?(Hash) && node.schema["type"] == "string" &&
-      @enums[node.name] == node.schema["enum"]
+      same_enum_values?(@enums[node.name], node.schema["enum"])
   end
 
   def relocate_expression(expression)
@@ -640,7 +640,7 @@ class OpenAPITypeGenerator
       return nil
     end
 
-    PREFERRED_ENUM_NAMES[values]
+    PREFERRED_ENUM_NAMES.find { |preferred_values, _| same_enum_values?(preferred_values, values) }&.last
   end
 
   def unique_enum_name(candidate)
@@ -655,7 +655,11 @@ class OpenAPITypeGenerator
   end
 
   def enum_signature(values)
-    values.map { |value| "#{value.class}:#{value}" }.join("\u0000")
+    values.map { |value| "#{value.class}:#{value}" }.sort.join("\u0000")
+  end
+
+  def same_enum_values?(left, right)
+    left.is_a?(Array) && right.is_a?(Array) && enum_signature(left) == enum_signature(right)
   end
 
   def constantize(value)

@@ -19,10 +19,10 @@ module Inttegro
     # @!attribute [r] settings
     #   Complete payout settings read model
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `settings`.
-    #   @return [Inttegro::Payout::SettingsLookup, nil]
+    #   Required in the API payload. Wire name: `settings`.
+    #   @return [Inttegro::Payout::SettingsLookup]
     class SettingsLookupResponse < T::Struct
-      const :settings, T.nilable(Inttegro::Payout::SettingsLookup), default: nil
+      const :settings, Inttegro::Payout::SettingsLookup
     end
   end
 end

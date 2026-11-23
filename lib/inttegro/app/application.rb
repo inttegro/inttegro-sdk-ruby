@@ -4,9 +4,9 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
-require_relative "../shared/children_policy"
 require_relative "capability_projection"
-require_relative "operating_policy"
+require_relative "children_policy"
+require_relative "operating_policy_inline"
 require_relative "relationship"
 require_relative "secret_key"
 
@@ -61,14 +61,14 @@ module Inttegro
   #   unavailable to the caller.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `children_policy`.
-  #   @return [Inttegro::Shared::ChildrenPolicy, nil]
+  #   @return [Inttegro::Application::ChildrenPolicy, nil]
   #
   # @!attribute [r] operating_policy
   #   Immutable operating policy applied to the application. Omitted for root applications and
   #   when the private beta is unavailable to the caller.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `operating_policy`.
-  #   @return [Inttegro::Application::OperatingPolicy, nil]
+  #   @return [Inttegro::Application::OperatingPolicyInline, nil]
   #
   # @!attribute [r] secret_key
   #   Value of the `secret_key` field in the Inttegro API payload.
@@ -88,8 +88,8 @@ module Inttegro
     const :description, T.nilable(String), default: nil
     const :created_at, Time
     const :capabilities, Inttegro::Application::CapabilityProjection
-    const :children_policy, T.nilable(Inttegro::Shared::ChildrenPolicy), default: nil
-    const :operating_policy, T.nilable(Inttegro::Application::OperatingPolicy), default: nil
+    const :children_policy, T.nilable(Inttegro::Application::ChildrenPolicy), default: nil
+    const :operating_policy, T.nilable(Inttegro::Application::OperatingPolicyInline), default: nil
     const :secret_key, T.nilable(Inttegro::Application::SecretKey), default: nil
     const :relationship, T.nilable(Inttegro::Application::Relationship), default: nil
   end

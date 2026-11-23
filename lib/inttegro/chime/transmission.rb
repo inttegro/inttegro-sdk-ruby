@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 # typed: strict
 
+# Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
+
 require_relative "base"
 require_relative "transport"
 
@@ -8,48 +10,70 @@ module Inttegro
   class Chime
     # Public delivery lifecycle for a Chime.
     #
-    # The generated model decoder accepts only the fields declared on this immutable value.
+    # This generated model is immutable. Construct it with `.new`, or decode a string-keyed API
+    # payload with `.from_hash`. `#serialize` produces a string-keyed hash using the original wire
+    # field names and serialized enum values.
     #
     # @api public
     #
     # @!attribute [r] address
-    #   Recipient address used for this delivery.
+    #   Value of the `address` field in the Inttegro API payload.
+    #
+    #   Required in the API payload. Wire name: `address`.
     #   @return [String]
     #
     # @!attribute [r] created_at
-    #   Time at which the transmission record was created.
+    #   Value of the `created_at` field in the Inttegro API payload.
+    #
+    #   Required in the API payload. Wire name: `created_at`.
     #   @return [Time]
     #
     # @!attribute [r] delivered_at
-    #   Time at which delivery completed, when delivered.
+    #   Value of the `delivered_at` field in the Inttegro API payload.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `delivered_at`.
     #   @return [Time, nil]
     #
     # @!attribute [r] failed_at
-    #   Time at which delivery failed, when failed.
+    #   Value of the `failed_at` field in the Inttegro API payload.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `failed_at`.
     #   @return [Time, nil]
     #
     # @!attribute [r] initialized_at
-    #   Time at which delivery processing began.
+    #   Value of the `initialized_at` field in the Inttegro API payload.
+    #
+    #   Required in the API payload. Wire name: `initialized_at`.
     #   @return [Time]
     #
     # @!attribute [r] mechanism
-    #   Delivery channel, such as SMS or email.
+    #   Value of the `mechanism` field in the Inttegro API payload.
+    #
+    #   Required in the API payload. Wire name: `mechanism`.
     #   @return [Inttegro::Chime::Transport]
     #
     # @!attribute [r] sent_at
-    #   Time at which the message was sent, when sent.
+    #   Value of the `sent_at` field in the Inttegro API payload.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `sent_at`.
     #   @return [Time, nil]
     #
     # @!attribute [r] sent_via
-    #   Channel used to send the message, when reported.
+    #   Value of the `sent_via` field in the Inttegro API payload.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `sent_via`.
     #   @return [Inttegro::Chime::Transport, nil]
     #
     # @!attribute [r] status
-    #   Current public delivery lifecycle state.
+    #   Value of the `status` field in the Inttegro API payload.
+    #
+    #   Required in the API payload. Wire name: `status`.
     #   @return [String]
     #
     # @!attribute [r] suppressed_at
-    #   Time at which delivery to the recipient was suppressed, when applicable.
+    #   Value of the `suppressed_at` field in the Inttegro API payload.
+    #
+    #   Optional in the API payload; omitted values default to `nil`. Wire name: `suppressed_at`.
     #   @return [Time, nil]
     class Transmission < T::Struct
       const :address, String

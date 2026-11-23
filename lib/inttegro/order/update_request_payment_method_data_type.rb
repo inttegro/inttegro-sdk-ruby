@@ -7,7 +7,8 @@ require_relative "base"
 
 module Inttegro
   class Order
-    # Payment rail type (currently only mobile_money supported)
+    # String-backed values accepted by the Inttegro API for
+    # Inttegro::Order::UpdateRequestPaymentMethodDataType.
     #
     # Use the constants below when constructing a request. `#serialize` returns the documented
     # string wire value received from or sent to the API.

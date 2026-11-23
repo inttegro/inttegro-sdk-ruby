@@ -7,7 +7,7 @@ require_relative "base"
 
 module Inttegro
   class MessageTemplate
-    # Delivery channel this template renders for.
+    # Existing template channel. Channels cannot be changed.
     #
     # Use the constants below when constructing a request. `#serialize` returns the documented
     # string wire value received from or sent to the API.

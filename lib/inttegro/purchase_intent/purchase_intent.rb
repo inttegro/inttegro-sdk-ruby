@@ -4,13 +4,15 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "bundle"
 require_relative "merchant"
+require_relative "multi_use_usage"
 require_relative "presentation"
-require_relative "price"
+require_relative "price_inline"
 require_relative "product"
 require_relative "quantity"
+require_relative "single_use_usage"
 require_relative "status"
-require_relative "usage"
 require_relative "variant_set"
 
 module Inttegro
@@ -34,6 +36,12 @@ module Inttegro
   #
   #   Required in the API payload. Wire name: `application_id`.
   #   @return [String]
+  #
+  # @!attribute [r] bundle
+  #   Value of the `bundle` field in the Inttegro API payload.
+  #
+  #   Optional in the API payload; omitted values default to `nil`. Wire name: `bundle`.
+  #   @return [Inttegro::PurchaseIntent::Bundle, nil]
   #
   # @!attribute [r] created_at
   #   Creation timestamp
@@ -68,10 +76,11 @@ module Inttegro
   #   @return [Inttegro::PurchaseIntent::Merchant, nil]
   #
   # @!attribute [r] price
-  #   Value of the `price` field in the Inttegro API payload.
+  #   Effective Buy-link offer price. For a bundle without an explicit override, this is the
+  #   current catalog default.
   #
   #   Optional in the API payload; omitted values default to `nil`. Wire name: `price`.
-  #   @return [Inttegro::PurchaseIntent::Price, nil]
+  #   @return [Inttegro::PurchaseIntent::PriceInline, nil]
   #
   # @!attribute [r] presentation
   #   Value of the `presentation` field in the Inttegro API payload.
@@ -109,7 +118,7 @@ module Inttegro
   #   single-use intent is consumed.
   #
   #   Required in the API payload. Wire name: `usage`.
-  #   @return [Inttegro::PurchaseIntent::Usage]
+  #   @return [Inttegro::PurchaseIntent::MultiUseUsage, Inttegro::PurchaseIntent::SingleUseUsage]
   #
   # @!attribute [r] variant_set
   #   Value of the `variant_set` field in the Inttegro API payload.
@@ -119,18 +128,19 @@ module Inttegro
   class PurchaseIntent
     const :allow_variants, T::Boolean
     const :application_id, String
+    const :bundle, T.nilable(Inttegro::PurchaseIntent::Bundle), default: nil
     const :created_at, Time
     const :expires_at, T.nilable(Time), default: nil
     const :id, String
     const :inactive_at, T.nilable(Time), default: nil
     const :merchant, T.nilable(Inttegro::PurchaseIntent::Merchant), default: nil
-    const :price, T.nilable(Inttegro::PurchaseIntent::Price), default: nil
+    const :price, T.nilable(Inttegro::PurchaseIntent::PriceInline), default: nil
     const :presentation, T.nilable(Inttegro::PurchaseIntent::Presentation), default: nil
     const :product, T.nilable(Inttegro::PurchaseIntent::Product), default: nil
     const :quantity, Inttegro::PurchaseIntent::Quantity
     const :status, Inttegro::PurchaseIntent::Status
     const :updated_at, T.nilable(Time), default: nil
-    const :usage, Inttegro::PurchaseIntent::Usage
+    const :usage, T.any(Inttegro::PurchaseIntent::MultiUseUsage, Inttegro::PurchaseIntent::SingleUseUsage)
     const :variant_set, T.nilable(Inttegro::PurchaseIntent::VariantSet), default: nil
   end
 end

@@ -20,10 +20,10 @@ module Inttegro
     #   Complete order record with line items, customer details, payment state, and fulfillment
     #   information
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `order`.
-    #   @return [Inttegro::Order, nil]
+    #   Required in the API payload. Wire name: `order`.
+    #   @return [Inttegro::Order]
     class FinalizeEnvelope < T::Struct
-      const :order, T.nilable(Inttegro::Order), default: nil
+      const :order, Inttegro::Order
     end
   end
 end

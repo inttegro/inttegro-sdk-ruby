@@ -4,6 +4,11 @@
 # Generated from openapi/commerce.yml by bin/generate-openapi-types. Do not edit.
 
 require_relative "base"
+require_relative "../shared/error_cause"
+require_relative "../shared/error_code"
+require_relative "../shared/error_documentation_url"
+require_relative "../shared/error_fix_code"
+require_relative "../shared/error_type"
 
 module Inttegro
   class File
@@ -16,54 +21,60 @@ module Inttegro
     # @api public
     #
     # @!attribute [r] message
-    #   Value of the `message` field in the Inttegro API payload.
+    #   Concise, caller-safe explanation of why the request was rejected or could not finish.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `message`.
     #   @return [String, nil]
     #
     # @!attribute [r] fix_code
-    #   Value of the `fix_code` field in the Inttegro API payload.
+    #   Machine-readable suggestion for how to resolve the error (e.g.,
+    #   "retry_with_exponential_backoff", "change_request_parameters").
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `fix_code`.
-    #   @return [String, nil]
+    #   @return [Inttegro::Shared::ErrorFixCode, nil]
     #
     # @!attribute [r] detail
-    #   Value of the `detail` field in the Inttegro API payload.
+    #   Explanation of the relevant rule and next safe action. It never contains raw dependency,
+    #   storage, or implementation errors.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `detail`.
     #   @return [String, nil]
     #
     # @!attribute [r] cause
-    #   Value of the `cause` field in the Inttegro API payload.
+    #   Stable category describing the reason for failure, such as invalid input, an unmet
+    #   precondition, or a state conflict.
     #
     #   Optional in the API payload; omitted values default to `nil`. Wire name: `cause`.
-    #   @return [String, nil]
+    #   @return [Inttegro::Shared::ErrorCause, nil]
     #
     # @!attribute [r] type
-    #   Value of the `type` field in the Inttegro API payload.
+    #   Broad error category to help clients determine retry strategies (e.g.,
+    #   "invalid_request_parameter", "transient_error").
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `type`.
-    #   @return [String, nil]
+    #   Required in the API payload. Wire name: `type`.
+    #   @return [Inttegro::Shared::ErrorType]
     #
     # @!attribute [r] code
-    #   Value of the `code` field in the Inttegro API payload.
+    #   Unique machine-readable identifier for this specific error condition. Unlike type and cause
+    #   which group errors, code pinpoints the exact problem.
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `code`.
-    #   @return [String, nil]
+    #   Required in the API payload. Wire name: `code`.
+    #   @return [Inttegro::Shared::ErrorCode]
     #
     # @!attribute [r] url
-    #   Value of the `url` field in the Inttegro API payload.
+    #   Link to error reference documentation with detailed explanation, common causes, and
+    #   resolution guidance.
     #
-    #   Optional in the API payload; omitted values default to `nil`. Wire name: `url`.
-    #   @return [String, nil]
+    #   Required in the API payload. Wire name: `url`.
+    #   @return [Inttegro::Shared::ErrorDocumentationURL]
     class ApiError < T::Struct
       const :message, T.nilable(String), default: nil
-      const :fix_code, T.nilable(String), default: nil
+      const :fix_code, T.nilable(Inttegro::Shared::ErrorFixCode), default: nil
       const :detail, T.nilable(String), default: nil
-      const :cause, T.nilable(String), default: nil
-      const :type, T.nilable(String), default: nil
-      const :code, T.nilable(String), default: nil
-      const :url, T.nilable(String), default: nil
+      const :cause, T.nilable(Inttegro::Shared::ErrorCause), default: nil
+      const :type, Inttegro::Shared::ErrorType
+      const :code, Inttegro::Shared::ErrorCode
+      const :url, Inttegro::Shared::ErrorDocumentationURL
     end
   end
 end
