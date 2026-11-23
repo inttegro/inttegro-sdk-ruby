@@ -88,7 +88,7 @@ module Inttegro
       sig { params(payload: T.any(Inttegro::Chime::SendRequest, Inttegro::Types::Payload)).returns(Inttegro::Chime) }
       def send(payload); end
 
-      sig { returns(Inttegro::Chime::SettingsResponse) }
+      sig { returns(Inttegro::Chime::Settings) }
       def settings(); end
     end
 
