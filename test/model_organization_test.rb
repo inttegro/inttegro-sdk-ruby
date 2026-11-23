@@ -73,7 +73,7 @@ class InttegroModelOrganizationTest < Minitest::Test
       quantity: 1,
       customer_selected_price: Inttegro::Product::CustomerSelectedPriceInput.new(
         price_id: "pr_donation",
-        selected_amount: Inttegro::Money::AmountParams.new(
+        selected_amount: Inttegro::Customer::SelectedPriceInputSelectedAmount.new(
           currency: Inttegro::Money::Currency::GHS,
           value: 750
         )
